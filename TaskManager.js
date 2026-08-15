@@ -5,7 +5,7 @@ export class TaskManager{
     constructor(){
 
     }
-    
+
     createTask(){
 
         task = new Task()
@@ -24,8 +24,3 @@ export class TaskManager{
     }
     
 }
-
-manager = new TaskManager;
-
-time = manager.now().toLocaleString('en-US');
-console.log(time)
