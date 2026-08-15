@@ -36,14 +36,25 @@ export class TaskManager{
     }
 
     //Tasks Manager deletes task __
-    deleteTask(task_to_delete){
-        this.tasks = this.tasks.filter(task => task != task_to_delete);
+    deleteTask(task_id){
+        this.tasks = this.tasks.filter(task => task.id != task_id);
     }
 
 
     //Tasks Manager marks task __ complete
     completeTask(task_id){
+        let task = this.tasks.find(task => task.id == task_id)
 
+        if(task == undefined){
+            console.log("Task not found!");
+            return;
+        }
+        if(task.isCompleted){
+            console.log("Task is already Complete!")
+            return;
+        }
+
+        task.isCompleted = true;
     }
     
 }
