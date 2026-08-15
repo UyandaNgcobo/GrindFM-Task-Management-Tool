@@ -13,8 +13,8 @@ export class TaskManager{
 
         if(task.length != 0){
             const id = this.task_id += 1
-            let time = this.now.toLocaleString('en-US');
-            let new_task = new Task(id, task, time)
+            let createdAt = this.now.toLocaleString('en-US');
+            let new_task = new Task(id, task, createdAt)
             this.tasks.push(new_task)
             console.log("\nAdding task...\n")
         }else{
