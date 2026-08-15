@@ -1,11 +1,16 @@
 class TaskManager{
     tasks = []
-    constructor(tasks){
+
+    constructor(){
         
     }
 
-    createTask(){
-
+    createTask(task){
+        
+        if(task != "" || tasks != NULL){
+            this.tasks.append(task)
+        }
+        
     }
 
     ediTask(){
