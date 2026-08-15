@@ -1,4 +1,4 @@
-class Task{
+export class Task{
 
     constructor(task_id, task, time, isCompleted){
         this.id = task_id
@@ -7,5 +7,3 @@ class Task{
         this.isCompleted = false
     }
 }
-
-module.exports = Task;
