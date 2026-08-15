@@ -9,6 +9,7 @@ export class TaskManager{
 
     }
 
+    //Tasks Manager creates task __
     createTask(task){
 
         if(task.length != 0){
@@ -23,22 +24,20 @@ export class TaskManager{
         
     }
 
-    editTask(task_id, task){
-        let new_task = this.tasks.find(task => task.id == task_id)
-        if(new_task.length != 0){
-            console.log(new_task)
-        }else{
-            console.log("Can't find it!")
-        }
-        
-    
+    //Task Manager edits task __ and changes it to __
+    editTask(task_id, text){
+        let old_task = this.tasks.find(task => task.id == task_id)
+        old_task.task = text;
     }
 
-    deleteTask(){
+    //Tasks Manager deletes task __
+    deleteTask(task_id){
 
     }
 
-    completeTask(){
+
+    //Tasks Manager marks task __ complete
+    completeTask(task_id){
 
     }
     
