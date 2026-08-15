@@ -1,12 +1,12 @@
+import { Task } from './Task.js'
+
 class TaskManager{
     tasks = []
+    now = new Date;
 
-    constructor(){
-        
-    }
+    createTask(){
 
-    createTask(task){
-        
+        task = new Task()
         if(task != "" || tasks != NULL){
             this.tasks.append(task)
         }
@@ -22,3 +22,8 @@ class TaskManager{
     }
     
 }
+
+manager = new TaskManager;
+
+time = manager.now().toLocaleString('en-US');
+console.log(time)
