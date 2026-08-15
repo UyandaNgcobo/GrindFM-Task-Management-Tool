@@ -23,8 +23,15 @@ export class TaskManager{
         
     }
 
-    ediTask(){
+    editTask(task_id, task){
+        let new_task = this.tasks.find(task => task.id == task_id)
+        if(new_task.length != 0){
+            console.log(new_task)
+        }else{
+            console.log("Can't find it!")
+        }
         
+    
     }
 
     deleteTask(){
