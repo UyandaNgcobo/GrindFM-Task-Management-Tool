@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load saved pills from localStorage and display them
     const savedPills = JSON.parse(localStorage.getItem('savedPills')) || [];
     savedPills.forEach(pillData => createPill(pillData.text, pillData.time));
+    task_id = 0;
 
     addButton.addEventListener('click', () => {
         const pillText = inputField.value.trim();
@@ -17,17 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date();
         const timeText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         
-        createPill(pillText, timeText); // Create and display the new pill
+        createPill(pillText, timeText, task_id); // Create and display the new pill
 
         // Save the new pill to localStorage
-        savedPills.push({ text: pillText, time: timeText });
+        savedPills.push({ text: pillText, time: timeText, task_id: task_id});
         localStorage.setItem('savedPills', JSON.stringify(savedPills));
 
         inputField.value = ''; // Clear the input field
     });
 
 
-    function createPill(pillText, timeText) {
+    function createPill(pillText, timeText, taskID) {
         // Create a new pill
         const pillWrap = document.createElement('div');
         pillWrap.className = 'pill-wrap';
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteIcon.addEventListener('click', () => {
             pillsContainer.removeChild(pillWrap);
             // Remove from localStorage
-            const updatedPills = savedPills.filter(pill => pill.text !== pillText);
+            const updatedPills = savedPills.filter(pill => pill.task_id !== task_id);
             localStorage.setItem('savedPills', JSON.stringify(updatedPills));
         });
 
