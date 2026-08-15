@@ -1,16 +1,24 @@
+import { Task } from './Task.js';
+
 export class TaskManager{
     tasks = []
-    now = new Date;
+    task_id = 0;
+    now = new Date();
 
     constructor(){
 
     }
 
-    createTask(){
+    createTask(task){
 
-        task = new Task()
-        if(task != "" || tasks != NULL){
-            this.tasks.append(task)
+        if(task.length != 0){
+            const id = this.task_id += 1
+            let time = this.now.toLocaleString('en-US');
+            let new_task = new Task(id, task, time)
+            this.tasks.push(new_task)
+            console.log("\nAdding task...\n")
+        }else{
+            console.log("\nTask cannot be empty!\n")
         }
         
     }
@@ -20,6 +28,10 @@ export class TaskManager{
     }
 
     deleteTask(){
+
+    }
+
+    completeTask(){
 
     }
     
