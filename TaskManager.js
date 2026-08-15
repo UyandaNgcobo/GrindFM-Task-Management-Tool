@@ -1,9 +1,11 @@
-import { Task } from './Task.js'
-
-class TaskManager{
+export class TaskManager{
     tasks = []
     now = new Date;
 
+    constructor(){
+
+    }
+    
     createTask(){
 
         task = new Task()
