@@ -27,12 +27,17 @@ export class TaskManager{
     //Task Manager edits task __ and changes it to __
     editTask(task_id, text){
         let old_task = this.tasks.find(task => task.id == task_id)
-        old_task.task = text;
+        if(old_task != undefined){
+            old_task.task = text;
+        }else{
+            console.log("Enter an appropriate index!!")
+        }
+        
     }
 
     //Tasks Manager deletes task __
-    deleteTask(task_id){
-
+    deleteTask(task_to_delete){
+        this.tasks = this.tasks.filter(task => task != task_to_delete);
     }
 
 

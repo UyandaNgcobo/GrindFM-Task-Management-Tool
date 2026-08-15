@@ -13,6 +13,8 @@ manager.createTask(t3)
 manager.createTask(t4)
 
 
-console.log(manager.tasks)
+console.log(manager.tasks);
 manager.editTask(2, 'swim');
-console.log(manager.tasks)
+console.log(manager.tasks);
+manager.deleteTask(manager.tasks[0]);
+console.log(manager.tasks);
