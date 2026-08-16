@@ -27,9 +27,10 @@
                     
                 </div>
            </div>
-           <div class="sponsor-section">
-           </div>
+           
         </main>
+        <div class="sponsor-section">
+        </div>
     <footer>
 
     </footer>
@@ -37,7 +38,3 @@
     <script src="main.js"></script>
 </body>
 </html>
-
-<?php
-
-echo "Hello GrindFM!";

@@ -1,0 +1,47 @@
+main{
+    background-color: #f3f3f361;
+}
+
+h1{
+    display: flex;
+    align-items: center;
+    font-weight: 470;
+    height: 6rem;
+}
+
+.overview-cont1, .overview-cont2, .stats-cont, .time-cont{
+    display: flex;
+    outline: 1px solid black;
+}
+
+.overview-cont1, .overview-cont2{
+    height: 50%;
+    width: 100%;
+}
+
+.overview-cont2{
+    display: grid;
+}
+
+.overview-cont1{
+
+}
+
+.stats-cont, .time-cont{
+    height: 100%;
+    width: 50%;
+}
+
+.stats-cont{
+    display: grid;
+    grid-template-columns: 6, 1fr;
+    grid-template-rows: 2, 1fr;
+}
+
+#tasks-completed{
+    grid-column: span 2;
+}
+
+.time-cont{
+    
+}
