@@ -35,6 +35,11 @@ class TaskManager{
         }
     }
     function deleteTask(int $task_id){
+
+        if($task_id == null){
+            echo 'Invalid ID';
+            return;
+        }
         $this->tasks = array_values(
             array_filter(
                 $this->tasks,
@@ -66,5 +71,8 @@ $task = new Task(1, "iron my shirt", "2026-08-16 17:42:31");
 $manager->createTask("wash my clothes");
 var_dump($manager->tasks);
 $t1 = $manager->tasks[0];
-$manager->editTask(0, "I donno");
+$manager->editTask(99, "I donno");
+$manager->completeTask(99);
+$manager->deleteTask($t1->id);
+
 var_dump($manager->tasks);
