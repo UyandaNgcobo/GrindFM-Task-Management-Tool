@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <?php include '../components/header.php'; ?>
+        <?php include 'components/header.php'; ?>
         <main>
            <div class="hero-section">
                 <div class="hero-text">
