@@ -126,7 +126,7 @@ main{
 }
 
 .hero-img{
-    background-image: url('./Images/radio.png');
+    background-image: url('../Images/radio.png');
     background-size:contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -138,7 +138,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('/Images/Logotypes.svg');
+    background-image: url('../Images/Logotypes.svg');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
