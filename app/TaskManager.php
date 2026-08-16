@@ -21,7 +21,7 @@ class TaskManager{
             echo 'Enter Task!';
         }   
     }
-    function editTask(int $task_id, $text){
+    function editTask(int $task_id, string $text){
         $old_task = array_find(
             $this->tasks,
             fn($task) => $task->id == $task_id
@@ -34,11 +34,30 @@ class TaskManager{
             echo "Enter an appropriate index!";
         }
     }
-    function deleteTask($task_id){
-        
+    function deleteTask(int $task_id){
+        $this->tasks = array_values(
+            array_filter(
+                $this->tasks,
+                fn($task) => $task->id != $task_id
+            )
+        );
     }
-    function completeTask($task_id){
-        
+    function completeTask(int $task_id){
+        $task = array_find(
+            $this->tasks,
+            fn($task) => $task->id == $task_id
+        );
+
+        if($task == null){
+            echo 'Task not found!';
+            return;
+        }
+        if($task->isCompleted == true){
+            echo 'Task is already Complete!';
+            return;
+        }
+
+        $task->isCompleted = true;
     }
 }
 
