@@ -40,7 +40,26 @@
                     To-Do List
                 </div>
                 <div id="tasks-list-cont">
-                    list
+                    <div class="task">
+                        <div class="task-title">Buy teabags</div>
+                        <input class="task-checkbox" type="checkbox"></input>
+                    </div>
+                    <div class="task">
+                        <div class="task-title">Grab batteries by Uya</div>
+                        <input class="task-checkbox" type="checkbox"></input>
+                    </div>
+                    <div class="task">
+                        <div class="task-title">Hook up the TV cables</div>
+                        <input class="task-checkbox" type="checkbox"></input>
+                    </div>
+                    <div class="task">
+                        <div class="task-title">Get new remote</div>
+                        <input class="task-checkbox" type="checkbox"></input>
+                    </div>
+                    <div class="task">
+                        <div class="task-title">Buy flowers for nobody</div>
+                        <input class="task-checkbox" type="checkbox"></input>
+                    </div>
                 </div>
             </div>
             
