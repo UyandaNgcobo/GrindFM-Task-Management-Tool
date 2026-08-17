@@ -16,10 +16,10 @@
         <h1>Overview</h3>
         <div class="overview-cont1">
             <div class="stats-cont">
-                <div id="tasks-completed">254 Completed</div>
-                <div id="tasks-to-do">254 Completed</div>
-                <div id="tasks-all-completed">254 Completed</div>
-                <div id="tasks-completed">17:00 - Maths Study</div>
+                <div id="overview-completed">254 Completed</div>
+                <div id="overview-to-do">254 Completed</div>
+                <div id="overview-all-tasks">254 Completed</div>
+                <div id="overview-reminders">17:00 - Maths Study</div>
             </div>
             <div class="time-cont">
                 Time

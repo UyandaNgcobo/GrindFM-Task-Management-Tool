@@ -38,10 +38,14 @@ h1{
     grid-template-rows: 2, 1fr;
 }
 
-#tasks-completed{
+#overview-completed{
     grid-column: span 2;
 }
 
 .time-cont{
     
 }
+.tasks-to-do{
+
+}
+
