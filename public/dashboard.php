@@ -13,19 +13,38 @@
 <body>
     <?php include 'components/header.php'; ?>
     <main>
-        <h1>Overview</h3>
-        <div class="overview-cont1">
-            <div class="stats-cont">
-                <div id="overview-completed">254 Completed</div>
-                <div id="overview-to-do">254 Completed</div>
-                <div id="overview-all-tasks">254 Completed</div>
-                <div id="overview-reminders">17:00 - Maths Study</div>
+        <h1>Overview</h1>
+       <div id="grid-container">
+
+            <!-- Summary and Stats -->
+            <div id="stats-cont">
+                <div id="tasks-completed"></div>
+                <div id="tasks-to-do"></div>
+                <div id="tasks-all-tasks"></div>
+                <div id="tasks-reminders"></div>
             </div>
-            <div class="time-cont">
-                Time
+
+            <div id="time-cont-wrapper">
+                <div id="time-cont">
+                    <div id="clock">16:54</div>
+                    <div id="date-cont">
+                        <div id="date">21 Aug,</div>
+                        <div id="day">Thursday</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="overview-cont2">cont2</div>
+
+            <div id="reminders-cont">Reminders</div>
+            <div id="tasks-cont">
+                <div id="tasks-heading">
+                    To-Do List
+                </div>
+                <div id="tasks-list-cont">
+                    list
+                </div>
+            </div>
+            
+       </div>
     </main>
 </body>
 </html>

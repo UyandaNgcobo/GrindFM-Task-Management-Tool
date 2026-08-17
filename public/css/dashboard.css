@@ -1,5 +1,7 @@
 main{
     background-color: #f3f3f361;
+    display: flex;
+    flex-direction: column;
 }
 
 h1{
@@ -7,45 +9,99 @@ h1{
     align-items: center;
     font-weight: 470;
     height: 6rem;
+    flex-shrink: 0;
 }
 
-.overview-cont1, .overview-cont2, .stats-cont, .time-cont{
-    display: flex;
+#grid-container{
+    flex: 1;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+#stats-cont{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+    outline: 1px solid black;
+    background-color: #fff;
+}
+
+/*  SUMMARY & STATS */
+#tasks-completed{
+    grid-column: span 4;
+    background-color: black;
+    outline: 1px solid black;
+    border-radius: 1rem;
+}
+#tasks-to-do{
+    grid-column: span 2;
+    outline: 1px solid black;
+}
+#tasks-all-tasks{
+    grid-column: span 2;
+    outline: 1px solid black;
+    background-color: #BC92C3;
+    border-radius: 1rem;
+}
+#tasks-reminders{
+    grid-column: span 4;
     outline: 1px solid black;
 }
 
-.overview-cont1, .overview-cont2{
-    height: 50%;
-    width: 100%;
+#time-cont-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 1px solid black;
+    background-color: #fff;
+}
+#time-cont{
+
 }
 
-.overview-cont2{
-    display: grid;
+#clock{
+    display: flex;
+    justify-content: center;
+    font-size: 8rem;
 }
 
-.overview-cont1{
-
+#date-cont{
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    gap: 1rem;
 }
 
-.stats-cont, .time-cont{
+#day{
+    color: var(--primary-color);
+}
+
+
+#tasks-cont{
     height: 100%;
-    width: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid black;
+    background-color: #fff;
 }
 
-.stats-cont{
-    display: grid;
-    grid-template-columns: 6, 1fr;
-    grid-template-rows: 2, 1fr;
+#tasks-heading{
+    font-size: 2rem;
+    padding: 10px 20px;
+    outline: 1px solid black;
 }
 
-#overview-completed{
-    grid-column: span 2;
+#tasks-list-cont{
+    height: 100%;
+    padding: 0 60px;
+    outline: 1px solid black;
 }
 
-.time-cont{
-    
+#reminders-cont{
+    outline: 1px solid black;
+    background-color: #fff;
 }
-.tasks-to-do{
-
-}
-
