@@ -1,0 +1,109 @@
+main{
+    background-color: #f3f3f361;
+    padding-bottom: 2rem;
+    /* outline: 1px solid black; */
+}
+
+#to-do-list-header{
+    font-size: 2.1rem;
+    padding: 2rem 0;
+}
+#create-new-task{
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+}
+
+#task-to-do-list-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 70%;
+    height: 100%;
+}
+#create-new-task-controls{
+    display: flex;
+    justify-content: space-between;
+}
+
+#clearBtn{
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border: none;
+    color: #8A8A8A;
+    border-radius: 0.3rem;
+}
+#addBtn{
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    background-color: #CD9AD6;
+    border: none;
+    color: white;
+    border-radius: 0.3rem;
+}
+
+
+#task-to-do-list{
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    flex-direction: column;
+}
+
+#task-to-do-list-actions{
+    /* padding-top: 2rem; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    width: 30%;
+    height: 50%;
+    gap: 1rem;
+}
+
+.to-do-action{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 1rem;
+    border-radius: 1rem;
+    background-color: #fff;
+}
+
+.task-to-do-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    padding: 1rem 4rem;
+}
+
+input[type="checkbox"]{
+    width: 1rem;
+    height: 1rem;
+    accent-color: #aa41bb;
+}
+input[type="checkbox"]:checked{
+    background-color: #fff;
+}
+
+.task{
+    display: flex;
+    font-size: 1.3rem;
+    width: 100%;
+    color: #8A8A8A;
+}
+
+.action-stat{
+    font-size: 2.2rem;
+}
+.action-label{
+    color: #8A8A8A;
+    font-size: 1.1rem;
+}
+
+
