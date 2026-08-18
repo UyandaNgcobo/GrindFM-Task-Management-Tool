@@ -19,8 +19,11 @@
             <!-- Summary and Stats -->
             <div id="stats-cont">
                 <div id="tasks-completed">
-                    <div id="task-completed-count">254</div>
-                    <div id="task-completed-label">Tasks Completed</div>
+                    <div id="tasks-completed-cont">
+                        <div id="task-completed-count">254</div>
+                        <div id="task-completed-label">Tasks Completed</div>
+                    </div>
+                    <div class="giant-check"><img src="/Images/check.svg" alt="" srcset=""></div>
                 </div>
                 <div id="tasks-to-do">
                     <div id="tasks-to-do-count">65</div>
