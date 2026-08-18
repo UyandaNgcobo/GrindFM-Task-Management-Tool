@@ -12,7 +12,7 @@
 
                 <ul class="dropdown-content">
                     <li><a href="/to-do-list.php">To-Do List</a></li>
-                    <li><a href="/calendar.php">Calendar</a></li>
+                    <li><a href="/reminders.php">Reminders</a></li>
                     <li><a href="/analytics.php">Analytics</a></li>
                 </ul>
             </li>
