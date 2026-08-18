@@ -33,9 +33,9 @@
                 <div id="tasks-reminders">
                     <div id="tasks-reminders-bell"><img src="/Images/bell.svg" alt=""></div>
                     <div id="tasks-reminders-overview-cont">
-                        <div id="latest-task">17:00 ·  Bath</div>
-                        <div id="latest-task">19:30 · Maths Study</div>
-                        <div id="latest-task">20:15 · Gym</div>
+                        <div class="latest-task">17:00 · Bath</div>
+                        <div class="latest-task">19:30 · Maths Study</div>
+                        <div class="latest-task">20:15 · Gym</div>
                     </div>
                 </div>
             </div>
@@ -55,16 +55,49 @@
                     Reminders
                 </div>
                 <div id="dates-row">
-                    <div class="date">19</div>
-                    <div class="date">19</div>
-                    <div class="date">19</div>
-                    <div class="date">19</div>
-                    <div class="date">19</div>
+                    <div class="date">
+                        <div class="date-num">19</div>
+                        <div class="day">Wed</div>
+                    </div>
+                    <div class="date">
+                        <div class="date-num">19</div>
+                        <div class="day">Wed</div>
+                    </div>
+                    <div class="date">
+                        <div class="date-num">19</div>
+                        <div class="day">Wed</div>
+                    </div>
+                    <div class="date">
+                        <div class="date-num">19</div>
+                        <div class="day">Wed</div>
+                    </div>
+                    <div class="date">
+                        <div class="date-num">19</div>
+                        <div class="day">Wed</div>
+                    </div>
                 </div>
                 <div id="reminders-list-cont">
-                        <div class="reminder-task">Reminder</div>
-                        <div class="reminder-task">Reminder</div>
-                        <div class="reminder-task">Reminder</div>
+                        <div class="reminder-task-cont">
+                            <div class="icon"><img src="/Images/Alert-circle.svg" alt=""></div>
+                            <div class="reminder-task-wrap">
+                                <div class="reminder-task">Cook for myself</div>
+                                <div class="reminder-time-set">17:00 - 18:00</div>
+                            </div>
+                        </div>
+                        <div class="reminder-task-cont">
+                            <div class="icon"><img src="/Images/Alert-circle.svg" alt=""></div>
+                            <div class="reminder-task-wrap">
+                                <div class="reminder-task">Cook for myself</div>
+                                <div class="reminder-time-set">17:00 - 18:00</div>
+                            </div>
+                        </div>
+                        <div class="reminder-task-cont">
+                            <div class="icon"><img src="/Images/Alert-circle.svg" alt=""></div>
+                            <div class="reminder-task-wrap">
+                                <div class="reminder-task">Cook for myself</div>
+                                <div class="reminder-time-set">17:00 - 18:00</div>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div id="tasks-cont">

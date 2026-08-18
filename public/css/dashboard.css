@@ -2,7 +2,7 @@ main{
     background-color: #f3f3f361;
     display: flex;
     flex-direction: column;
-    padding-bottom: 40px;
+    padding-bottom: 2rem;
 }
 
 h1{
@@ -102,17 +102,17 @@ h1{
     padding: 2rem 0;
 }
 
-#latest-task{
+.latest-task{
     flex: 1;
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #DBDBDB;
     display: flex;
 }
-#latest-task:nth-child(2){
+.latest-task:nth-child(2){
     color: black;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 #time-cont-wrapper{
@@ -205,11 +205,27 @@ input[type="checkbox"]:checked{
 
 #dates-row{
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 1rem 4rem;
     width: 100%;
     background-color: #fff;
+    border-radius: 1rem;
 }
+
+.date{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.date:nth-child(3){
+    color: #aa41bb;
+    font-size: 1.2rem;
+    display: flex;
+
+}
+
 #reminders-list-cont{
     display: flex;
     flex-direction: column;
@@ -217,11 +233,35 @@ input[type="checkbox"]:checked{
     flex: 1;
     height: 100%;
     width: 100%;
+    /* outline: 1px solid black; */
 }
 
-.reminder-task{
+.reminder-task-cont{
+    display: flex;
+    align-items: center;
     flex: 1;
+    gap: 2rem;
+    padding-inline: 2rem;
     background-color: #fff;
     border-radius: 1rem;
     border-left: 4px solid #CD9AD6;
+    /* outline: 1px solid black; */
 }
+
+.reminder-task-wrap{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* outline: 1px solid black; */
+}
+
+
+
+.reminder-time-set{
+    color: #8A8A8A;
+}
+
+.reminder-task{
+}
+
