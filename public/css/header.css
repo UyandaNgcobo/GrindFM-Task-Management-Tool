@@ -64,5 +64,5 @@ main{
     display: flex;
     flex-direction: column;
     padding: 0 100px;
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
 }

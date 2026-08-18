@@ -19,7 +19,7 @@ h1{
     display: grid;
     justify-content: space-around;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 310px 1fr;
 }
 
 #stats-cont{
@@ -27,37 +27,99 @@ h1{
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 1rem;
-    outline: 1px solid black;
-    background-color: #fff;
 }
 
 /*  SUMMARY & STATS */
 #tasks-completed{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 30px;
+    gap: 1rem;
     grid-column: span 4;
     background-color: black;
-    outline: 1px solid black;
+    color: #fff;
     border-radius: 1rem;
 }
+
+#task-completed-count{ font-size: 3rem;}
+#tasks-to-do-count{ font-size: 3rem;}
+#tasks-all-tasks-count{ font-size: 3rem;}
+
+#task-completed-label{ font-size: 1.5rem; color: #DBDBDB}
+#tasks-to-do-label{ font-size: 1.5rem; color: #5E5E5E;}
+#tasks-all-tasks-label{ font-size: 1.5rem; color: #5E5E5E}
+
+
 #tasks-to-do{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 30px;
+    gap: 1rem;
     grid-column: span 2;
-    outline: 1px solid black;
+    outline: 1px solid #D9D9D9;;
+    background-color: #fff;
+    border-radius: 1rem;
 }
 #tasks-all-tasks{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px;
+    gap: 1rem;
     grid-column: span 2;
-    outline: 1px solid black;
+    outline: 1px solid #D9D9D9;
     background-color: rgba(188, 146, 195, 0.2);
     border-radius: 1rem;
 }
 #tasks-reminders{
+    display: flex;
+    align-items: center;
     grid-column: span 4;
-    outline: 1px solid black;
+    outline: 1px solid #D9D9D9;
+    border-radius: 1rem;
+    padding: 0 1rem;
+    background-color: #fff;
+}
+#tasks-reminders-bell{
+    height: 100%;
+    width: 30%;
+}
+
+#tasks-reminders-bell img{
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+}
+#tasks-reminders-overview-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 70%;
+    padding: 2rem 0;
+}
+
+#latest-task{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #DBDBDB;
+    display: flex;
+}
+#latest-task:nth-child(2){
+    color: black;
+    font-size: 1.3rem;
 }
 
 #time-cont-wrapper{
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: 1px solid black;
+    border-radius: 1rem;
     background-color: #fff;
 }
 #time-cont{
@@ -87,8 +149,9 @@ h1{
     width: 100%;
     display: flex;
     flex-direction: column;
-    outline: 1px solid black;
     background-color: #fff;
+    border-radius: 1rem;
+    padding-bottom: 20px;
 }
 
 #tasks-heading{
@@ -110,7 +173,7 @@ h1{
     flex: 1;
     align-items: center;
     justify-content: space-between;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     /* outline: 1px solid black; */
 }
 
@@ -127,6 +190,38 @@ input[type="checkbox"]:checked{
 }
 
 #reminders-cont{
-    outline: 1px solid black;
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+    font-weight: 100%;
+    flex-direction: column;
+    border-radius: 1rem;
+}
+
+#reminders-heading{
+    font-size: 2rem;
+    padding-top: 10px;
+}
+
+#dates-row{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+    width: 100%;
     background-color: #fff;
+}
+#reminders-list-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.reminder-task{
+    flex: 1;
+    background-color: #fff;
+    border-radius: 1rem;
+    border-left: 4px solid #CD9AD6;
 }

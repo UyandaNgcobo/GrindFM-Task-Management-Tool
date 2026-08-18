@@ -18,10 +18,26 @@
 
             <!-- Summary and Stats -->
             <div id="stats-cont">
-                <div id="tasks-completed"></div>
-                <div id="tasks-to-do"></div>
-                <div id="tasks-all-tasks"></div>
-                <div id="tasks-reminders"></div>
+                <div id="tasks-completed">
+                    <div id="task-completed-count">254</div>
+                    <div id="task-completed-label">Tasks Completed</div>
+                </div>
+                <div id="tasks-to-do">
+                    <div id="tasks-to-do-count">65</div>
+                    <div id="tasks-to-do-label">Task To-Do</div>
+                </div>
+                <div id="tasks-all-tasks">
+                    <div id="tasks-all-tasks-count">319</div>
+                    <div id="tasks-all-tasks-label">All Tasks</div>
+                </div>
+                <div id="tasks-reminders">
+                    <div id="tasks-reminders-bell"><img src="/Images/bell.svg" alt=""></div>
+                    <div id="tasks-reminders-overview-cont">
+                        <div id="latest-task">17:00 ·  Bath</div>
+                        <div id="latest-task">19:30 · Maths Study</div>
+                        <div id="latest-task">20:15 · Gym</div>
+                    </div>
+                </div>
             </div>
 
             <div id="time-cont-wrapper">
@@ -34,7 +50,23 @@
                 </div>
             </div>
 
-            <div id="reminders-cont">Reminders</div>
+            <div id="reminders-cont">
+                <div id="reminders-heading">
+                    Reminders
+                </div>
+                <div id="dates-row">
+                    <div class="date">19</div>
+                    <div class="date">19</div>
+                    <div class="date">19</div>
+                    <div class="date">19</div>
+                    <div class="date">19</div>
+                </div>
+                <div id="reminders-list-cont">
+                        <div class="reminder-task">Reminder</div>
+                        <div class="reminder-task">Reminder</div>
+                        <div class="reminder-task">Reminder</div>
+                </div>
+            </div>
             <div id="tasks-cont">
                 <div id="tasks-heading">
                     To-Do List

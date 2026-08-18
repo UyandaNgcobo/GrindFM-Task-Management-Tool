@@ -13,9 +13,10 @@
     /* outline: 1px solid black; */
     display: flex;
     align-items: center;
-    gap: 8rem;
+    gap: 5rem;
     height: 90%;
     width: 100%;
+    padding-left: 3rem;
     /* padding: 0 100px; */
 }
 
@@ -65,7 +66,7 @@
 }
 
 .hero-img{
-    background-image: url('../Images/radio.png');
+    background-image: url('../Images/landing-page-img.svg');
     background-size:contain;
     background-repeat: no-repeat;
     background-position: center;
