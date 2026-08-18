@@ -27,7 +27,7 @@
                 </div>
                 <div id="tasks-to-do">
                     <div id="tasks-to-do-count">65</div>
-                    <div id="tasks-to-do-label">Task To-Do</div>
+                    <div id="tasks-to-do-label"><a href="to-do-list.php">Task To-Do</a></div>
                 </div>
                 <div id="tasks-all-tasks">
                     <div id="tasks-all-tasks-count">319</div>

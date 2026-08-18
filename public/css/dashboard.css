@@ -55,6 +55,7 @@ h1{
 
 #task-completed-label{ font-size: 1.5rem; color: #DBDBDB}
 #tasks-to-do-label{ font-size: 1.5rem; color: #5e5e5e;}
+#tasks-to-do-label a{ text-decoration: none; color: #5E5E5E;}
 #tasks-all-tasks-label{ font-size: 1.5rem; color: #ffffffcb}
 
 
@@ -68,6 +69,7 @@ h1{
     outline: 1px solid #D9D9D9;;
     background-color: #fff;
     border-radius: 1rem;
+    
 }
 #tasks-all-tasks{
     display: flex;
@@ -129,7 +131,9 @@ h1{
     align-items: center;
     border-radius: 1rem;
     background-color: #fff;
+    outline: 1px solid #D9D9D9;;
 }
+
 #time-cont{
 
 }
@@ -160,6 +164,7 @@ h1{
     background-color: #fff;
     border-radius: 1rem;
     padding-bottom: 20px;
+    outline: 1px solid #D9D9D9;
 }
 
 #tasks-heading{
@@ -271,5 +276,5 @@ input[type="checkbox"]:checked{
 }
 
 .reminder-task{
-}
 
+}
