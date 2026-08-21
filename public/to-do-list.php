@@ -19,7 +19,7 @@
         <div id="create-new-task">
             <div id="task-to-do-list-cont">
                 <div id="create-new-task-controls">
-                    <button id="addBtn">+ Add Task</button>
+                    <a id="addBtn" href="to-do-list-create-page.php">Add Task</a>
                     <button id="clearBtn">Clear All</button>
                 </div>
                 <div id="task-to-do-list">
