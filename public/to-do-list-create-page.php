@@ -42,7 +42,7 @@
                 description: document.getElementById("descInput").value
             };
 
-            const response = await fetch('http://localhost:3000/api/tasks', {
+            const response = await fetch('http://localhost:3000/api/create-task', {
                 method: 'POST',
                 headers: { 'Content-Type' : 'application/json'},
                 body: JSON.stringify(payload)
