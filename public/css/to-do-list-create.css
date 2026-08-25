@@ -65,3 +65,9 @@ input{
 input::placeholder{
     color: #DBDBDB;
 }
+
+#submitBtn{
+    padding: 1rem;
+    width: fit-content;
+    margin-left: auto
+}

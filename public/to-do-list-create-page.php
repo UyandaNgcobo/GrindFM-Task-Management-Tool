@@ -25,16 +25,21 @@
                 <label for="descInput">Description</label>
                 <input id="descInput" type="text" placeholder="Enter Description">
             </div>
+            <input type="submit" id="submitBtn" value="Create Task">
         </form>
+
+        <div id="results"></div>
     </main>
     <script>
+        const output = document.getElementById("results");
 
         document.getElementById("createTaskForm").addEventListener ('submit', async (e) =>{
 
             e.preventDefault()
 
             const payload = {
-                title: document.getElementById("nameInput").value
+                title: document.getElementById("nameInput").value,
+                description: document.getElementById("descInput").value
             };
 
             const response = await fetch('http://localhost:3000/api/', {
@@ -45,6 +50,9 @@
 
             const result = await response.json();
             console.log(result);
+
+            output.innerHTML = result.message;
+
         });
 
     </script>
