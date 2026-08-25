@@ -16,7 +16,7 @@
             <div id="to-do-list-create-page-header">To-Do List</div>
             <Button id="cancelBtn">Cancel</Button>
         </div>
-        <form action="" method="post">
+        <form id="createTaskForm" method="post">
             <div id="name-input-cont">
                 <label for="nameInput">Task Name</label>
                 <input id="nameInput" type="text" placeholder="Enter Task name">
@@ -27,5 +27,26 @@
             </div>
         </form>
     </main>
+    <script>
+
+        document.getElementById("createTaskForm").addEventListener ('submit', async (e) =>{
+
+            e.preventDefault()
+
+            const payload = {
+                title: document.getElementById("nameInput").value
+            };
+
+            const response = await fetch('http://', {
+                method: 'POST',
+                headers: { 'Content-Type' : 'application/json'},
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+            console.log(result);
+        });
+
+    </script>
 </body>
 </html>
