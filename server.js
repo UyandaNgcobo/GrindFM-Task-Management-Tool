@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/", async (req, res) => {
+app.post("/api/create-task", async (req, res) => {
     const frontendPayload = req.body;
 
     const phpResponse = await fetch("http://127.0.0.1:8000/process-create-task.php", {
