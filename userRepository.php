@@ -7,7 +7,7 @@ class UserRepository{
         $this->pdo = $pdo;
     }
     
-    public function createUser($username, $email, $password){
+    public function createUser($username, $email, $password) : void{
 
         $statement = $this->pdo->prepare(
             "INSERT INTO users (username, email, password)
@@ -22,7 +22,7 @@ class UserRepository{
 
     }
 
-    public function deleteUser(int $id){
+    public function deleteUser(int $id) : void{
 
         $statement = $this->pdo->prepare(
             "DELETE FROM users
@@ -33,6 +33,17 @@ class UserRepository{
         $statement->execute([
             $id
         ]);
+    }
+
+    public function getAllUsers(int $id) : array{
+        $statement = $this->pdo->prepare(
+            "SELECT user_id, username, email
+            FROM users"
+        );
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 

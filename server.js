@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/user", async (req, res) => {
+app.post("/api/users", async (req, res) => {
     const frontendPayload = req.body;
 
     const phpResponse = await fetch("http://127.0.0.1:8000/UserController.php", {
@@ -17,6 +17,17 @@ app.post("/api/user", async (req, res) => {
 
     const phpData = await phpResponse.text();;
     res.send(phpData);
+});
+
+app.get('api/users', async (req, res) => {
+
+    const response = await fetch("http://127.0.0.1:8000/UserController.php", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const result = await response.text();
+    res.send(response);
 });
 
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
