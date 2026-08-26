@@ -21,6 +21,19 @@ class UserRepository{
         ]);
 
     }
+
+    public function deleteUser(int $id){
+
+        $statement = $this->pdo->prepare(
+            "DELETE FROM users
+            WHERE user_id = ?
+            "
+        );
+
+        $statement->execute([
+            $id
+        ]);
+    }
 }
 
 ?>
