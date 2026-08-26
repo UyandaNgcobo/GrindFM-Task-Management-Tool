@@ -38,12 +38,12 @@
             e.preventDefault()
 
             const payload = {
-                username: "yuyu",
-                email: "examp@gmail.com",
+                username: "juju",
+                email: "examp@icloud.com",
                 password: "12345"
             };
 
-            const response = await fetch('http://localhost:3000/api/create-user', {
+            const response = await fetch('http://localhost:3000/api/user', {
                 method: 'POST',
                 headers: { 'Content-Type' : 'application/json'},
                 body: JSON.stringify(payload)

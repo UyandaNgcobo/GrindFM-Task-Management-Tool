@@ -14,6 +14,7 @@
                     <li><a href="/to-do-list.php">To-Do List</a></li>
                     <li><a href="/reminders.php">Reminders</a></li>
                     <li><a href="/analytics.php">Analytics</a></li>
+                    <li><a href="/admin.php">Admin</a></li>
                 </ul>
             </li>
 
