@@ -31,4 +31,8 @@ app.get('/api/users', async (req, res) => {
     res.send(result);
 });
 
+app.get("/api/login", async (req, res) => {
+
+});
+
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));

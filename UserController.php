@@ -33,11 +33,13 @@
         $email = $data['email'];
         $password = $data['password'];
 
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
         //create user
         $repository->createUser(
             $username,
             $email,
-            $password
+            $hash
         );
 
         echo json_encode([
