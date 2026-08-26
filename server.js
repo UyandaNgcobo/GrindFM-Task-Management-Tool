@@ -19,7 +19,7 @@ app.post("/api/users", async (req, res) => {
     res.send(phpData);
 });
 
-app.get('api/users', async (req, res) => {
+app.get('/api/users', async (req, res) => {
 
     const response = await fetch("http://127.0.0.1:8000/UserController.php", {
       method: "GET",
@@ -27,6 +27,7 @@ app.get('api/users', async (req, res) => {
     });
 
     const result = await response.text();
+     console.log("PHP RESPONSE:", result);
     res.send(response);
 });
 

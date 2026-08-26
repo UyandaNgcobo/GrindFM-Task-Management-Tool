@@ -35,7 +35,7 @@ class UserRepository{
         ]);
     }
 
-    public function getAllUsers(int $id) : array{
+    public function getAllUsers() : array{
         $statement = $this->pdo->prepare(
             "SELECT user_id, username, email
             FROM users"

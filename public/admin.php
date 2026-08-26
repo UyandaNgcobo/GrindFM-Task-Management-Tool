@@ -13,18 +13,31 @@
 <body>
     <?php include 'components/header.php'; ?>
     <main>
-       <?php foreach($users as $user){ ?>
-            <div class="user-cont">
-                <div class="user-cont">
-                <div class="name">Yuyu</div>
-                <div class="email">Yuyu</div>
-                <div class="password">Yuyu</div>
-            </div>
-       <?php } ?>
-        
+        <div id="users"></div>
     </main>
     <script>
-        
-    </script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUsers();
+        });
+
+    const usersContainer = document.getElementById("users");
+
+        async function loadUsers() {
+            const response = await fetch("http://localhost:3000/api/users");
+
+            const result = await response.json();
+
+            console.log("PHP RESPONSE:", result);
+
+            for (const user of result.users) {
+                usersContainer.innerHTML += `
+                    <div class="user-cont">
+                        <div class="name">${user.username}</div>
+                        <div class="email">${user.email}</div>
+                    </div>
+                `;
+            }
+        }
+</script>
 </body>
 </html>

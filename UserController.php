@@ -1,4 +1,7 @@
 <?php
+
+    $method = $_SERVER['REQUEST_METHOD'];
+
     require_once __DIR__ . '/config.php';
     require_once __DIR__ . '/userRepository.php';
 
@@ -14,15 +17,28 @@
     //inject connection object
     $repository = new UserRepository($pdo);
 
-    $repository->createUser(
-        $username,
-        $email,
-        $password
-    );
 
 
-    echo json_encode([
+    if($method == 'GET'){
+        $repository->getAllUsers();
+        //retrive user
+    }
+
+    if($method == 'POST'){
+
+        //create user
+        $repository->createUser(
+            $username,
+            $email,
+            $password
+        );
+
+        echo json_encode([
         "status" => "success",
-        "message" => "Account has successfully been created!"
-    ]);
+        "message" => "Account has successfully been created!"]);
+        
+    }
+
+
+    
 ?>
