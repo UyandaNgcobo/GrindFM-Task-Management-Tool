@@ -6,10 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/create-task", async (req, res) => {
+app.post("/api/create-user", async (req, res) => {
     const frontendPayload = req.body;
 
-    const phpResponse = await fetch("http://127.0.0.1:8000/Users.php", {
+    const phpResponse = await fetch("http://127.0.0.1:8000/User.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(frontendPayload),

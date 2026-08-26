@@ -38,20 +38,21 @@
             e.preventDefault()
 
             const payload = {
-                title: document.getElementById("nameInput").value,
-                description: document.getElementById("descInput").value
+                username: "yuyu",
+                email: "examp@gmail.com",
+                password: "12345"
             };
 
-            const response = await fetch('http://localhost:3000/api/create-task', {
+            const response = await fetch('http://localhost:3000/api/create-user', {
                 method: 'POST',
                 headers: { 'Content-Type' : 'application/json'},
                 body: JSON.stringify(payload)
             });
 
             const result = await response.json();
-            console.log(result);
+            console.log("RAW RESPONSE FROM NODE:", result);
 
-            output.innerHTML = result[0].username;
+            output.innerHTML = result.message;
 
         });
 
