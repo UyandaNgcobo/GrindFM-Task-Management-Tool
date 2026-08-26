@@ -7,12 +7,7 @@
 
     header('Content-Type:application/json');
 
-    $rawJson = file_get_contents('php://input');
-    $data = json_decode($rawJson, true);
-
-    $username = $data['username'];
-    $email = $data['email'];
-    $password = $data['password'];
+ 
 
     //inject connection object
     $repository = new UserRepository($pdo);
@@ -20,11 +15,23 @@
 
 
     if($method == 'GET'){
-        $repository->getAllUsers();
+        $users = $repository->getAllUsers();
+
+        echo json_encode([
+            "status" => "success",
+            "users" => $users
+        ]);
         //retrive user
     }
 
     if($method == 'POST'){
+
+        $rawJson = file_get_contents('php://input');
+        $data = json_decode($rawJson, true);
+
+        $username = $data['username'];
+        $email = $data['email'];
+        $password = $data['password'];
 
         //create user
         $repository->createUser(

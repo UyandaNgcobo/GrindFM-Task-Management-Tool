@@ -2,3 +2,24 @@ main{
     background-color: #f3f3f361;
     padding-bottom: 2rem;
 }
+
+.user-cont{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: white;
+    height: 50px;
+}
+
+table{
+    background-color: white;
+    border: 1px solid black;
+}
+
+tr{
+    height: 50px;
+}
+
+th, td{
+    text-align: center;
+}

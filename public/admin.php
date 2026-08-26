@@ -13,31 +13,49 @@
 <body>
     <?php include 'components/header.php'; ?>
     <main>
-        <div id="users"></div>
+        <table id="users"></table>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            loadUsers();
-        });
+    <div id="users"></div>
 
+<script>
     const usersContainer = document.getElementById("users");
 
-        async function loadUsers() {
-            const response = await fetch("http://localhost:3000/api/users");
+    async function loadUsers() {
+        const response = await fetch("http://localhost:3000/api/users");
 
-            const result = await response.json();
+        const result = await response.json();
 
-            console.log("PHP RESPONSE:", result);
+        let table = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
 
-            for (const user of result.users) {
-                usersContainer.innerHTML += `
-                    <div class="user-cont">
-                        <div class="name">${user.username}</div>
-                        <div class="email">${user.email}</div>
-                    </div>
-                `;
-            }
+        for (const user of result.users) {
+            table += `
+                <tr>
+                    <td>${user.user_id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                </tr>
+            `;
         }
+
+        table += `
+                </tbody>
+            </table>
+        `;
+
+        usersContainer.innerHTML = table;
+    }
+
+    loadUsers();
 </script>
 </body>
 </html>

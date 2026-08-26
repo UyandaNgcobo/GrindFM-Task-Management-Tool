@@ -26,9 +26,9 @@ app.get('/api/users', async (req, res) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    const result = await response.text();
-     console.log("PHP RESPONSE:", result);
-    res.send(response);
+    const result = await response.json();
+    console.log("PHP RESPONSE:", result);
+    res.send(result);
 });
 
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
