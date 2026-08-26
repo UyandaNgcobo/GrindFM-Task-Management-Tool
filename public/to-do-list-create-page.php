@@ -51,7 +51,7 @@
             const result = await response.json();
             console.log(result);
 
-            output.innerHTML = result.message;
+            output.innerHTML = result[0].username;
 
         });
 

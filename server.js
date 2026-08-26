@@ -9,14 +9,14 @@ app.use(express.json());
 app.post("/api/create-task", async (req, res) => {
     const frontendPayload = req.body;
 
-    const phpResponse = await fetch("http://127.0.0.1:8000/process-create-task.php", {
+    const phpResponse = await fetch("http://127.0.0.1:8000/Users.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(frontendPayload),
     });
 
-    const phpData = await phpResponse.json();
-    res.json(phpData);
+    const phpData = await phpResponse.text();;
+    res.send(phpData);
 });
 
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
