@@ -18,7 +18,7 @@
                 </ul>
             </li>
 
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="/login.php">Log In</a></li>
 
             <button>Contact Me</button>
         </ul>

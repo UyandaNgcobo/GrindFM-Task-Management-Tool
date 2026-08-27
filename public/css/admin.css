@@ -20,6 +20,10 @@ tr{
     height: 50px;
 }
 
+th{
+    background-color: rgb(238, 238, 238);
+}
+
 th, td{
     text-align: center;
 }

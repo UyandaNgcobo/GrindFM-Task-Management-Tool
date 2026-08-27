@@ -45,6 +45,21 @@ class UserRepository{
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getByEmail(String $email){
+        $statement = $this->pdo->prepare(
+            "SELECT user_id, username, email, password
+            FROM users
+            WHERE email = ?"
+        );
+
+        $statement->execute([
+            $email
+        ]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 }
 
 ?>
