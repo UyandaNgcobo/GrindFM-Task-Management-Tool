@@ -13,9 +13,10 @@
 
 <body>
 
-    <h1>Login</h1>
+   
 
     <form id="loginForm">
+         <h1>Log into GrindFM</h1>
 
         <div>
             <label for="email">Email</label>
@@ -37,7 +38,7 @@
             >
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">Log in</button>
 
     </form>
 
