@@ -49,7 +49,7 @@
         }else{
             echo json_encode([
                 "status" => "failed",
-                "message" => "Soemthing went wrong!"
+                "message" => "An account with this email already exists!"
             ]);
         }
         

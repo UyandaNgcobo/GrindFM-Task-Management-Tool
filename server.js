@@ -34,6 +34,7 @@ app.get('/api/users', async (req, res) => {
 app.post("/api/login", async (req, res) => {
 
   const frontendPayload = req.body; 
+  console.log('JS BODY: ', frontendPayload);
  
   const response = await fetch("http://127.0.0.1:8000/LoginController.php", {
     method: "POST",
@@ -41,7 +42,8 @@ app.post("/api/login", async (req, res) => {
     body: JSON.stringify(frontendPayload), 
   });
 
-  const result = await response.json();
+  const result = await response.text();
+  console.log("HIDDEN PHP ERROR: ", result);
 
   res.json(result);
 });
@@ -60,6 +62,7 @@ app.post("/api/signup", async (req, res) => {
 
   const result = await response.json();
 
+  console.log(result);
   res.json(result);
 });
 

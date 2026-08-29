@@ -26,6 +26,7 @@
         //check user exists and match pass
         if ($user && password_verify($rawPassword, $user['password'])) {
             
+            $_SESSION['user_id'] = $user['user_id'];
             
             echo json_encode([
                 "status" => "success",

@@ -57,7 +57,7 @@ class UserRepository{
             $email
         ]);
 
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $statement->fetch(PDO::FETCH_ASSOC);
 
     }
 }
