@@ -1,13 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap');
-
+ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 :root {
-    --primary-color: #b868c5;
-    --bg-dark: #000000;
-    --bg-light: #f3f3f3;
-    --text-dark: #000000;
-    --text-grey: #5e5e5e;
-    --border: #dddddd;
-    --text-light: #ffffff;
+  --primary-color: #b868c5;
+  --secondary-color: #DBDBDB;
+  --bg-dark: #000000;
+  --text-light: #ffffff;
+  --text-grey: #5E5E5E;
 }
 
 * {
@@ -16,113 +13,31 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    min-height: 100vh;
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-
+body{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(245, 245, 245);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login-container {
+#loginForm{
+    background-color: #fff;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    padding: 2rem;
+
+}
+
+#logInBtn{
     width: 100%;
-    max-width: 430px;
-    padding: 2.5rem;
-}
-
-.login-card {
-    background-color: white;
-    padding: 3rem;
-    border-radius: 1.2rem;
-
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-}
-
-.login-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-}
-
-.login-header h1 {
-    font-size: 2.4rem;
-    font-weight: 500;
-}
-
-.login-header p {
-    color: var(--text-grey);
-    font-size: 0.95rem;
-}
-
-#loginForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1.4rem;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.input-group label {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 1rem;
-
-    border: 1px solid var(--border);
-    border-radius: 0.7rem;
-
-    font-family: inherit;
-    font-size: 1rem;
-
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.input-group input:focus {
-    border-color: var(--primary-color);
-}
-
-#loginBtn {
+    padding: 1rem 0;
     border: none;
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-
-    padding: 1rem;
-    border-radius: 0.8rem;
-
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 500;
-
-    cursor: pointer;
-    transition: transform 0.15s ease,
-                background-color 0.15s ease;
-}
-
-#loginBtn:hover {
     background-color: var(--primary-color);
-}
-
-#loginBtn:active {
-    transform: scale(0.98);
-}
-
-#result {
-    text-align: center;
-    color: var(--text-grey);
-    font-size: 0.9rem;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0.5rem;
 }

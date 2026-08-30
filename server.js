@@ -116,6 +116,22 @@ app.post("/api/logout", async (req, res) => {
   res.json(result);
 });
 
+app.post('api/create-task', async (req, res) => {
+
+    const response = await fetch("http://127.0.0.1:8000/toDoListController.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.cookie
+      },
+
+    });
+
+    const result = await response.json();
+    res.send(result);
+
+});
+
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
 
 

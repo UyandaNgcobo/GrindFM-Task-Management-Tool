@@ -31,30 +31,36 @@
         <div id="results"></div>
     </main>
     <script>
-        const output = document.getElementById("results");
+       redirectIfLoggedIn();
 
-        document.getElementById("createTaskForm").addEventListener ('submit', async (e) =>{
+        const form = document.getElementById("loginForm");
+        const result = document.getElementById("result");
 
-            e.preventDefault()
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
             const payload = {
-                username: "juju",
-                email: "examp@icloud.com",
-                password: "12345"
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value
             };
 
-            const response = await fetch('http://localhost:3000/api/users', {
-                method: 'POST',
-                headers: { 'Content-Type' : 'application/json'},
+            const response = await fetch("http://localhost:3000/api/login", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
-            const result = await response.json();
-            console.log("RAW RESPONSE FROM NODE:", result);
+            const data = await response.json();
 
-            output.innerHTML = result.message;
+            if (response.ok && (data.status === "success" || data.status === "already_logged_in")) {
+                window.location.replace("index.php");
+                return;
+            }
 
+            result.textContent = data.message || "Login failed. Please try again.";
         });
+    </script>
 
     </script>
 </body>
