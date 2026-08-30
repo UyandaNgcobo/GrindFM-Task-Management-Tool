@@ -83,6 +83,20 @@ app.post("/api/signup", async (req, res) => {
   res.json(result);
 });
 
+app.get("/api/me", async (req, res) => {
+  const response = await fetch("http://127.0.0.1:8000/MeController.php", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: req.headers.cookie,
+    },
+  });
+
+  const result = await response.json();
+  console.log(response)
+  res.json(result);
+});
+
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
 
 
