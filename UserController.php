@@ -13,8 +13,8 @@
     $repository = new UserRepository($pdo);
 
 
-
     if($method == 'GET'){
+
         $users = $repository->getAllUsers();
 
         echo json_encode([

@@ -9,6 +9,23 @@
 
     $repository = new userRepository($pdo);
 
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'secure' => false,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+
+    session_start();
+
+    if (isset($_SESSION['user_id'])) {
+        echo json_encode([
+            "status" => "already_logged_in"
+        ]);
+        exit;
+    }
+
     if($method == 'GET'){
         
         //retrive user
@@ -25,16 +42,6 @@
 
         //check user exists and match pass
         if ($user && password_verify($rawPassword, $user['password'])) {
-
-            session_set_cookie_params([
-                'lifetime' => 0,
-                'path' => '/',
-                'secure' => false,
-                'httponly' => true,
-                'samesite' => 'Lax'
-            ]);
-
-            session_start();
 
             session_regenerate_id(true);
 

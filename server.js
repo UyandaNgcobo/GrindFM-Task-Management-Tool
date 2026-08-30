@@ -26,10 +26,13 @@ app.post("/api/users", async (req, res) => {
 
 app.get('/api/users', async (req, res) => {
 
+    console.log("COOKIE FROM BROWSER:", req.headers.cookie);
     const response = await fetch("http://127.0.0.1:8000/UserController.php", {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
-      Cookie: req.headers.cookie,
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": req.headers.cookie,
+      },
     });
 
     const result = await response.json();
@@ -45,17 +48,19 @@ app.post("/api/login", async (req, res) => {
  
   const response = await fetch("http://127.0.0.1:8000/LoginController.php", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "Cookie": req.headers.cookie },
     body: JSON.stringify(frontendPayload),
-    "Cookie": req.headers.cookie,
   });
 
    const result = await response.json();
 
-  const sessionCookie = response.headers.get("set-cookie");
-
-   res.set("Set-Cookie", sessionCookie);
+    const sessionCookie = response.headers.get("set-cookie");
+    if (sessionCookie) {
+    res.set("Set-Cookie", sessionCookie);
+    }
    console.log("PHP RESPONSE BODY: ", result);
+   console.log("JS BODY: ", frontendPayload);
+   console.log("BROWSER COOKIE:", req.headers.cookie);
 
   res.json(result);
 });
@@ -79,3 +84,5 @@ app.post("/api/signup", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
+
+
