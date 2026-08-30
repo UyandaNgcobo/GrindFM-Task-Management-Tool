@@ -3,7 +3,12 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5500",
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 app.post("/api/users", async (req, res) => {
@@ -24,9 +29,11 @@ app.get('/api/users', async (req, res) => {
     const response = await fetch("http://127.0.0.1:8000/UserController.php", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      Cookie: req.headers.cookie,
     });
 
     const result = await response.json();
+    console.log("COOKIE:", req.headers.cookie);
     console.log("PHP RESPONSE:", result);
     res.send(result);
 });
@@ -39,11 +46,16 @@ app.post("/api/login", async (req, res) => {
   const response = await fetch("http://127.0.0.1:8000/LoginController.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(frontendPayload), 
+    body: JSON.stringify(frontendPayload),
+    "Cookie": req.headers.cookie,
   });
 
-  const result = await response.text();
-  console.log("HIDDEN PHP ERROR: ", result);
+   const result = await response.json();
+
+  const sessionCookie = response.headers.get("set-cookie");
+
+   res.set("Set-Cookie", sessionCookie);
+   console.log("PHP RESPONSE BODY: ", result);
 
   res.json(result);
 });
@@ -62,7 +74,7 @@ app.post("/api/signup", async (req, res) => {
 
   const result = await response.json();
 
-  console.log(result);
+  console.log("REQUEST: ", req.headers);
   res.json(result);
 });
 

@@ -21,7 +21,10 @@
     const usersContainer = document.getElementById("users");
 
     async function loadUsers() {
-        const response = await fetch("http://localhost:3000/api/users");
+        const response = await fetch("http://localhost:3000/api/users",{
+            method: "GET",
+            credentials: "include",
+        });
 
         const result = await response.json();
 
