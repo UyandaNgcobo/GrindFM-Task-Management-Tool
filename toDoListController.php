@@ -3,7 +3,7 @@
     $method = $_SERVER['REQUEST_METHOD'];
 
     require_once __DIR__ . '/config.php';
-    require_once __DIR__ . '/toDoListController.php.php';
+    require_once __DIR__ . '/toDoListRepository.php';
 
     header('Content-Type:application/json');
 
@@ -12,8 +12,15 @@
     //inject connection object
     $repository = new toDoListRepository($pdo);
 
-
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(["status" => "error", "message" => "Not logged in."]);
+        exit;
+    }
     $id = $_SESSION['user_id'];
+
+    
 
     if($method == 'GET'){
 
@@ -21,7 +28,7 @@
 
         echo json_encode([
             "status" => "success",
-            "users" => $tasks
+            "tasks" => $tasks
         ]);
         //retrive user
     }
@@ -34,18 +41,21 @@
         $title = $data['title'];
         $description = $data['description'];
 
-        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $success = $repository->createTask($id, $title, $description);
 
-        //create user
-        $repository->createTask(
-            $id,
-            $title,
-            $description
-        );
+        if($success){
+            echo json_encode([
+                "status" => "success",
+                "message" => "Task has successfully been created!"
+            ]);
+        }else{
+            echo json_encode([
+                "status" => "failure",
+                "message" => "Failed to create Task!"
+            ]);
+        }
 
-        echo json_encode([
-        "status" => "success",
-        "message" => "Account has successfully been created!"]);
+        
         
     }
 

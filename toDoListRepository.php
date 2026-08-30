@@ -7,7 +7,7 @@ class toDoListRepository{
         $this->pdo = $pdo;
     }
     
-    public function createTask(int $userId, String $title, String $description) : void{
+    public function createTask(int $userId, String $title, String $description) : bool{
 
         $statement = $this->pdo->prepare(
             "INSERT INTO Tasks (user_id, title, description)
@@ -15,11 +15,21 @@ class toDoListRepository{
             "
         );
 
-        $statement->execute([
+        try {
+            $statement->execute([
             $userId,
             $title,
             $description
         ]);
+
+        return true;
+
+        } catch (PDOException $e) {
+           error_log($e->getMessage());
+           echo "DEBUG: " . $e->getMessage();
+           return false;
+        }
+        
     }
 
     public function deleteNote(int $userId) : void{

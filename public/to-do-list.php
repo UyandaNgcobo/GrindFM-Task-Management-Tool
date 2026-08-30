@@ -22,35 +22,9 @@
                     <a id="addBtn" href="to-do-list-create-page.php">Add Task</a>
                     <button id="clearBtn">Clear All</button>
                 </div>
+
+               
                 <div id="task-to-do-list">
-                    <div class="task-to-do-cont">
-                        <div class="task">This is a Task.</div>
-                        <input type="checkbox" name="" id="">
-                    </div>
-                    <div class="task-to-do-cont">
-                        <div class="task">This is a Task.</div>
-                        <input type="checkbox" name="" id="">
-                    </div>
-                    <div class="task-to-do-cont">
-                        <div class="task">This is a Task.</div>
-                        <input type="checkbox" name="" id="">
-                    </div>
-                    <div class="task-to-do-cont">
-                        <div class="task">This is a Task.</div>
-                        <input type="checkbox" name="" id="">
-                    </div>
-                    <div class="task-to-do-cont">
-                        <div class="task">This is a Task.</div>
-                        <input type="checkbox" name="" id="">
-                    </div>
-                    <div class="task-to-do-cont">
-                        <div class="task">This is a Task.</div>
-                        <input type="checkbox" name="" id="">
-                    </div>
-                    <div class="task-to-do-cont">
-                        <div class="task">This is a Task.</div>
-                        <input type="checkbox" name="" id="">
-                    </div>
                 </div>
             </div>
             <div id="task-to-do-list-actions">
@@ -73,5 +47,51 @@
             </div>
         </div>
     </main>
+
+     <script src="js/auth-guard.js"></script>
+    <script>
+        async function init() {
+            await requireLogin();
+            await loadTasks();
+        }
+
+        init();
+
+       async function loadTasks(){
+            const response = await fetch('http://localhost:3000/api/task', {
+                method: 'GET',
+                credentials: "include"
+            })
+
+            const result = await response.json();
+
+            const list = document.getElementById('task-to-do-list');
+            console.log(result)
+            let tasks = result.tasks;
+
+            let html = '';
+            
+            for (const task of tasks){
+                html+=`
+                    <div class="task-to-do-cont">
+                        <div class="task">${task.title}</div>
+                        <input type="checkbox" name="" id="">
+                    </div>`;
+                }
+
+                list.innerHTML = html;
+        }
+
+        async function clearAll(){
+
+            const response = await fetch('http://localhost:3000/api/task', {
+                method: "DELETE",
+                credentials: 'include'
+            })
+
+            const result = await response.json();
+        }
+            
+    </script>
 </body>
 </html>

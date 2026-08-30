@@ -30,36 +30,37 @@
 
         <div id="results"></div>
     </main>
+     <script src="js/auth-guard.js"></script>
     <script>
-       redirectIfLoggedIn();
+       requireLogin();
 
-        const form = document.getElementById("loginForm");
-        const result = document.getElementById("result");
+const form = document.getElementById("createTaskForm");
+const result = document.getElementById("results");
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-            const payload = {
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value
-            };
+    const payload = {
+        title: document.getElementById("nameInput").value,
+        description: document.getElementById("descInput").value
+    };
 
-            const response = await fetch("http://localhost:3000/api/login", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+    const response = await fetch("http://localhost:3000/api/create-task", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
 
-            const data = await response.json();
+    const data = await response.json();
 
-            if (response.ok && (data.status === "success" || data.status === "already_logged_in")) {
-                window.location.replace("index.php");
-                return;
-            }
+    if (response.ok && data.status === "success") {
+        window.location.replace("to-do-list.php");
+        return;
+    }
 
-            result.textContent = data.message || "Login failed. Please try again.";
-        });
+    result.textContent = data.message || "Failed to create task. Please try again.";
+});
     </script>
 
     </script>
