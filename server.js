@@ -97,6 +97,25 @@ app.get("/api/me", async (req, res) => {
   res.json(result);
 });
 
+app.post("/api/logout", async (req, res) => {
+  const response = await fetch("http://127.0.0.1:8000/LogoutController.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: req.headers.cookie,
+    },
+  });
+
+  const result = await response.json();
+
+  const sessionCookie = response.headers.get("set-cookie");
+  if (sessionCookie) {
+    res.set("Set-Cookie", sessionCookie);
+  }
+
+  res.json(result);
+});
+
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
 
 

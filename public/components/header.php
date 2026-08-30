@@ -20,7 +20,24 @@
 
             <li><a href="/login.php">Log In</a></li>
 
-            <button>Contact Me</button>
+            <button onclick="logout()">Log out</button>
         </ul>
     </nav>
+
+    <script>
+        async function logout() {
+            try {
+                const response = await fetch("http://localhost:3000/api/logout", {
+                    method: "POST",
+                    credentials: "include"
+                });
+                    const result = await response.json();
+                    console.log("Logout response:", result);
+            } catch (err) {
+                console.error("Logout request failed:", err);
+            }
+            
+            window.location.replace("login.php");
+        }
+    </script>
 </header>
