@@ -44,7 +44,10 @@
 
     <div id="result"></div>
 
+    <script src="js/auth-guard.js"></script>
     <script>
+        redirectIfLoggedIn();
+
         const form = document.getElementById("loginForm");
         const result = document.getElementById("result");
 

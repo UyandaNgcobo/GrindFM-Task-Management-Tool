@@ -17,7 +17,10 @@
     </main>
     <div id="users"></div>
 
+<script src="js/auth-guard.js"></script>
 <script>
+    requireLogin();
+    
     const usersContainer = document.getElementById("users");
 
     async function loadUsers() {
