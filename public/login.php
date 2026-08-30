@@ -59,17 +59,18 @@
             const response = await fetch("http://localhost:3000/api/login", {
                 method: "POST",
                 credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
-            const data = await response.text();
+            const data = await response.json();
 
-            console.log(data);
+            if (response.ok && (data.status === "success" || data.status === "already_logged_in")) {
+                window.location.replace("index.php");
+                return;
+            }
 
-            result.textContent = data.message;
+            result.textContent = data.message || "Login failed. Please try again.";
         });
     </script>
 

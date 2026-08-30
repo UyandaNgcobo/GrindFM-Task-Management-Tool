@@ -20,6 +20,7 @@
     session_start();
 
     if (isset($_SESSION['user_id'])) {
+        http_response_code(200);
         echo json_encode([
             "status" => "already_logged_in"
         ]);
@@ -42,15 +43,20 @@
 
         //check user exists and match pass
         if ($user && password_verify($rawPassword, $user['password'])) {
-
             session_regenerate_id(true);
-
             $_SESSION['user_id'] = $user['user_id'];
 
+            http_response_code(200);
             echo json_encode([
                 "status" => "success",
                 "message" => "Welcome back, " . $user['username'] . "!",
                 "user_id" => $user['user_id']
+            ]);
+        } else {
+            http_response_code(401);
+            echo json_encode([
+                "status" => "error",
+                "message" => "Invalid email or password."
             ]);
         }
         
