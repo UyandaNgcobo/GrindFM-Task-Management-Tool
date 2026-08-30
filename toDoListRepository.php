@@ -7,17 +7,18 @@ class toDoListRepository{
         $this->pdo = $pdo;
     }
     
-    public function createNote(int $userId, String $title) : void{
+    public function createTask(int $userId, String $title, String $description) : void{
 
         $statement = $this->pdo->prepare(
-            "INSERT INTO Tasks (user_id, title)
-            VALUES (?, ?)
+            "INSERT INTO Tasks (user_id, title, description)
+            VALUES (?, ?, ?)
             "
         );
 
         $statement->execute([
             $userId,
-            $title
+            $title,
+            $description
         ]);
     }
 
