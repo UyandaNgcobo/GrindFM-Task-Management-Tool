@@ -61,10 +61,10 @@
     $taskId = $_GET['taskId'] ?? null;
 
     if($taskId != null){
-        $success = $repository->deleteAllTasks($taskId);
-
+        $success = $repository->deleteTask((int)$userId, (int)$taskId);
+       
     }else{
-        $success = $repository->deleteTask($userId, $taskId);
+        $success = $repository->deleteAllTasks($userId);
     }
 
     if($success){

@@ -95,7 +95,7 @@ input[type="checkbox"]:checked{
     display: flex;
     font-size: 1.3rem;
     width: 100%;
-    color: #8A8A8A;
+    color: #2e2e2e;
 }
 
 .action-stat{

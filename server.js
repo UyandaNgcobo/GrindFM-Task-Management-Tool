@@ -153,7 +153,7 @@ app.delete('/api/tasks', async (req, res) => {
       },
     );
 
-    const result = await response.json();
+    const result = await response.text();
     res.send(result);
 
 });

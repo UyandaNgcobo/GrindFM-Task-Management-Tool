@@ -53,7 +53,7 @@
 
         const clearBtn = document.getElementById('clearBtn');
         clearBtn.addEventListener('click', () => {
-            clearAllAndRefresh(taskID);
+            deleteAllAndRefresh();
         })
 
         document.getElementById('task-to-do-list').addEventListener('click', (e) => {
@@ -74,8 +74,8 @@
             await loadTasks();
         }
 
-        async function clearAllAndRefresh(taskID){
-            await clearAll(taskID);
+        async function deleteAllAndRefresh(){
+            await deleteAll();
             await loadTasks();
         }
 
@@ -106,7 +106,7 @@
                 list.innerHTML = html;
         }
 
-        async function clearAll(){
+        async function deleteAll(){
 
             const response = await fetch('http://localhost:3000/api/tasks', {
                 method: "DELETE",
@@ -114,6 +114,7 @@
             })
 
             const result = await response.json();
+            console.log(result);
         }
 
         async function deleteTask(taskID){
