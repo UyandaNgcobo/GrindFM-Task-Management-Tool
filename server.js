@@ -13,15 +13,6 @@ app.use(
 );
 app.use(express.json());
 
-async function fecthAPI(url, options){
-  try {
-    const response = await fetch(url, options);
-    const results = await response.json();
-    
-  } catch (error) {
-    
-  }
-}
 
 app.post("/api/users", async (req, res) => {
     const frontendPayload = req.body;

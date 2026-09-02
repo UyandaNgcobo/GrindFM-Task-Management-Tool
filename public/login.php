@@ -47,6 +47,36 @@
 
     <script src="js/auth-guard.js"></script>
     <script>
+        async function fecthAPI(url, options){
+            try {
+                const response = await fetch(url, options);
+
+                if(!response.ok){
+                    showError(`Request failed (${response.status}). Please try again.`);
+                    return null;
+                }
+
+                const results = await response.json();
+
+            } catch (error) {
+                console.error("Network error:", err);
+                showError("Can't reach the server. Please check your connection and try again.");
+                return null;
+            }
+        }
+
+        function showError(message) {
+            let banner = document.getElementById('error-banner');
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'error-banner';
+                banner.style.cssText = 'background:#c0392b;color:white;padding:10px;text-align:center;';
+                document.body.prepend(banner);
+            }
+            banner.textContent = message;
+            banner.style.display = 'block';
+        }
+
         redirectIfLoggedIn();
 
         const form = document.getElementById("loginForm");
