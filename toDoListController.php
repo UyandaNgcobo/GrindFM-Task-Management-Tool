@@ -18,12 +18,12 @@
         echo json_encode(["status" => "error", "message" => "Not logged in."]);
         exit;
     }
-    $id = $_SESSION['user_id'];
+    $userId = $_SESSION['user_id'];
 
 
     if($method == 'GET'){
 
-        $tasks = $repository->getAllTasks($id);
+        $tasks = $repository->getAllTasks($userId);
 
         echo json_encode([
             "status" => "success",
@@ -40,7 +40,7 @@
         $title = $data['title'];
         $description = $data['description'];
 
-        $success = $repository->createTask($id, $title, $description);
+        $success = $repository->createTask($userId, $title, $description);
 
         if($success){
             echo json_encode([
@@ -57,19 +57,27 @@
 
     //remove all tasks
     if($method == 'DELETE'){
-        $success = $repository->deleteAllTasks($id);
 
-        if($success){
-            echo json_encode([
-                "status" => "success",
-                "message" => "Task has successfully been deleted!"
-            ]);
-        }else{
-            echo json_encode([
-                "status" => "failure",
-                "message" => "Failed to delete Task!"
-            ]);
-        }
+    $taskId = $_GET['taskId'] ?? null;
+
+    if($taskId != null){
+        $success = $repository->deleteAllTasks($taskId);
+
+    }else{
+        $success = $repository->deleteTask($userId, $taskId);
+    }
+
+    if($success){
+        echo json_encode([
+            "status" => "success",
+            "message" => $taskId !== null ? "Task deleted" : "All tasks deleted."
+        ]);
+    }else{
+        echo json_encode([
+            "status" => "failure",
+            "message" => "Failed to delete Task!"
+        ]);
+    }
 
     }
 
