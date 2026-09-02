@@ -90,7 +90,7 @@
                 password: document.getElementById("password").value
             };
 
-            const response = await fetch("http://localhost:3000/api/login", {
+            const response = await fecthAPI("http://localhost:3000/api/login", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
