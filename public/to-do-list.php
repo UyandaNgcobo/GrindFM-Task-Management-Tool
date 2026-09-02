@@ -53,7 +53,7 @@
 
         const clearBtn = document.getElementById('clearBtn');
         clearBtn.addEventListener('click', () => {
-            clearAllAndRefresh();
+            clearAllAndRefresh(taskID);
         })
 
         document.getElementById('task-to-do-list').addEventListener('click', (e) => {

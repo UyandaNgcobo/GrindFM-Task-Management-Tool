@@ -142,6 +142,51 @@ app.post('/api/tasks', async (req, res) => {
 
 });
 
+app.delete('/api/tasks/:id', async (req, res) => {
+
+    const payload = req.body;
+
+    const response = await fetch(
+      "http://127.0.0.1:8000/toDoListController.php",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Cookie": req.headers.cookie,
+        },
+        body: JSON.stringify(payload)
+      },
+    );
+
+    const result = await response.text();
+    console.log("REQUEST: ", req.body)
+    console.log("RESPONSE: ", result)
+    res.send(result);
+
+});
+
+app.delete('/api/tasks/', async (req, res) => {
+
+    const payload = req.body;
+
+    const response = await fetch(
+      "http://127.0.0.1:8000/toDoListController.php",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Cookie": req.headers.cookie,
+        },
+      },
+    );
+
+    const result = await response.text();
+    console.log("REQUEST: ", req.body)
+    console.log("RESPONSE: ", result)
+    res.send(result);
+
+});
+
 app.get("/api/tasks", async (req, res) => {
     const response = await fetch( "http://127.0.0.1:8000/toDoListController.php", {
         method: 'GET',

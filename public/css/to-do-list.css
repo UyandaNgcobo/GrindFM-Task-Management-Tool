@@ -106,4 +106,6 @@ input[type="checkbox"]:checked{
     font-size: 1.1rem;
 }
 
-
+#clearBtn{
+    cursor: pointer;
+}
