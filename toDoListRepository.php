@@ -32,18 +32,48 @@ class toDoListRepository{
         
     }
 
-    public function deleteNote(int $userId) : void{
+    public function deleteTask(int $userId, int $taskID) : bool{
 
-    $statement = $this->pdo->prepare(
-        "DELETE FROM Tasks
-        WHERE task_id = ? AND user_id = ? 
-        "
-    );
-    
-    $statement->execute([
-        $userId
-    ]);
+        $statement = $this->pdo->prepare(
+            "DELETE FROM Tasks
+            WHERE task_id = ? AND user_id = ? 
+            "
+        );
+
+        try {
+            $statement->execute([
+                $userId,
+                $taskID
+        ]);
+
+        return true;
+
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+       
     }
+
+    public function deleteAllTasks(int $userId) : bool{
+            $statement = $this->pdo->prepare(
+            "DELETE FROM Tasks
+            WHERE user_id = ? 
+            "
+        );
+
+        try {
+           $statement->execute([
+                $userId,
+            ]);
+
+        return true;
+
+        }catch (PDOException $e){
+            error_log($e->getMessage());
+            return false;
+        }
+    }  
 
     public function getAllTasks(int $userId) : array{
 

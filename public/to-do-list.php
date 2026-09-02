@@ -50,15 +50,39 @@
 
      <script src="js/auth-guard.js"></script>
     <script>
+
+        const clearBtn = document.getElementById('clearBtn');
+        clearBtn.addEventListener('click', () => {
+            clearAllAndRefresh();
+        })
+
+        document.getElementById('task-to-do-list').addEventListener('click', (e) => {
+            if (e.target.classList.contains('deleteBtn')) {
+                const taskDiv = e.target.closest('.task-to-do-cont');
+                const taskId = taskDiv.dataset.taskId;
+                deleteAndRefresh(taskId);
+            }
+        });
+
         async function init() {
             await requireLogin();
+            await loadTasks();
+        }
+
+        async function deleteAndRefresh(taskID){
+            await deleteTask(taskID);
+            await loadTasks();
+        }
+
+        async function clearAllAndRefresh(taskID){
+            await clearAll(taskID);
             await loadTasks();
         }
 
         init();
 
        async function loadTasks(){
-            const response = await fetch('http://localhost:3000/api/task', {
+            const response = await fetch('http://localhost:3000/api/tasks', {
                 method: 'GET',
                 credentials: "include"
             })
@@ -73,7 +97,7 @@
             
             for (const task of tasks){
                 html+=`
-                    <div class="task-to-do-cont">
+                    <div class="task-to-do-cont data-task-id="${task.task_id}">
                         <div class="task">${task.title}</div>
                         <input type="checkbox" name="" id="">
                     </div>`;
@@ -84,8 +108,26 @@
 
         async function clearAll(){
 
-            const response = await fetch('http://localhost:3000/api/task', {
+            const response = await fetch('http://localhost:3000/api/tasks', {
                 method: "DELETE",
+                credentials: 'include'
+            })
+
+            const result = await response.json();
+        }
+
+        async function deleteTask(taskID){
+            const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
+                method: "DELETE",
+                credentials: 'include'
+            })
+
+            const result = await response.json();
+        }
+
+        async function markCompleted(taskID){
+            const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
+                method: "PATCH",
                 credentials: 'include'
             })
 

@@ -3,10 +3,9 @@
 
     if (!isset($_SESSION['user_id'])) {
         header("Location: login.php");
-        echo "Im not logged in";
         exit;
     }else{
-        echo "Im logged in";
+
     }
 ?>
 

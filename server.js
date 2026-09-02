@@ -3,6 +3,8 @@ import cors from "cors";
 
 const app = express();
 
+
+
 app.use(
   cors({
     origin: "http://localhost:5500",
@@ -10,6 +12,16 @@ app.use(
   }),
 );
 app.use(express.json());
+
+async function fecthAPI(url, options){
+  try {
+    const response = await fetch(url, options);
+    const results = await response.json();
+    
+  } catch (error) {
+    
+  }
+}
 
 app.post("/api/users", async (req, res) => {
     const frontendPayload = req.body;
@@ -116,7 +128,7 @@ app.post("/api/logout", async (req, res) => {
   res.json(result);
 });
 
-app.post('/api/create-task', async (req, res) => {
+app.post('/api/tasks', async (req, res) => {
 
     const payload = req.body;
 
@@ -139,7 +151,7 @@ app.post('/api/create-task', async (req, res) => {
 
 });
 
-app.get("/api/task", async (req, res) => {
+app.get("/api/tasks", async (req, res) => {
     const response = await fetch( "http://127.0.0.1:8000/toDoListController.php", {
         method: 'GET',
         headers: {

@@ -20,7 +20,6 @@
     }
     $id = $_SESSION['user_id'];
 
-    
 
     if($method == 'GET'){
 
@@ -54,9 +53,24 @@
                 "message" => "Failed to create Task!"
             ]);
         }
+    }
 
-        
-        
+    //remove all tasks
+    if($method == 'DELETE'){
+        $success = $repository->deleteAllTasks($id);
+
+        if($success){
+            echo json_encode([
+                "status" => "success",
+                "message" => "Task has successfully been deleted!"
+            ]);
+        }else{
+            echo json_encode([
+                "status" => "failure",
+                "message" => "Failed to delete Task!"
+            ]);
+        }
+
     }
 
 
