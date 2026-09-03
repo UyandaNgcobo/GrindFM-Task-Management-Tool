@@ -92,7 +92,9 @@ class toDoListRepository{
 
     public function getTaskCount(int $userId) : int{
         $statement = $this->pdo->prepare(
-            "SELECT COUNT(*) AS total FROM tasks WHERE user_id = ?"
+            "SELECT COUNT(*) AS total 
+            FROM tasks 
+            WHERE user_id = ?"
         );
 
         $statement->execute([
@@ -101,6 +103,31 @@ class toDoListRepository{
 
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return (int) $result['total'];
+    }
+
+    public function updateTaskStatus(int $userId, int $taskID, int $statusId) : bool{
+        $statement = $this->pdo->prepare(
+            "UPDATE tasks
+            SET status_id = ?
+            WHERE task_id = ?
+            AND user_id = ?"
+        );
+
+        try {
+            $statement->execute([
+            $userId,
+            $taskID,
+            $statusId
+        ]);
+
+        return true;
+
+        } catch (PDOException $e){
+            error_log($e->getMessage());
+            return false;
+        }
+       
+
     }
 }
 

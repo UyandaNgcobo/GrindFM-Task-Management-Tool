@@ -83,6 +83,29 @@
 
     }
 
+    if($method == 'PATCH'){
+
+        $rawJson = file_get_contents('php://input');
+        $data = json_decode($rawJson, true);
+
+        $taskId = $data['taskId'];
+        $statusId = $data['statusId'];
+
+        $success = $repository->updateTaskStatus((int)$userId, (int)$taskId, (int)$statusId);
+
+        if($success){
+            echo json_encode([
+                "status" => "success",
+                "message" => "Status updated!"
+            ]);
+        }else{
+            echo json_encode([
+                "status" => "success",
+                "message" => "Failed to update status!"
+            ]);
+        }
+    }
+
 
     
 ?>

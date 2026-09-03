@@ -172,6 +172,27 @@ app.get("/api/tasks", async (req, res) => {
     res.send(result);
 });
 
+app.patch("/api/tasks/:id", async (req, res) => {
+
+    const taskId = req.params.id;
+    const payload = req.body;
+
+    const response = await fetch(
+      `http://127.0.0.1:8000/toDoListController.php?taskId=${taskId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: req.headers.cookie,
+        },
+        body: JSON.stringify(payload),
+      },
+    );
+
+    const result = await response.json();
+    res.send(result);
+});
+
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
 
 

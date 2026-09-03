@@ -65,6 +65,22 @@
             }
         });
 
+        document.getElementById('task-to-do-list').addEventListener('change', (e) => {
+            if (e.target.type === 'checkbox') {
+                const taskDiv = e.target.closest('.task-to-do-cont');
+                const taskId = taskDiv.dataset.taskId;
+                const isChecked = e.target.checked;
+
+                const statusId = isChecked ? 2 : 1; // adjust to your actual "Completed"/"In Progress" status_id values
+                markCompleted(taskId, statusId);
+            }
+        });
+
+        const checkbox = document.getElementById('checkbox');
+        checkbox.addEventListener('change', () => {
+            markCompleted(taskID);
+        });
+
         async function init() {
             await requireLogin();
             await loadTasks();
@@ -101,9 +117,9 @@
             
             for (const task of tasks){
                 html+=`
-                    <div class="task-to-do-cont data-task-id="${task.task_id}">
+                    <div class="task-to-do-cont" data-task-id="${task.task_id}">
                         <div class="task">${task.title}</div>
-                        <input type="checkbox" name="" id="">
+                        <input type="checkbox" name="" id="checkbox">
                     </div>`;
                 }
 
@@ -130,10 +146,15 @@
             const result = await response.json();
         }
 
-        async function markCompleted(taskID){
-            const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
+        async function markCompleted(taskID, statusId){
+
+            const payload = statusId;
+
+            const response = await fetch(`http://localhost:3000/api/tasks`, {
                 method: "PATCH",
-                credentials: 'include'
+                credentials: 'include',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
             })
 
             const result = await response.json();
