@@ -88,11 +88,16 @@
         $rawJson = file_get_contents('php://input');
         $data = json_decode($rawJson, true);
 
-        $taskId = $data['taskId'];
-        $statusId = $data['statusId'];
+        $taskId = $_GET['taskId'] ?? null;
+        $statusId = $data['statusId'] ?? null;
+
+        if($taskId === null || $statusId === null ){
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "Missing taskId or statusId."]);
+            exit;
+        }
 
         $success = $repository->updateTaskStatus((int)$userId, (int)$taskId, (int)$statusId);
-
         if($success){
             echo json_encode([
                 "status" => "success",
@@ -104,6 +109,9 @@
                 "message" => "Failed to update status!"
             ]);
         }
+        
+
+        
     }
 
 

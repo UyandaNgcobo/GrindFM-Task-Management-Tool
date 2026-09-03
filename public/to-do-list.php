@@ -76,10 +76,6 @@
             }
         });
 
-        const checkbox = document.getElementById('checkbox');
-        checkbox.addEventListener('change', () => {
-            markCompleted(taskID);
-        });
 
         async function init() {
             await requireLogin();
@@ -119,7 +115,7 @@
                 html+=`
                     <div class="task-to-do-cont" data-task-id="${task.task_id}">
                         <div class="task">${task.title}</div>
-                        <input type="checkbox" name="" id="checkbox">
+                        <input type="checkbox" name="">
                     </div>`;
                 }
 
@@ -148,9 +144,9 @@
 
         async function markCompleted(taskID, statusId){
 
-            const payload = statusId;
+            const payload = {statusId: statusId};
 
-            const response = await fetch(`http://localhost:3000/api/tasks`, {
+            const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
                 method: "PATCH",
                 credentials: 'include',
                 headers: { "Content-Type": "application/json" },

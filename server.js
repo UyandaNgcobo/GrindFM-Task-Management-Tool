@@ -177,6 +177,9 @@ app.patch("/api/tasks/:id", async (req, res) => {
     const taskId = req.params.id;
     const payload = req.body;
 
+    console.log("TASK ID: ", taskId);
+    console.log("PAYLOAD: ", payload);
+
     const response = await fetch(
       `http://127.0.0.1:8000/toDoListController.php?taskId=${taskId}`,
       {
@@ -190,6 +193,7 @@ app.patch("/api/tasks/:id", async (req, res) => {
     );
 
     const result = await response.json();
+    console.log(result);
     res.send(result);
 });
 

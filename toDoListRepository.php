@@ -108,24 +108,19 @@ class toDoListRepository{
     public function updateTaskStatus(int $userId, int $taskID, int $statusId) : bool{
         $statement = $this->pdo->prepare(
             "UPDATE tasks
-            SET status_id = ?
+            SET user_id = ?
             WHERE task_id = ?
-            AND user_id = ?"
+            AND status_id = ?"
         );
 
-        try {
-            $statement->execute([
-            $userId,
-            $taskID,
-            $statusId
-        ]);
-
+       try {
+        $statement->execute([$statusId, $taskID, $userId]);
+        error_log("Rows affected: " . $statement->rowCount());
         return true;
-
-        } catch (PDOException $e){
-            error_log($e->getMessage());
-            return false;
-        }
+    } catch (PDOException $e){
+        error_log($e->getMessage());
+        return false;
+    }
        
 
     }
