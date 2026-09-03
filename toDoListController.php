@@ -24,10 +24,12 @@
     if($method == 'GET'){
 
         $tasks = $repository->getAllTasks($userId);
+        $count = $repository->getTaskCount($userId);
 
         echo json_encode([
             "status" => "success",
-            "tasks" => $tasks
+            "tasks" => $tasks,
+            "count" => $count
         ]);
         //retrive user
     }

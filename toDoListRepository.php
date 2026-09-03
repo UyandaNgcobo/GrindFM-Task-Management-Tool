@@ -89,6 +89,19 @@ class toDoListRepository{
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getTaskCount(int $userId) : int{
+        $statement = $this->pdo->prepare(
+            "SELECT COUNT(*) AS total FROM tasks WHERE user_id = ?"
+        );
+
+        $statement->execute([
+            $userId
+        ]);
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['total'];
+    }
 }
 
 ?>

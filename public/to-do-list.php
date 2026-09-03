@@ -29,7 +29,7 @@
             </div>
             <div id="task-to-do-list-actions">
                 <div class="to-do-action">
-                    <div class="action-stat">65</div>
+                    <div class="action-stat" id="todoCount">65</div>
                     <div class="action-label">To-Do</div>
                 </div>
                 <div class="to-do-action">
@@ -51,6 +51,7 @@
      <script src="js/auth-guard.js"></script>
     <script>
 
+        let toDoCount = document.getElementById('todoCount');
         const clearBtn = document.getElementById('clearBtn');
         clearBtn.addEventListener('click', () => {
             deleteAllAndRefresh();
@@ -92,6 +93,9 @@
             const list = document.getElementById('task-to-do-list');
             console.log(result)
             let tasks = result.tasks;
+            const count = result.count;
+
+            todoCount.textContent = count;
 
             let html = '';
             
