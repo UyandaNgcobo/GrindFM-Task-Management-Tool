@@ -29,11 +29,11 @@
             </div>
             <div id="task-to-do-list-actions">
                 <div class="to-do-action">
-                    <div class="action-stat" id="todoCount">65</div>
+                    <div class="action-stat" id="todoCount">0</div>
                     <div class="action-label">To-Do</div>
                 </div>
                 <div class="to-do-action">
-                    <div class="action-stat">254</div>
+                    <div class="action-stat" id="completedCount">0</div>
                     <div class="action-label">Completed</div>
                 </div>
                 <div class="to-do-action">
@@ -49,9 +49,12 @@
     </main>
 
      <script src="js/auth-guard.js"></script>
+     <script src="js/api.js"></script>
     <script>
 
         let toDoCount = document.getElementById('todoCount');
+        let completedTotal = document.getElementById('completedCount');
+
         const clearBtn = document.getElementById('clearBtn');
         clearBtn.addEventListener('click', () => {
             deleteAllAndRefresh();
@@ -93,70 +96,7 @@
         }
 
         init();
-
-       async function loadTasks(){
-            const response = await fetch('http://localhost:3000/api/tasks', {
-                method: 'GET',
-                credentials: "include"
-            })
-
-            const result = await response.json();
-
-            const list = document.getElementById('task-to-do-list');
-            console.log(result)
-            let tasks = result.tasks;
-            const count = result.count;
-
-            todoCount.textContent = count;
-
-            let html = '';
-            
-            for (const task of tasks){
-                const isChecked = task.status_id === 2 ? 'checked' : '';
-                html+=`
-                    <div class="task-to-do-cont" data-task-id="${task.task_id}">
-                        <div class="task">${task.title}</div>
-                        <input type="checkbox" name="" ${isChecked}>
-                    </div>`;
-                }
-
-                list.innerHTML = html;
-        }
-
-        async function deleteAll(){
-
-            const response = await fetch('http://localhost:3000/api/tasks', {
-                method: "DELETE",
-                credentials: 'include'
-            })
-
-            const result = await response.json();
-            console.log(result);
-        }
-
-        async function deleteTask(taskID){
-            const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
-                method: "DELETE",
-                credentials: 'include'
-            })
-
-            const result = await response.json();
-        }
-
-        async function markCompleted(taskID, statusId){
-
-            const payload = {statusId: statusId};
-
-            const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
-                method: "PATCH",
-                credentials: 'include',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            })
-
-            const result = await response.json();
-        }
-            
+   
     </script>
 </body>
 </html>
