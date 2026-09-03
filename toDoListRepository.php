@@ -80,6 +80,7 @@ class toDoListRepository{
         $statement = $this->pdo->prepare(
             "SELECT * FROM Tasks
             WHERE user_id = ?
+            ORDER BY status_id ASC, task_id DESC
             "
         );
         
@@ -103,6 +104,23 @@ class toDoListRepository{
 
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return (int) $result['total'];
+    }
+
+    public function getCompletedTaskCount(int $userId, int $statusId) : int{
+
+        $statement = $this->pdo->prepare(
+            "SELECT COUNT(*) AS total 
+            FROM tasks 
+            WHERE user_id = ?
+            AND status_id = ?"
+        );
+
+        $statement->execute([
+            $userId,
+            $statusId
+        ]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return (int)$result['total'];
     }
 
     public function updateTaskStatus(int $userId, int $taskID, int $statusId) : bool{

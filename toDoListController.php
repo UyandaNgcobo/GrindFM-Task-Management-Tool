@@ -25,11 +25,13 @@
 
         $tasks = $repository->getAllTasks($userId);
         $count = $repository->getTaskCount($userId);
+        $completedCount = $repository->getCompletedTaskCount($userId, 2);
 
         echo json_encode([
             "status" => "success",
             "tasks" => $tasks,
-            "count" => $count
+            "count" => $count,
+            "completedCount" => $completedCount
         ]);
         //retrive user
     }
