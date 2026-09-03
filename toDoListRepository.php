@@ -107,10 +107,10 @@ class toDoListRepository{
 
     public function updateTaskStatus(int $userId, int $taskID, int $statusId) : bool{
         $statement = $this->pdo->prepare(
-            "UPDATE tasks
-            SET user_id = ?
+            "UPDATE Tasks
+            SET status_id = ?
             WHERE task_id = ?
-            AND status_id = ?"
+            AND user_id = ?"
         );
 
        try {
