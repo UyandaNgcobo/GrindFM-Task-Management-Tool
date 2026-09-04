@@ -4,30 +4,8 @@ async function loadTasks() {
     credentials: "include",
   });
 
-  const result = await response.json();
-
-  const list = document.getElementById("task-to-do-list");
-  console.log(result);
-  let tasks = result.tasks;
-
-  const count = result.count;
-  const completedCount = result.completedCount;
-
-  todoCount.textContent = count;
-  completedTotal.textContent = completedCount;
-
-  let html = "";
-
-  for (const task of tasks) {
-    const isChecked = task.status_id === 2 ? "checked" : "";
-    html += `
-                    <div class="task-to-do-cont" data-task-id="${task.task_id}">
-                        <div class="task">${task.title}</div>
-                        <input type="checkbox" name="" ${isChecked}>
-                    </div>`;
-  }
-
-  list.innerHTML = html;
+    const result = await response.json();
+    return result;
 }
 
 async function deleteAll() {

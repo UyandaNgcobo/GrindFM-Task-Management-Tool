@@ -52,12 +52,46 @@
      <script src="js/api.js"></script>
     <script>
 
-        let toDoCount = document.getElementById('todoCount');
-        let completedTotal = document.getElementById('completedCount');
+        async function render(){
+            const result = await loadTasks();
 
-        const clearBtn = document.getElementById('clearBtn');
-        clearBtn.addEventListener('click', () => {
-            deleteAllAndRefresh();
+            const toDoCount = document.getElementById('todoCount');
+            const completedTotal = document.getElementById('completedCount');
+            const list = document.getElementById("task-to-do-list");
+
+            todoCount.textContent = result.count;
+            completedTotal.textContent = result.completedCount;
+
+            const count = result.count;
+            const completedCount = result.completedCount;
+
+            let html = "";
+
+            for (const task of result.tasks) {
+                const isChecked = task.status_id === 2 ? "checked" : "";
+                html += `
+                                <div class="task-to-do-cont" data-task-id="${task.task_id}">
+                                    <div class="task">${task.title}</div>
+                                    <input type="checkbox" name="" ${isChecked}>
+                                </div>`;
+            }
+
+            list.innerHTML = html;
+        }
+
+        async function init() {
+            await requireLogin();
+            await render();
+        }
+
+        async function deleteAndRefresh(taskID){
+            await deleteTask(taskID);
+            await render();
+        }
+
+        document.getElementById('clearBtn').addEventListener('onclick', async () => {
+            await deleteAll();
+            await render();
         })
 
         document.getElementById('task-to-do-list').addEventListener('click', (e) => {
@@ -78,22 +112,6 @@
                 markCompleted(taskId, statusId);
             }
         });
-
-
-        async function init() {
-            await requireLogin();
-            await loadTasks();
-        }
-
-        async function deleteAndRefresh(taskID){
-            await deleteTask(taskID);
-            await loadTasks();
-        }
-
-        async function deleteAllAndRefresh(){
-            await deleteAll();
-            await loadTasks();
-        }
 
         init();
    

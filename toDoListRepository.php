@@ -91,15 +91,17 @@ class toDoListRepository{
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTaskCount(int $userId) : int{
+    public function getPendingTaskCount(int $userId, int $statusId) : int{
         $statement = $this->pdo->prepare(
             "SELECT COUNT(*) AS total 
             FROM tasks 
-            WHERE user_id = ?"
+            WHERE user_id = ?
+            AND status_id = ?"
         );
 
         $statement->execute([
-            $userId
+            $userId,
+            $statusId
         ]);
 
         $result = $statement->fetch(PDO::FETCH_ASSOC);

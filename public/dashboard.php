@@ -144,5 +144,6 @@
             
        </div>
     </main>
+    <script src="js/api.js"></script>
 </body>
 </html>

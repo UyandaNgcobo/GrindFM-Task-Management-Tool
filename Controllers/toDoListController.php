@@ -24,7 +24,7 @@
     if($method == 'GET'){
 
         $tasks = $repository->getAllTasks($userId);
-        $count = $repository->getTaskCount($userId);
+        $count = $repository->getPendingTaskCount($userId, 1);
         $completedCount = $repository->getCompletedTaskCount($userId, 2);
 
         echo json_encode([
