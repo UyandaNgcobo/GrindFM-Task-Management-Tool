@@ -2,8 +2,8 @@
 
     $method = $_SERVER['REQUEST_METHOD'];
 
-    require_once __DIR__ . '/config.php';
-    require_once __DIR__ . '/toDoListRepository.php';
+    require_once __DIR__ . '/../config.php';
+    require_once __DIR__ . '/../Repositories/toDoListRepository.php';
 
     header('Content-Type:application/json');
 
