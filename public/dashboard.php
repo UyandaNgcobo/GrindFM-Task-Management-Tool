@@ -144,15 +144,17 @@
             
        </div>
     </main>
+    <script src="js/auth-guard.js"></script>
     <script src="js/api.js"></script>
     <script src="js/ui.js"></script>
     <script>
+        requireLogin();
 
         const taskToDoContainer = document.getElementById('tasks-to-do-count');
         const taskCompletedContainer = document.getElementById('task-completed-count');
         const allTasksContainer = document.getElementById('tasks-all-tasks-count');
         const list = document.getElementById('tasks-list-cont');
-
+        startClock();
         
         async function render(){
             const result = await loadTasks();
