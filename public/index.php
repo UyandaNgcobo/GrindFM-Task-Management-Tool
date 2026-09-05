@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php");
+        exit;
+    }else{
+
+    }?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +45,9 @@
 
     </footer>
     </div>
-    <script src="main.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script>
+        requireLogin();
+    </script>
 </body>
 </html>

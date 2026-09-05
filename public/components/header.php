@@ -18,12 +18,24 @@
                 </ul>
             </li>
 
-            <li><a href="/login.php">Log In</a></li>
+            <?php
+                if(isset($_SESSION['user_id'])){
+                ?>
+                    <button onclick="logout()">Log out</button>
+            <?php
+                }else{
+                ?>
+                    <button onclick="requireLogin()">Log in</button>
+                <?php
+                }
+            ?>
+            
 
-            <button onclick="logout()">Log out</button>
+            
         </ul>
     </nav>
 
+    <script src="/public/js/auth-guard.js"></script>
     <script>
         async function logout() {
             try {
