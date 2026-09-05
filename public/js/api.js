@@ -1,3 +1,5 @@
+//Custom fetch including error handling
+//Returns response JSON or null on failure
 async function fetchAPI(url, options) {
   try {
     const response = await fetch(url, options);

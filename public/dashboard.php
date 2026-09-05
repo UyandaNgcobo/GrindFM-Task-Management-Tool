@@ -145,12 +145,14 @@
        </div>
     </main>
     <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
     <script>
 
         const taskToDoContainer = document.getElementById('tasks-to-do-count');
         const taskCompletedContainer = document.getElementById('task-completed-count');
         const allTasksContainer = document.getElementById('tasks-all-tasks-count');
         const list = document.getElementById('tasks-list-cont');
+
         
         async function render(){
             const result = await loadTasks();
