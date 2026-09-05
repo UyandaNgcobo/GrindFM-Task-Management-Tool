@@ -1,11 +1,30 @@
+async function fetchAPI(url, options) {
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      showError(`Request failed (${response.status}). Please try again.`);
+      return null;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Network error:", err);
+    showError(
+      "Can't reach the server. Please check your connection and try again.",
+    );
+    return null;
+  }
+}
+
 async function loadTasks() {
   const response = await fetch("http://localhost:3000/api/tasks", {
     method: "GET",
     credentials: "include",
   });
 
-    const result = await response.json();
-    return result;
+  const result = await response.json();
+  return result;
 }
 
 async function deleteAll() {

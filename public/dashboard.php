@@ -145,5 +145,46 @@
        </div>
     </main>
     <script src="js/api.js"></script>
+    <script>
+
+        const taskToDoContainer = document.getElementById('tasks-to-do-count');
+        const taskCompletedContainer = document.getElementById('task-completed-count');
+        const allTasksContainer = document.getElementById('tasks-all-tasks-count');
+        const list = document.getElementById('tasks-list-cont');
+        
+        async function render(){
+            const result = await loadTasks();
+            taskToDoContainer.textContent = result.count;
+            taskCompletedContainer.textContent = result.completedCount;
+            allTasksContainer.textContent = result.count + result.completedCount;
+
+            let html = '';
+
+            for (const task of result.tasks) {
+                const isChecked = task.status_id === 2 ? "checked" : "";
+                html += `
+                        <div class="task" data-task-id="${task.task_id}">
+                            <div class="task-title">${task.title}</div>
+                            <input class="task-checkbox" type="checkbox" ${isChecked}></input>
+                        </div>`;
+            }
+
+            list.innerHTML = html;
+        }
+
+        document.getElementById('tasks-list-cont').addEventListener('change', (e) => {
+            if (e.target.type === 'checkbox') {
+                const taskDiv = e.target.closest('.task');
+                const taskId = taskDiv.dataset.taskId;
+                const isChecked = e.target.checked;
+
+                const statusId = isChecked ? 2 : 1; // adjust to your actual "Completed"/"In Progress" status_id values
+                markCompleted(taskId, statusId);
+            }
+        });
+
+        render();
+        
+    </script>
 </body>
 </html>

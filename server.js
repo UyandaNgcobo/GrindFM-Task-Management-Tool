@@ -182,6 +182,7 @@ app.get("/api/tasks", async (req, res) => {
   );
 
   const result = await response.json();
+  console.log(result);
   res.send(result);
 });
 

@@ -45,25 +45,10 @@
 
     <div id="result"></div>
 
+    <script src="js/api.js"></script>
     <script src="js/auth-guard.js"></script>
     <script>
-        async function fecthAPI(url, options){
-            try {
-                const response = await fetch(url, options);
-
-                if(!response.ok){
-                    showError(`Request failed (${response.status}). Please try again.`);
-                    return null;
-                }
-
-                const results = await response.json();
-
-            } catch (error) {
-                console.error("Network error:", err);
-                showError("Can't reach the server. Please check your connection and try again.");
-                return null;
-            }
-        }
+        
 
         function showError(message) {
             let banner = document.getElementById('error-banner');
@@ -77,7 +62,9 @@
             banner.style.display = 'block';
         }
 
+        console.log("BEFORE redirectIfLoggedIn call");
         redirectIfLoggedIn();
+        console.log("AFTER redirectIfLoggedIn call (this fires immediately, doesn't wait)");
 
         const form = document.getElementById("loginForm");
         const result = document.getElementById("result");
@@ -90,16 +77,16 @@
                 password: document.getElementById("password").value
             };
 
-            const response = await fecthAPI("http://localhost:3000/api/login", {
+            const response = await fetchAPI("http://localhost:3000/api/login", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
-            const data = await response.json();
+            const data = response;
 
-            if (response.ok && (data.status === "success" || data.status === "already_logged_in")) {
+            if (data && (data.status === "success" || data.status === "already_logged_in")) {
                 window.location.replace("index.php");
                 return;
             }
