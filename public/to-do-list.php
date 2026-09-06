@@ -92,7 +92,7 @@
         }
 
         document.getElementById('clearBtn').addEventListener('onclick', async () => {
-            await deleteAll();
+            await deleteAllTasks();
             await render();
         })
 

@@ -29,7 +29,7 @@ async function loadTasks() {
   return result;
 }
 
-async function deleteAll() {
+async function deleteAllTasks() {
   const response = await fetch("http://localhost:3000/api/tasks", {
     method: "DELETE",
     credentials: "include",
