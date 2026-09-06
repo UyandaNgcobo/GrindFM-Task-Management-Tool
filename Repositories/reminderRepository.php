@@ -9,7 +9,9 @@ class reminderRepository{
 
     public function createReminder(int $userId){
         $statement = $this->pdo->prepare(
-            ""
+            "INSERT INTO Reminders (user_id, title, description)
+            VALUES (?, ?, ?)
+            "
         );
 
         $statement->execute([

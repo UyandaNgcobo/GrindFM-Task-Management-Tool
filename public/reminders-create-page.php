@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/reminders-create.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>Document</title>
+</head>
+<body>
+    <?php include 'components/header.php'; ?>
+    <main>
+        <div id="container">
+            <form id="createTaskForm" method="post">
+                <div id="name-input-cont">
+                    <label for="nameInput">Task Name</label>
+                    <input id="nameInput" type="text" placeholder="Enter Task name">
+                </div>
+                <div id="desc-input-cont">
+                    <label for="descInput">Description</label>
+                    <input id="descInput" type="text" placeholder="Enter Description">
+                </div>
+                <input type="submit" id="submitBtn" value="Create Task">
+                <input type="text" id="reminderDate" placeholder="Pick a date..." required>
+            </form>
+        </div>
+           
+    </main>
+
+    <script>
+        flatpickr("#reminderDate", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        });
+    </script>
+</body>
+</html>

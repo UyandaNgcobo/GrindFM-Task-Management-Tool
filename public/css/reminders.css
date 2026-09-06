@@ -1,15 +1,96 @@
 main{
     background-color: #f3f3f361;
-    display: flex;
-    flex-direction: column;
-    /* padding-inline: 8rem; */
     padding-bottom: 2rem;
+    /* outline: 1px solid black; */
 }
 
-h1{
+#reminders-header{
+    font-size: 2.1rem;
+    padding: 2rem 0;
+}
+#reminder-header{
     display: flex;
+    gap: 2rem;
+}
+
+#reminder-list-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+    outline: 1px solid black;
+}
+#create-new-reminder-controls{
+    display: flex;
+    justify-content: space-between;
+}
+
+#clearBtn{
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border: none;
+    color: #8A8A8A;
+    border-radius: 0.3rem;
+}
+#addBtn{
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    background-color: #CD9AD6;
+    color: white;
+    border-radius: 0.3rem;
+}
+
+
+#reminders-list{
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    flex-direction: column;
+}
+
+#clearBtn{
+    cursor: pointer;
+}
+
+
+.reminder-cont{
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    border-left: 2px solid rgba(149, 39, 167, 0.47);
+    border-radius: 0.8rem;
+    background-color: #fff;
+    gap: 2rem;
     align-items: center;
-    font-weight: 470;
-    height: 6rem;
-    flex-shrink: 0;
+}
+
+.reminder-cont:nth-last-child(3){
+    background-color: rgba(188, 146, 195, 0.2);
+}
+
+.date-info-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;align-items: center;
+}
+
+.date{
+    font-size: 2rem;
+}
+
+.day{
+    color: rgba(138, 138, 138, 1);
+}
+
+.time{
+    color: rgba(138, 138, 138, 1);
+}
+
+#reminder-content-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
