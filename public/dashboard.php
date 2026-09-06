@@ -66,28 +66,28 @@
 
             <div id="reminders-cont">
                 <div id="reminders-heading">
-                    Reminders
+                    Schedule
                 </div>
                 <div id="dates-row">
                     <div class="date">
                         <div class="date-num">19</div>
-                        <div class="day">Wed</div>
+                        <div class="rem-day">Wed</div>
                     </div>
                     <div class="date">
                         <div class="date-num">19</div>
-                        <div class="day">Wed</div>
+                        <div class="rem-day">Wed</div>
                     </div>
                     <div class="date">
                         <div class="date-num">19</div>
-                        <div class="day">Wed</div>
+                        <div class="rem-day">Wed</div>
                     </div>
                     <div class="date">
                         <div class="date-num">19</div>
-                        <div class="day">Wed</div>
+                        <div class="rem-day">Wed</div>
                     </div>
                     <div class="date">
                         <div class="date-num">19</div>
-                        <div class="day">Wed</div>
+                        <div class="rem-day">Wed</div>
                     </div>
                 </div>
                 <div id="reminders-list-cont">
@@ -188,6 +188,8 @@
                 markCompleted(taskId, statusId);
             }
         });
+
+        updateTimeline();
 
         render();
         

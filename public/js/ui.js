@@ -24,6 +24,7 @@ const months = [
   "December",
 ];
 
+
 //Access the element holding clock's text content and change it to time now
 function updateClock(){
     
@@ -41,6 +42,30 @@ function updateClock(){
       `${date} ${month},`;
 
     document.getElementById("day").textContent = days[time.getDay()];
+}
+
+function updateTimeline(){
+
+    const today = new Date();
+
+    const dateCollection = document.querySelectorAll(".date-num");
+    const dayCollection = document.querySelectorAll(".rem-day");
+
+    let counter = 0;
+
+    for (let i = -2; i <= 2; i++) {
+      const offsetDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() + i,
+      );
+
+      const index = i + 2; // shift -2..2 into array index 0..4
+      dateCollection[index].textContent = `${offsetDate.getDate()}`;
+      dayCollection[index].textContent =
+        `${days[offsetDate.getDay()].substring(0, 3)}`;
+    }
+
 }
 
 //runs update every 60 second
