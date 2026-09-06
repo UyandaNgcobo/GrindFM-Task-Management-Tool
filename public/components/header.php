@@ -25,7 +25,7 @@
             <?php
                 }else{
                 ?>
-                    <button onclick="requireLogin()">Log in</button>
+                    <button onclick="window.location.replace('login.php')">Log in</button>
                 <?php
                 }
             ?>

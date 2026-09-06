@@ -3,33 +3,22 @@
     $method = $_SERVER['REQUEST_METHOD'];
 
     require_once __DIR__ . '/../config.php';
+    require_once __DIR__ . '/../public/Config/session.php';
     require_once __DIR__ . '/../Repositories/userRepository.php';
 
     header('Content-Type:application/json');
 
     $repository = new userRepository($pdo);
 
-    session_set_cookie_params([
-        'lifetime' => 0,
-        'path' => '/',
-        'secure' => false,
-        'httponly' => true,
-        'samesite' => 'Lax'
-    ]);
+    initSession(); //initiliase session
 
-    session_start();
-
+    //extra check incase they've somehow accessed login while logged in
     if (isset($_SESSION['user_id'])) {
         http_response_code(200);
         echo json_encode([
             "status" => "already_logged_in"
         ]);
         exit;
-    }
-
-    if($method == 'GET'){
-        
-        //retrive user
     }
 
     if($method == 'POST'){

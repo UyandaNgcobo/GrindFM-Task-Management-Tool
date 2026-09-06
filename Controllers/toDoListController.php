@@ -7,7 +7,6 @@
 
     header('Content-Type:application/json');
 
- 
 
     //inject connection object
     $repository = new toDoListRepository($pdo);

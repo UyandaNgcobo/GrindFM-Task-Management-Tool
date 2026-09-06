@@ -47,7 +47,9 @@
             </div>
         </div>
     </main>
-
+    <script defer>
+        requireLogin();
+    </script>
      <script src="js/auth-guard.js"></script>
      <script src="js/api.js"></script>
     <script>
