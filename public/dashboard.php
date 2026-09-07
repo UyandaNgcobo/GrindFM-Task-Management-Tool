@@ -47,9 +47,6 @@
                 <div id="tasks-reminders">
                     <div id="tasks-reminders-bell"><img src="/Images/bell.svg" alt=""></div>
                     <div id="tasks-reminders-overview-cont">
-                        <div class="latest-task">17:00 · Bath</div>
-                        <div class="latest-task">19:30 · Maths Study</div>
-                        <div class="latest-task">20:15 · Gym</div>
                     </div>
                 </div>
             </div>
@@ -157,10 +154,13 @@
         const taskCompletedContainer = document.getElementById('task-completed-count');
         const allTasksContainer = document.getElementById('tasks-all-tasks-count');
         const list = document.getElementById('tasks-list-cont');
+        const rem_list = document.getElementById('tasks-reminders-overview-cont');
         startClock();
 
         async function render(){
             const result = await loadTasks();
+            const reminders = await loadReminders();
+
             taskToDoContainer.textContent = result.count;
             taskCompletedContainer.textContent = result.completedCount;
             allTasksContainer.textContent = result.count + result.completedCount;
@@ -177,6 +177,21 @@
             }
 
             list.innerHTML = html;
+
+            let rem_html = ''
+
+            for (let i = 0; i < reminders.reminders.length; i++) {
+                // console.log(reminders.reminders)
+
+                let d = new Date(reminders.reminders[i].trigger_at)
+                let hours = String(d.getHours()).padStart(2, "0");
+                let minutes = String(d.getMinutes()).padStart(2, "0");
+                let trigger_at = `${hours}:${minutes}`
+                rem_html += `
+                    <div class="latest-task">${trigger_at} · ${reminders.reminders[i].title}</div>`;
+            }
+
+            rem_list.innerHTML = rem_html;
         }
 
         document.getElementById('tasks-list-cont').addEventListener('change', (e) => {

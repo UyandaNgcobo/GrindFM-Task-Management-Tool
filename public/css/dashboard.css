@@ -120,10 +120,11 @@ h1{
     color: #DBDBDB;
     display: flex;
 }
-.latest-task:nth-child(2){
+/* .latest-task:nth-child(2){
     color: black;
-    font-size: 1.1rem;
-}
+    font-size: 1.2rem;
+    margin-left: 0.4rem;
+} */
 
 #time-cont-wrapper{
     display: flex;
@@ -277,4 +278,9 @@ input[type="checkbox"]:checked{
 
 .reminder-task{
 
+}
+
+#tasks-reminders-overview-cont{
+    overflow: scroll;
+    max-height: 10vh;
 }
