@@ -1,12 +1,12 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: login.php");
-        exit;
-    }else{
+    // if (!isset($_SESSION['user_id'])) {
+    //     header("Location: login.php");
+    //     exit;
+    // }else{
 
-    }
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -144,12 +144,13 @@
             
        </div>
     </main>
-    <script defer>
-        requireLogin();
-    </script>
+
     <script src="js/auth-guard.js"></script>
     <script src="js/api.js"></script>
     <script src="js/ui.js"></script>
+        <script >
+        requireLogin();
+    </script>
     <script>
 
         const taskToDoContainer = document.getElementById('tasks-to-do-count');

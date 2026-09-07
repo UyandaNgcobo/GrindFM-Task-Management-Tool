@@ -1,4 +1,6 @@
-
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,17 +28,45 @@
                     <label for="descInput">Description</label>
                     <input id="descInput" type="text" placeholder="Enter Description">
                 </div>
-                <input type="submit" id="submitBtn" value="Create Task">
                 <input type="text" id="reminderDate" placeholder="Pick a date..." required>
+                <input type="submit" id="submitBtn" value="Create Reminder">
             </form>
         </div>
            
     </main>
 
+    <script src="js/auth-guard.js"></script>
     <script>
+        requireLogin();
         flatpickr("#reminderDate", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
+        });
+
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const payload = {
+                title: document.getElementById("nameInput").value,
+                description: document.getElementById("descInput").value
+            };
+
+            const response = await fetch("http://localhost:3000/api/tasks", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.status === "success") {
+                window.location.replace("to-do-list.php");
+                return;
+            }
+
+            result.textContent = data.message || "Failed to create task. Please try again.";
         });
     </script>
 </body>

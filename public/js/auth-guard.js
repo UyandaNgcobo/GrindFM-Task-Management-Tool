@@ -14,8 +14,10 @@ async function getCurrentUser() {
 async function requireLogin() {
   const me = await getCurrentUser();
   if (!me.user_id) {
+    console.log("No user id found in session, login required");
     window.location.replace("login.php");
   } else {
+    console.log("User id found in session, login NOT required");
     return me;
   }
 }
@@ -23,8 +25,10 @@ async function requireLogin() {
 async function redirectIfLoggedIn() {
   const me = await getCurrentUser();
   if (me.user_id) {
+    console.log("Already logged in!")
     window.location.replace("index.php");
   } else {
+    console.log("Not logged in!");
     return me;
   }
 }

@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +24,7 @@
         <div id="create-new-reminder">
             <div id="reminder-list-cont">
                 <div id="create-new-reminder-controls">
-                    <a id="addBtn" href="reminders-create.php">Add Reminder</a>
+                    <a id="addBtn" href="reminders-create-page.php">Add Reminder</a>
                     <button id="clearBtn">Clear All</button>
                 </div>
 
@@ -83,6 +86,7 @@
 
         <script src="js/auth-guard.js"></script>
         <script>
+            requireLogin();
             // for (const reminder of result.reminders) {
             //     html += `
             //             <div class="task-to-do-cont" data-task-id="${task.task_id}">

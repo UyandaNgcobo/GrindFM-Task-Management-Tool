@@ -19,6 +19,7 @@ async function fetchAPI(url, options) {
   }
 }
 
+//-----------------------TO DO TASKS-----------------------
 async function loadTasks() {
   const response = await fetch("http://localhost:3000/api/tasks", {
     method: "GET",
@@ -57,6 +58,55 @@ async function markCompleted(taskID, statusId) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+
+  const result = await response.json();
+}
+
+
+
+
+// ----------------- REMINDERS ---------------------
+
+async function loadReminders(){
+
+  const response = await fetch(`http://localhost:3000/api/reminders`, {
+    method: "GET",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await response.json();
+}
+
+async function deleteReminder(deleteAllReminders) {
+  const payload = {};
+
+  const response = await fetch(
+    `http://localhost:3000/api/reminders/${taskID}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+
+  const result = await response.json();
+}
+
+async function deleteAllReminders() {
+  const payload = {};
+
+  const response = await fetch(
+    `http://localhost:3000/api/reminders`,
+    {
+      method: "DELETE",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
 
   const result = await response.json();
 }
