@@ -84,18 +84,48 @@
         </div>
         </main>
 
+        <script src="js/api.js"></script>
+        <script src="js/ui.js"></script>
         <script src="js/auth-guard.js"></script>
+        <script src="js/auth-helpers.js"></script>
         <script>
             requireLogin();
-            // for (const reminder of result.reminders) {
-            //     html += `
-            //             <div class="task-to-do-cont" data-task-id="${task.task_id}">
-            //                 <div class="task">${task.title}</div>
-            //                 <input type="checkbox" name="" ${isChecked}>
-            //             </div>`;
-            // }
 
-            // list.innerHTML = html;
+            const rem_list = document.getElementById('reminders-list');
+            async function render(){
+                const result = await loadReminders();
+                console.log(result);
+
+                let html = '';
+                for (const reminder of result.reminders) {
+
+                    let d = new Date(reminder.trigger_at);
+
+                    let hours = String(d.getHours()).padStart(2, '0');
+                    let minutes = String(d.getMinutes()).padStart(2, '0');
+                    let trigger_at = `${hours}:${minutes}`
+
+                    html += `
+                        <div class="reminder-cont">
+                            <div class="date-info-cont">
+                                <div class="date">${d.getDate()}</div>
+                                <div class="day">${months[d.getMonth()].substring(0, 3)}</div>
+                            </div>
+                            <div id="reminder-content-cont">
+                                <div class="title">${reminder.title}</div>
+                                <div class="time"> Remind at: <span>${trigger_at}</span></div>
+                            </div>
+                        </div>        
+                    `;
+                }
+
+                rem_list.innerHTML = html;
+            }
+
+            render();
+            
+
+
         
         </script>
 

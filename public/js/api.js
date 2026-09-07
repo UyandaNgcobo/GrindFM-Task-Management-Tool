@@ -73,10 +73,11 @@ async function loadReminders(){
     method: "GET",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
   });
 
   const result = await response.json();
+  return result;
+  // console.log("FROM API: ", result)
 }
 
 async function deleteReminder(deleteAllReminders) {

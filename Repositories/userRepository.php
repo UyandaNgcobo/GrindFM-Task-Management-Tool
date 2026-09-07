@@ -7,7 +7,7 @@ class UserRepository{
         $this->pdo = $pdo;
     }
     
-    public function createUser($username, $email, $password) : void{
+    public function createUser(String $username, String $email, String $password) : void{
 
         $statement = $this->pdo->prepare(
             "INSERT INTO users (username, email, password)

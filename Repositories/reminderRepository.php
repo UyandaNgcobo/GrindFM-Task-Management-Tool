@@ -7,6 +7,21 @@ class reminderRepository{
         $this->pdo = $pdo;
     }
 
+    public function getAllReminders(int $userId){
+        $statement = $this->pdo->prepare(
+            "SELECT * FROM Reminders
+            ORDER BY trigger_at ASC;
+            WHERE user_id = ?
+            "
+        );
+
+        $statement->execute([
+            $userId
+        ]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function createReminder(int $userId){
         $statement = $this->pdo->prepare(
             "INSERT INTO Reminders (user_id, title, description)

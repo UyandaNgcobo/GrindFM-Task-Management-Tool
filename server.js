@@ -206,4 +206,21 @@ app.patch("/api/tasks/:id", async (req, res) => {
   res.send(result);
 });
 
+app.get("/api/reminders", async (req, res) => {
+  const response = await fetch(
+    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.cookie,
+      },
+    },
+  );
+
+  const result = await response.json();
+  console.log(result);
+  res.send(result);
+});
+
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));
