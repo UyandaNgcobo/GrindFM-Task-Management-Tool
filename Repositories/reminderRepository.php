@@ -28,7 +28,7 @@ class reminderRepository{
         
     }
 
-    public function createReminder(int $userId, String $title, String $description){
+    public function createReminder(int $userId, String $title, String $description) : bool{
         $statement = $this->pdo->prepare(
             "INSERT INTO Reminders (user_id, title, description)
             VALUES (?, ?, ?)
@@ -41,8 +41,12 @@ class reminderRepository{
             $title,
             $description
         ]);
+
+        return true;
+
         } catch (PDOException $e) {
-            $e->getMessage();
+            error_log($e->getMessage());
+            return false;
         }
         
     }

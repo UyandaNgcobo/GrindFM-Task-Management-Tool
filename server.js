@@ -219,13 +219,16 @@ app.get("/api/reminders", async (req, res) => {
   );
 
   const result = await response.json();
-  console.log(result);
+  // console.log(result);
   res.send(result);
 });
 
 app.post("/api/reminders", async (req, res) => {
+  console.log("POST REMINDERS API HIT");
 
   const payload = req.body;
+
+  console.log(payload);
 
   const response = await fetch(
     "http://127.0.0.1:8000/Controllers/reminderController.php",

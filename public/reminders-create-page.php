@@ -22,7 +22,7 @@
             <form id="createReminderForm" method="post">
                 <div id="name-input-cont">
                     <label for="nameInput">Task Name</label>
-                    <input id="nameInput" type="text" placeholder="Enter reminder">
+                    <input id="nameInput" type="text" placeholder="Enter reminder" required>
                 </div>
                 <div id="desc-input-cont">
                     <label for="descInput">Description</label>
@@ -40,34 +40,39 @@
         requireLogin();
         flatpickr("#reminderDate", {
             enableTime: true,
-            dateFormat: "Y-m-d H:i",
+            enableSeconds,
+            dateFormat: "Y-m-d H:i:S",
         });
 
         const form = document.getElementById('createReminderForm');
+        
+
+        
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            console.log('clicked!')
+            const trigger_at = document.getElementById('reminderDate').value;
 
-            // const payload = {
-            //     title: document.getElementById("nameInput").value,
-            //     description: document.getElementById("descInput").value
-            // };
+            const payload = {
+                title: document.getElementById("nameInput").value,
+                description: document.getElementById("descInput").value,
+                trigger_at: trigger_at
+            };
 
-            // const response = await fetch("http://localhost:3000/api/reminders", {
-            //     method: "POST",
-            //     credentials: "include",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(payload)
-            // });
+            const response = await fetch("http://localhost:3000/api/reminders", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
 
-            // const data = await response.json();
+            const data = await response.json();
 
-            // if (response.ok) {
-            //     window.location.replace("reminders.php");
-            //     return;
-            // }
+            if (response.ok) {
+                window.location.replace("reminders.php");
+                return;
+            }
         });
     </script>
 </body>

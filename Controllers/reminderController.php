@@ -36,13 +36,22 @@
 
         $title = $data['title'];
         $description = $data['description'];
+        $trigger_at = $data['trigger_at'];
 
-        $reminders = $repository->createReminder($userId, $title, $description);
+        $success = $repository->createReminder($userId, $title, $description, $trigger_at);
 
-        echo json_encode([
-            "status" => "success",
-            "message" => "Reminder successfully created!"
-        ]);
+        if(!$success){
+            echo json_encode([
+                "status" => "failure",
+                "message" => "Failed to create reminder!"
+            ]);
+        }else{
+            echo json_encode([
+                "status" => "success",
+                "message" => "Successfully created reminder!"
+            ]);
+        }
+        
     }
 
     if($method == 'DELETE'){
