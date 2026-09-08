@@ -40,8 +40,9 @@
         requireLogin();
         flatpickr("#reminderDate", {
             enableTime: true,
-            enableSeconds,
+            enableSeconds: true,
             dateFormat: "Y-m-d H:i:S",
+            minDate: "today",
         });
 
         const form = document.getElementById('createReminderForm');

@@ -28,10 +28,10 @@ class reminderRepository{
         
     }
 
-    public function createReminder(int $userId, String $title, String $description) : bool{
+    public function createReminder(int $userId, string $title, string $description, string $trigger_at) : bool{
         $statement = $this->pdo->prepare(
-            "INSERT INTO Reminders (user_id, title, description)
-            VALUES (?, ?, ?)
+            "INSERT INTO Reminders (user_id, title, description, trigger_at)
+            VALUES (?, ?, ?, ?)
             "
         );
 
@@ -39,7 +39,8 @@ class reminderRepository{
             $statement->execute([
             $userId,
             $title,
-            $description
+            $description,
+            $trigger_at
         ]);
 
         return true;
