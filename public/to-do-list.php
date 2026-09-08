@@ -51,11 +51,12 @@
             </div>
         </div>
     </main>
-    <script defer>
-        requireLogin();
-    </script>
+   
      <script src="js/auth-guard.js"></script>
      <script src="js/api.js"></script>
+      <script >
+        requireLogin();
+    </script>
     <script>
 
         async function render(){
@@ -95,9 +96,14 @@
             await render();
         }
 
-        document.getElementById('clearBtn').addEventListener('onclick', async () => {
+        async function deleteAllAndRefresh(){
             await deleteAllTasks();
             await render();
+        }
+
+        document.getElementById('clearBtn').addEventListener('click', async () => {
+            console.log('DELETE PRESSED')
+            deleteAllAndRefresh();
         })
 
         document.getElementById('task-to-do-list').addEventListener('click', (e) => {

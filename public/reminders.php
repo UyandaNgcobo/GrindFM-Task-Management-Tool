@@ -92,6 +92,15 @@
             requireLogin();
 
             const rem_list = document.getElementById('reminders-list');
+            document.getElementById('clearBtn').addEventListener('click', ()=>{
+                deleteAllRemindersAndRefresh();
+            })
+
+            async function deleteAllRemindersAndRefresh(){
+                await deleteAllReminders();
+                await render();
+            }
+
             async function render(){
                 const result = await loadReminders();
                 console.log(result);

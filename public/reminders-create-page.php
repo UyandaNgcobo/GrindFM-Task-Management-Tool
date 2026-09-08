@@ -19,10 +19,10 @@
     <?php include 'components/header.php'; ?>
     <main>
         <div id="container">
-            <form id="createTaskForm" method="post">
+            <form id="createReminderForm" method="post">
                 <div id="name-input-cont">
                     <label for="nameInput">Task Name</label>
-                    <input id="nameInput" type="text" placeholder="Enter Task name">
+                    <input id="nameInput" type="text" placeholder="Enter reminder">
                 </div>
                 <div id="desc-input-cont">
                     <label for="descInput">Description</label>
@@ -43,30 +43,31 @@
             dateFormat: "Y-m-d H:i",
         });
 
+        const form = document.getElementById('createReminderForm');
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const payload = {
-                title: document.getElementById("nameInput").value,
-                description: document.getElementById("descInput").value
-            };
+            console.log('clicked!')
 
-            const response = await fetch("http://localhost:3000/api/tasks", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+            // const payload = {
+            //     title: document.getElementById("nameInput").value,
+            //     description: document.getElementById("descInput").value
+            // };
 
-            const data = await response.json();
+            // const response = await fetch("http://localhost:3000/api/reminders", {
+            //     method: "POST",
+            //     credentials: "include",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(payload)
+            // });
 
-            if (response.ok && data.status === "success") {
-                window.location.replace("to-do-list.php");
-                return;
-            }
+            // const data = await response.json();
 
-            result.textContent = data.message || "Failed to create task. Please try again.";
+            // if (response.ok) {
+            //     window.location.replace("reminders.php");
+            //     return;
+            // }
         });
     </script>
 </body>

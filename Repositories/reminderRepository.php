@@ -10,8 +10,8 @@ class reminderRepository{
     public function getAllReminders(int $userId) {
         $statement = $this->pdo->prepare(
             "SELECT * FROM Reminders
-            ORDER BY trigger_at ASC;
             WHERE user_id = ?
+            ORDER BY trigger_at ASC;
             "
         );
 
@@ -21,33 +21,60 @@ class reminderRepository{
             ]);
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
-            
+
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            $e->getMessage();
         }
         
     }
 
-    public function createReminder(int $userId){
+    public function createReminder(int $userId, String $title, String $description){
         $statement = $this->pdo->prepare(
             "INSERT INTO Reminders (user_id, title, description)
             VALUES (?, ?, ?)
             "
         );
 
-        $statement->execute([
-            $userId
+        try {
+            $statement->execute([
+            $userId,
+            $title,
+            $description
         ]);
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+        
     }
 
     public function deleteReminder(int $userId, int $reminder_id){
         $statement = $this->pdo->prepare(
-            ""
+            "DELETE FROM Reminders
+            WHERE user_id = ?
+            AND reminder_id = ?"
         );
 
         $statement->execute([
-            $userId
+            $userId,
+            $reminder_id
         ]);
+    }
+
+    public function deleteAllReminder(int $userId) : void{
+        $statement = $this->pdo->prepare(
+            "DELETE FROM Reminders
+            WHERE user_id = ?"
+        );
+
+        try {
+            $statement->execute([
+                $userId
+            ]);
+
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+        
     }
 
     public function editReminder(int $userId, int $reminder_id){

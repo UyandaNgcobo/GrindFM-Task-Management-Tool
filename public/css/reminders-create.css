@@ -69,5 +69,7 @@ input::placeholder{
 #submitBtn{
     padding: 1rem;
     width: fit-content;
-    margin-left: auto
+    margin-left: auto;
+    background-color: rgba(149, 39, 167, 0.47);
+    color: #fff;
 }

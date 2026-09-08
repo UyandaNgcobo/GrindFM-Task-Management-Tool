@@ -223,4 +223,61 @@ app.get("/api/reminders", async (req, res) => {
   res.send(result);
 });
 
+app.post("/api/reminders", async (req, res) => {
+
+  const payload = req.body;
+
+  const response = await fetch(
+    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.cookie,
+      },
+      body: JSON.stringify(payload)
+    },
+  );
+
+  const result = await response.json();
+  console.log(result);
+  res.send(result);
+});
+
+app.delete("/api/reminders", async (req, res) => {
+  const response = await fetch(
+    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.cookie,
+      },
+    },
+  );
+
+  const result = await response.json();
+  console.log(result);
+  res.send(result);
+});
+
+app.get("/api/reminders/:id", async (req, res) => {
+
+  // const payload = body.params;
+  const response = await fetch(
+    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.cookie,
+      },
+    },
+  );
+
+  const result = await response.json();
+  console.log(result);
+  res.send(result);
+});
+
 app.listen(3000, () => console.log("Node Gateway running on port 3000"));

@@ -55,8 +55,11 @@ main{
 #reminders-list{
     display: flex;
     gap: 1rem;
-    flex: 1;
+    max-height: 68vh;
     flex-direction: column;
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 #clearBtn{
@@ -73,6 +76,7 @@ main{
     background-color: #fff;
     gap: 2rem;
     align-items: center;
+    scroll-snap-align: start;
 }
 
 

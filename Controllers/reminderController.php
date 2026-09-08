@@ -29,4 +29,29 @@
             "reminders" => $reminders
         ]);
     }
+    if($method == 'POST'){
+
+        $rawJSON = file_get_contents('php://input');
+        $data = json_decode($rawJSON, true);
+
+        $title = $data['title'];
+        $description = $data['description'];
+
+        $reminders = $repository->createReminder($userId, $title, $description);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Reminder successfully created!"
+        ]);
+    }
+
+    if($method == 'DELETE'){
+
+        $reminders = $repository->deleteAllReminder($userId);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "All reminders successfully deleted!"
+        ]);
+    }
 ?>

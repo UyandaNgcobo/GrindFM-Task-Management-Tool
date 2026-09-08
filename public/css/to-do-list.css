@@ -49,6 +49,10 @@ main{
     gap: 1rem;
     flex: 1;
     flex-direction: column;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    max-height: 70vh;
 }
 
 #task-to-do-list-actions{
@@ -80,6 +84,8 @@ main{
     background-color: #fff;
     border-radius: 0.5rem;
     padding: 1rem 4rem;
+    flex: 0 0 calc(100% / 10);
+    scroll-snap-align: start;
 }
 
 input[type="checkbox"]{

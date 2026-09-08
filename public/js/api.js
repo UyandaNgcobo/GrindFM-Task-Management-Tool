@@ -31,6 +31,7 @@ async function loadTasks() {
 }
 
 async function deleteAllTasks() {
+  console.log("API SAYS DELETE TRIGGERED!")
   const response = await fetch("http://localhost:3000/api/tasks", {
     method: "DELETE",
     credentials: "include",
@@ -80,7 +81,7 @@ async function loadReminders(){
   // console.log("FROM API: ", result)
 }
 
-async function deleteReminder(deleteAllReminders) {
+async function deleteReminder() {
   const payload = {};
 
   const response = await fetch(
