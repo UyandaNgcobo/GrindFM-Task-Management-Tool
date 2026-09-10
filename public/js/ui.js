@@ -74,3 +74,21 @@ function startClock(){
     updateClock();
     setInterval(updateClock, 60000);
 }
+
+function displayInternalNotification(data, stack){
+    let html = ``;
+
+    const icon =
+      data.status == "success"
+        ? `tick-circle-svgrepo-com.svg`
+        : `status-failed-svgrepo-com.svg`;
+
+        html += `
+            <div class="InternalNotification">
+                <img src="/Images/${icon}" alt="" class="completedIcon">
+                <div class="notification-message">${data.message}</div>
+            </div>
+            `;
+
+    stack.innerHTML = html;
+}

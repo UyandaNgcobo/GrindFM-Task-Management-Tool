@@ -30,54 +30,7 @@
 
                 <div id="reminders-list">
                     <div class="reminder-cont">
-                        <div class="date-info-cont">
-                            <div class="date">19</div>
-                            <div class="day">Wed</div>
-                        </div>
-                        <div id="reminder-content-cont">
-                            <div class="title">George's Birthday Birthday</div>
-                            <div class="time">18:00</div>
-                        </div>
-                    </div>
-                    <div class="reminder-cont">
-                        <div class="date-info-cont">
-                            <div class="date">19</div>
-                            <div class="day">Wed</div>
-                        </div>
-                        <div id="reminder-content-cont">
-                            <div class="title">George's Birthday Birthday</div>
-                            <div class="time">18:00</div>
-                        </div>
-                    </div>
-                    <div class="reminder-cont">
-                        <div class="date-info-cont">
-                            <div class="date">19</div>
-                            <div class="day">Wed</div>
-                        </div>
-                        <div id="reminder-content-cont">
-                            <div class="title">George's Birthday Birthday</div>
-                            <div class="time">18:00</div>
-                        </div>
-                    </div>
-                    <div class="reminder-cont">
-                        <div class="date-info-cont">
-                            <div class="date">19</div>
-                            <div class="day">Wed</div>
-                        </div>
-                        <div id="reminder-content-cont">
-                            <div class="title">George's Birthday Birthday</div>
-                            <div class="time">18:00</div>
-                        </div>
-                    </div>
-                    <div class="reminder-cont">
-                        <div class="date-info-cont">
-                            <div class="date">19</div>
-                            <div class="day">Wed</div>
-                        </div>
-                        <div id="reminder-content-cont">
-                            <div class="title">George's Birthday</div>
-                            <div class="time">18:00</div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

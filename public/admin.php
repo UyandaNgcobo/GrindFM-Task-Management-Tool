@@ -15,7 +15,6 @@
     <main>
         <table id="users"></table>
     </main>
-    <div id="users"></div>
 
 <script src="js/auth-guard.js"></script>
 <script>

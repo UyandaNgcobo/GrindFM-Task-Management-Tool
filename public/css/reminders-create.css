@@ -18,7 +18,7 @@ main{
 
 #reminders-create-page-header{
     font-size: 2.1rem;
-    padding: 2rem 0;
+
 }
 
 #cancelBtn{
@@ -52,7 +52,7 @@ form{
 
 label{
     font-size: 1rem;
-    color: #8A8A8A;
+    color: #000000;
 }
 
 input{

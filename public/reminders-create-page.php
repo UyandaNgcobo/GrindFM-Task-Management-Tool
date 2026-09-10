@@ -18,6 +18,9 @@
 <body>
     <?php include 'components/header.php'; ?>
     <main>
+        <div id="reminders-create-page-header">
+            Reminders
+        </div>
         <div id="container">
             <form id="createReminderForm" method="post">
                 <div id="name-input-cont">
@@ -43,6 +46,7 @@
             enableSeconds: true,
             dateFormat: "Y-m-d H:i:S",
             minDate: "today",
+            inline: true,
         });
 
         const form = document.getElementById('createReminderForm');
@@ -74,6 +78,8 @@
                 window.location.replace("reminders.php");
                 return;
             }
+
+
         });
     </script>
 </body>
