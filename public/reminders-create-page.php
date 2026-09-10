@@ -32,13 +32,19 @@
                     <input id="descInput" type="text" placeholder="Enter Description">
                 </div>
                 <input type="text" id="reminderDate" placeholder="Pick a date..." required>
-                <input type="submit" id="submitBtn" value="Create Reminder">
+                <div id="formBtnCont">
+                    <input type="submit" id="submitBtn" value="Create Reminder">
+                    <button id="doneBtn">Done</button>
+                </div>
             </form>
+            
         </div>
            
     </main>
+    
 
     <script src="js/auth-guard.js"></script>
+    <script src="js/ui.js"></script>
     <script>
         requireLogin();
         flatpickr("#reminderDate", {
@@ -50,9 +56,11 @@
         });
 
         const form = document.getElementById('createReminderForm');
-        
+        const doneBtn = document.getElementById('doneBtn');
 
-        
+        doneBtn.addEventListener('click', () => {
+            window.location.replace("reminders.php");
+        });
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -75,7 +83,10 @@
             const data = await response.json();
 
             if (response.ok) {
-                window.location.replace("reminders.php");
+                displayInternalNotification(data);
+                setTimeout(() => {
+                    form.reset();
+                }, 1500); // give the toast a moment to actually be seen before navigating away
                 return;
             }
 

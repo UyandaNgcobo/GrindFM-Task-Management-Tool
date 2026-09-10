@@ -35,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <div id="notificationContainer"></div>
         </main>
 
         <script src="js/api.js"></script>

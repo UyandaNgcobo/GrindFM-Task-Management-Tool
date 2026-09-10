@@ -34,7 +34,7 @@
             
         </ul>
     </nav>
-
+    <div id="notificationContainer"></div>
     <script src="/public/js/auth-guard.js"></script>
     <script>
         async function logout() {

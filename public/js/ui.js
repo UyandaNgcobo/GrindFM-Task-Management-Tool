@@ -72,24 +72,26 @@ function startClock() {
 }
 
 function displayInternalNotification(data) {
-  const container = document.getElementById("toastContainer");
+    const notificationContainer = document.getElementById(
+        "notificationContainer",
+    );
 
-  const toast = document.createElement("div");
-  toast.className = `toast ${data.status === "success" ? "success" : "error"}`;
+    const notification = document.createElement("div");
+    notification.className = `notification ${data.status === "success" ? "success" : "error"}`;
 
-  const icon =
-    data.status === "success"
-      ? "tick-circle-svgrepo-com.svg"
-      : "error-circle-svgrepo-com.svg";
+    const icon =
+        data.status === "success"
+        ? "tick-circle-svgrepo-com.svg"
+        : "error-circle-svgrepo-com.svg";
 
-  toast.innerHTML = `
-        <img src="/Images/${icon}" alt="" class="completedIcon">
-        <div class="notification-message">${data.message}</div>
-    `;
+    notification.innerHTML = `
+            <img src="/Images/${icon}" alt="" class="completedIcon">
+            <div class="notification-message">${data.message}</div>
+        `;
 
-  container.appendChild(toast);
+    notificationContainer.appendChild(notification);
 
-  setTimeout(() => {
-    toast.remove();
-  }, 3000);
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
