@@ -73,3 +73,11 @@ input::placeholder{
     background-color: rgba(149, 39, 167, 0.47);
     color: #fff;
 }
+
+#doneBtn{
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background-color: #DBDBDB;
+    border: none;
+    border-radius: 0.5rem;
+}

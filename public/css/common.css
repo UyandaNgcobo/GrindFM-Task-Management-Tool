@@ -1,0 +1,55 @@
+#notificationContainer {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    height: fit-content;
+    width: fit-content;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    background: #333;
+    animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+    animation-fill-mode: forwards;
+}
+
+.notification img{
+    height: 0px;
+    width: 10px;
+}
+
+.notification.success { background: #ebf2ec; border: 1px solid #357d38; color: #357d38;}
+.notification.error { background: #e6b9b9; border: 1px solid #de3838; color: #de3838;}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+#formBtnCont{
+    display: flex;
+    gap: 1rem;
+}
+
+#doneBtn{
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #DBDBDB;
+}

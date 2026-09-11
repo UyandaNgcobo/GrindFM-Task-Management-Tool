@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/to-do-list-create.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,24 +24,33 @@
         <form id="createTaskForm" method="post">
             <div id="name-input-cont">
                 <label for="nameInput">Task Name</label>
-                <input id="nameInput" type="text" placeholder="Enter Task name">
+                <input id="nameInput" type="text" placeholder="Enter Task name" required>
             </div>
             <div id="desc-input-cont">
                 <label for="descInput">Description</label>
                 <input id="descInput" type="text" placeholder="Enter Description">
             </div>
-            <input type="submit" id="submitBtn" value="Create Task">
+            <div id="formBtn">
+                <input type="submit" id="submitBtn" value="Create Task">
+                <button id="doneBtn">Done</button>
+            </div>
         </form>
 
         <div id="results"></div>
     </main>
      <script src="js/auth-guard.js"></script>
      <script src="js/api.js"></script>
+     <script src="js/ui.js"></script>
     <script>
        requireLogin();
 
 const form = document.getElementById("createTaskForm");
 const result = document.getElementById("results");
+const doneBtn = document.getElementById("doneBtn");
+
+doneBtn.addEventListener('click', () => {
+    window.location.replace("to-do-list.php");
+})
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -59,12 +69,13 @@ form.addEventListener("submit", async (e) => {
 
     const data = await response.json();
 
-    if (response.ok && data.status === "success") {
-        window.location.replace("to-do-list.php");
+    if (response.ok) {
+        displayInternalNotification(data);
+        setTimeout(() => {
+            form.reset();
+        }, 1500); // give the toast a moment to actually be seen before navigating away
         return;
     }
-
-    result.textContent = data.message || "Failed to create task. Please try again.";
 });
     </script>
 
