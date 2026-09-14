@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
 
@@ -10,6 +12,29 @@ app.use(
   }),
 );
 app.use(express.json());
+
+// --- SWAGGER SETUP START ---
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "To-Do List API Gateway",
+      version: "1.0.0",
+      description: "API documentation for the Node.js Gateway routing to the PHP backend",
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  // Tells Swagger to look for comments in this file (update the path if your file isn't in the root folder)
+  apis: ["./*.js"], 
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// --- SWAGGER SETUP END ---
 
 app.post("/api/users", async (req, res) => {
   const frontendPayload = req.body;
@@ -26,6 +51,30 @@ app.post("/api/users", async (req, res) => {
   res.send(phpData);
 });
 
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Get all users
+ *     description: Gets all users in database.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "example@gmail.com"
+ *               password:
+ *                 type: string
+ *                 example: "secret123"
+ *     responses:
+ *       200:
+ *         description: Successfully logged in
+ */
 app.get("/api/users", async (req, res) => {
   const response = await fetch(
     "http://127.0.0.1:8000/Controllers/UserController.php",
@@ -42,6 +91,30 @@ app.get("/api/users", async (req, res) => {
   res.send(result);
 });
 
+/**
+ * @swagger
+ * /api/login:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Log user in.
+ *     description: Logs a user in by email and password.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "example@gmail.com"
+ *               password:
+ *                 type: string
+ *                 example: "secret123"
+ *     responses:
+ *       200:
+ *         description: Successfully logged in
+ */
 app.post("/api/login", async (req, res) => {
   const frontendPayload = req.body;
   const response = await fetch(
@@ -65,6 +138,33 @@ app.post("/api/login", async (req, res) => {
   res.json(result);
 });
 
+/**
+ * @swagger
+ * /api/signup:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Sign user up
+ *     description: Signs a new user up.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "ladiesman217"
+ *               email:
+ *                 type: string
+ *                 example: "example@gmail.com"
+ *               password:
+ *                 type: string
+ *                 example: "secret123"
+ *     responses:
+ *       200:
+ *         description: Successfully signed up
+ */
 app.post("/api/signup", async (req, res) => {
   const frontendPayload = req.body;
   const response = await fetch(
@@ -80,6 +180,17 @@ app.post("/api/signup", async (req, res) => {
   res.json(result);
 });
 
+/**
+ * @swagger
+ * /api/me:
+ *   get:
+ *     tags: [Auth]
+ *     summary: Return User ID
+ *     description: Retrieves current user ID from session.
+ *     responses:
+ *       200:
+ *         description: User ID retrieved!
+ */
 app.get("/api/me", async (req, res) => {
   const response = await fetch(
     "http://127.0.0.1:8000/Controllers/MeController.php",
@@ -96,6 +207,17 @@ app.get("/api/me", async (req, res) => {
   res.json(result);
 });
 
+/**
+ * @swagger
+ * /api/logout:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Log user out
+ *     description: Adds a new task to the to-do list.
+ *     responses:
+ *       200:
+ *         description: Successfully Logged out
+ */
 app.post("/api/logout", async (req, res) => {
   const response = await fetch(
     "http://127.0.0.1:8000/Controllers/LogoutController.php",
@@ -118,6 +240,30 @@ app.post("/api/logout", async (req, res) => {
   res.json(result);
 });
 
+/**
+ * @swagger
+ * /api/tasks:
+ *   post:
+ *     tags: [Tasks]
+ *     summary: Create a new task
+ *     description: Adds a new task to the to-do list.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "Buy groceries"
+ *               description:
+ *                 type: string
+ *                 example: "Milk, eggs, and bread"
+ *     responses:
+ *       200:
+ *         description: Task successfully created
+ */
 app.post("/api/tasks", async (req, res) => {
   const payload = req.body;
   const response = await fetch(
@@ -136,6 +282,24 @@ app.post("/api/tasks", async (req, res) => {
   res.send(result);
 });
 
+/**
+ * @swagger
+ * /api/tasks/{id}:
+ *   delete:
+ *     tags: [Tasks]
+ *     summary: Delete a task
+ *     description: Removes a specific task by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the task to delete
+ *     responses:
+ *       200:
+ *         description: Task successfully deleted
+ */
 app.delete("/api/tasks/:id", async (req, res) => {
   const taskId = req.params.id;
   const response = await fetch(
@@ -153,6 +317,17 @@ app.delete("/api/tasks/:id", async (req, res) => {
   res.send(result);
 });
 
+/**
+ * @swagger
+ * /api/tasks:
+ *   delete:
+ *     tags: [Tasks]
+ *     summary: Delete all tasks
+ *     description: Removes task task by User ID
+ *     responses:
+ *       200:
+ *         description: Tasks successfully deleted
+ */
 app.delete("/api/tasks", async (req, res) => {
   const response = await fetch(
     "http://127.0.0.1:8000/Controllers/toDoListController.php",
@@ -168,6 +343,18 @@ app.delete("/api/tasks", async (req, res) => {
   const result = await response.text();
   res.send(result);
 });
+
+/**
+ * @swagger
+ * /api/tasks:
+ *   get:
+ *     tags: [Tasks]
+ *     summary: Get all tasks
+ *     description: Fetches all to-do list tasks from the backend.
+ *     responses:
+ *       200:
+ *         description: A list of tasks
+ */
 
 app.get("/api/tasks", async (req, res) => {
   const response = await fetch(
@@ -186,6 +373,33 @@ app.get("/api/tasks", async (req, res) => {
   res.send(result);
 });
 
+/**
+ * @swagger
+ * /api/tasks/{id}:
+ *   patch:
+ *     tags: [Tasks]
+ *     description: Modifies a task's description.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the task to delete
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               description:
+ *                 type: string
+ *                 example: "I actually want to relax."
+ *     responses:
+ *       200:
+ *         description: Task successfully updated
+ */
 app.patch("/api/tasks/:id", async (req, res) => {
   const taskId = req.params.id;
   const payload = req.body;
@@ -205,6 +419,7 @@ app.patch("/api/tasks/:id", async (req, res) => {
   const result = await response.json();
   res.send(result);
 });
+
 
 app.get("/api/reminders", async (req, res) => {
   const response = await fetch(
@@ -238,7 +453,7 @@ app.post("/api/reminders", async (req, res) => {
         "Content-Type": "application/json",
         Cookie: req.headers.cookie,
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     },
   );
 
@@ -265,7 +480,6 @@ app.delete("/api/reminders", async (req, res) => {
 });
 
 app.delete("/api/reminders/:id", async (req, res) => {
-
   // const id = body.params;
 
   const response = await fetch(
@@ -285,9 +499,8 @@ app.delete("/api/reminders/:id", async (req, res) => {
 });
 
 app.patch("/api/reminders/:id", async (req, res) => {
-
-  const id = req.params
-  const payload = req.body
+  const id = req.params;
+  const payload = req.body;
 
   // const payload = body.params;
   const response = await fetch(
