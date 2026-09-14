@@ -84,6 +84,8 @@
             }
 
             list.innerHTML = html;
+
+            
         }
 
         async function init() {

@@ -50,6 +50,16 @@
                 deleteAllRemindersAndRefresh();
             })
 
+            rem_list.addEventListener('click', (event) => {
+                const clickedCard = event.target.closest('.reminder-cont');
+
+                const reminderId = clickedCard.dataset.reminderId;
+                const extraInfo = document.querySelector(`.extraInfo[data-reminder-id="${reminderId}"]`);
+                if (extraInfo) {
+                    extraInfo.classList.toggle('hidden');
+                }
+            });
+
             async function deleteAllRemindersAndRefresh(){
                 await deleteAllReminders();
                 await render();
@@ -69,26 +79,36 @@
                     let trigger_at = `${hours}:${minutes}`
 
                     html += `
-                        <div class="reminder-cont">
-                            <div class="date-info-cont">
-                                <div class="date">${d.getDate()}</div>
-                                <div class="day">${months[d.getMonth()].substring(0, 3)}</div>
+                        <div>
+                            <div class="reminder-cont" data-reminder-id="${reminder.reminder_id}">
+                                <div class="date-info-cont">
+                                    <div class="date">${d.getDate()}</div>
+                                    <div class="day">${months[d.getMonth()].substring(0, 3)}</div>
+                                </div>
+                                <div id="reminder-content-cont">
+                                    <div class="title">${reminder.title}</div>
+                                    <div class="time"> Remind at: <span>${trigger_at}</span></div>
+                                </div>
+                            </div> 
+
+                            <div class="extraInfo hidden" data-reminder-id="${reminder.reminder_id}">
+                                <div class="extraInfo-inner">
+                                    <div class="reminder-description">${reminder.description === null ? "No description available" : reminder.description}</div>
+                                    <div id="editBtns">
+                                        <button id="modifyDescBtn">Edit</button>
+                                        <button id="deleteRemBtn">Delete Reminder</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="reminder-content-cont">
-                                <div class="title">${reminder.title}</div>
-                                <div class="time"> Remind at: <span>${trigger_at}</span></div>
-                            </div>
-                        </div>        
+                        </div>       
                     `;
                 }
 
                 rem_list.innerHTML = html;
+
             }
 
             render();
-            
-
-
         
         </script>
 

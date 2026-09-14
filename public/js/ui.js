@@ -92,6 +92,6 @@ function displayInternalNotification(data) {
     notificationContainer.appendChild(notification);
 
     setTimeout(() => {
-        toast.remove();
+        notification.remove();
     }, 3000);
 }

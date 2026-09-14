@@ -107,3 +107,40 @@ main{
 .time span{
     color: rgba(149, 39, 167, 0.47);
 }
+
+.extraInfo {
+    display: grid;
+    grid-template-rows: 1fr;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    transition: grid-template-rows 0.3s ease, margin-top 0.3s ease;
+}
+
+.extraInfo.hidden {
+    grid-template-rows: 0fr;
+    margin-top: 0;
+}
+
+.extraInfo-inner {
+    overflow: hidden;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+#editBtns{
+    margin-left: 4rem;
+    display: flex;
+    gap: 2rem;
+}
+
+#editBtns button{
+    background-color: #000;
+    border: none;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
