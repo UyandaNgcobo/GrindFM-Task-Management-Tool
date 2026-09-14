@@ -51,12 +51,28 @@
             })
 
             rem_list.addEventListener('click', (event) => {
-                const clickedCard = event.target.closest('.reminder-cont');
 
-                const reminderId = clickedCard.dataset.reminderId;
-                const extraInfo = document.querySelector(`.extraInfo[data-reminder-id="${reminderId}"]`);
-                if (extraInfo) {
-                    extraInfo.classList.toggle('hidden');
+                if (event.target.classList.contains('deleteRemBtn')) {
+                    const card = event.target.closest('.extraInfo');
+                    const reminderId = card.dataset.reminderId;
+                    deleteReminder(reminderId);
+                    return;
+                }
+
+                if (event.target.classList.contains('modifyDescBtn')) {
+                    const card = event.target.closest('.extraInfo');
+                    const reminderId = card.dataset.reminderId;
+                    deleteReminder(reminderId);
+                    return;
+                }
+                
+                const clickedCard = event.target.closest('.reminder-cont');
+                if (clickedCard) {
+                    const reminderId = clickedCard.dataset.reminderId;
+                    const extraInfo = document.querySelector(`.extraInfo[data-reminder-id="${reminderId}"]`);
+                    if (extraInfo) {
+                        extraInfo.classList.toggle('hidden');
+                    }
                 }
             });
 

@@ -81,7 +81,7 @@ async function loadReminders(){
   // console.log("FROM API: ", result)
 }
 
-async function deleteReminder() {
+async function deleteReminder(taskID) {
   const payload = {};
 
   const response = await fetch(
