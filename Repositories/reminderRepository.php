@@ -82,7 +82,7 @@ class reminderRepository{
         
     }
 
-    public function editReminder(int $userId, int $reminder_id, string $description){
+    public function editReminderDescription(int $userId, int $reminder_id, string $description){
         $statement = $this->pdo->prepare(
             "UPDATE reminders 
             SET description = ?

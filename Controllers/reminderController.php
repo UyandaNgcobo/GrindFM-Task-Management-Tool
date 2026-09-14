@@ -72,7 +72,7 @@
         $taskId = $_GET['taskId'] ?? null;
         $reminderId = $data['reminderId'];
 
-        $reminders = $repository->editReminder($userId, $reminderId, $updatedDescription);
+        $reminders = $repository->editReminderDescription($userId, $reminderId, $updatedDescription);
 
         echo json_encode([
             "status" => "success",
