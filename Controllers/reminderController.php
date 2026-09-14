@@ -63,4 +63,20 @@
             "message" => "All reminders successfully deleted!"
         ]);
     }
+
+    if($method == 'PATCH'){
+        $rawJSON = file_get_contents('php://input');
+        $data = json_decode($rawJSON, true);
+
+        $updatedDescription = $data['description'];
+        $taskId = $_GET['taskId'] ?? null;
+        $reminderId = $data['reminderId'];
+
+        $reminders = $repository->editReminder($userId, $reminderId, $updatedDescription);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Reminder successfully updated!"
+        ]);
+    }
 ?>

@@ -90,11 +90,17 @@ class reminderRepository{
             AND reminder_id = ?"
         );
 
-        $statement->execute([
+        try {
+            $statement->execute([
             $description,
-            $reminder_id,
-            $userId
+            $userId,
+            $reminder_id
+            
         ]);
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+
     }
 
 }

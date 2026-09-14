@@ -264,11 +264,34 @@ app.delete("/api/reminders", async (req, res) => {
   res.send(result);
 });
 
-app.get("/api/reminders/:id", async (req, res) => {
+app.delete("/api/reminders/:id", async (req, res) => {
+
+  // const id = body.params;
+
+  const response = await fetch(
+    `http://127.0.0.1:8000/Controllers/reminderController.php?taskId=${taskId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.cookie,
+      },
+    },
+  );
+
+  const result = await response.json();
+  console.log(result);
+  res.send(result);
+});
+
+app.patch("/api/reminders/:id", async (req, res) => {
+
+  const id = req.params
+  const payload = req.body
 
   // const payload = body.params;
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    `http://127.0.0.1:8000/Controllers/reminderController.php?taskId=${taskId}`,
     {
       method: "DELETE",
       headers: {
