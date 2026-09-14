@@ -2,9 +2,9 @@
  * Wraps fetch with centralized error handling.
  * Returns the parsed JSON response body on success, or null on failure (network error or non-2xx status).
  *
- * @param {string} url - The destination for the request
+ * @param {string} url - The destination for the request.
  * @param {RequestInit} [options] - Optional. Method, headers, body, etc.
- * @returns {Promise<object|null>} The JSON data, or null if it fails
+ * @returns {Promise<object|null>} The JSON data, or null if it fails.
  */
 async function fetchAPI(url, options) {
   try {
