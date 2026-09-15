@@ -606,23 +606,26 @@ app.delete("/api/reminders/:id", async (req, res) => {
  *         description: Reminder successfully updated
  */
 app.patch("/api/reminders/:id", async (req, res) => {
-  const id = req.params;
+  const reminderId = req.params.id;
   const payload = req.body;
+
+  console.log(payload)
 
   // const payload = body.params;
   const response = await fetch(
-    `http://127.0.0.1:8000/Controllers/reminderController.php?taskId=${taskId}`,
+    `http://127.0.0.1:8000/Controllers/reminderController.php?reminderId=${reminderId}`,
     {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Cookie: req.headers.cookie,
       },
+      body: JSON.stringify(payload),
     },
   );
 
-  const result = await response.json();
-  console.log(result);
+  const result = await response.text();
+  console.log("PHP RESPONSE", result);
   res.send(result);
 });
 

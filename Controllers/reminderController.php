@@ -69,14 +69,26 @@
         $data = json_decode($rawJSON, true);
 
         $updatedDescription = $data['description'];
-        $taskId = $_GET['taskId'] ?? null;
-        $reminderId = $data['reminderId'];
+        $reminderId = $_GET['reminderId'] ?? null;
 
-        $reminders = $repository->editReminderDescription($userId, $reminderId, $updatedDescription);
+        if($reminderId === null){
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "Missing reminderId."]);
+            exit;
+        }
 
-        echo json_encode([
-            "status" => "success",
-            "message" => "Reminder successfully updated!"
-        ]);
+        $success = $repository->editReminderDescription($userId, $reminderId, $updatedDescription);
+
+        if(!$success){
+            echo json_encode([
+                "status" => "failure",
+                "message" => "Failed to update reminder!"
+            ]);
+        }else{
+            echo json_encode([
+                "status" => "success",
+                "message" => "Successfully updated reminder!"
+            ]);
+        }
     }
 ?>

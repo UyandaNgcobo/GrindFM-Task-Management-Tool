@@ -77,7 +77,7 @@ class reminderRepository{
             ]);
 
         } catch (PDOException $e) {
-            $e->getMessage();
+            error_log("getAllReminders Error: " . $e->getMessage());
         }
         
     }
@@ -94,11 +94,11 @@ class reminderRepository{
             $statement->execute([
             $description,
             $userId,
-            $reminder_id
-            
+            $reminder_id,
+   
         ]);
         } catch (PDOException $e) {
-            $e->getMessage();
+            error_log("getAllReminders Error: " . $e->getMessage());
         }
 
     }

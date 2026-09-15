@@ -3,9 +3,9 @@ requireLogin();
 async function editReminderDescription(description, reminderId){
 
     const payload = {
-        description: description
-    }
-    const response = await fetchAPI(`http://localhost:3000//api/tasks/${reminderId}`, {
+      description: description,
+    };
+    const response = await fetchAPI(`http://localhost:3000/api/reminders/${reminderId}`, {
       method: "PATCH",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -20,38 +20,54 @@ document.getElementById('clearBtn').addEventListener('click', ()=>{
     deleteAllRemindersAndRefresh();
 })
 
-rem_list.addEventListener('click', (event) => {
+rem_list.addEventListener("click", (event) => {
+  // DELETE BUTTON
+  if (event.target.classList.contains("deleteRemBtn")) {
+    const card = event.target.closest(".extraInfo");
+    const reminderId = card.dataset.reminderId;
+    deleteReminder(reminderId); // Fixed: removed undefined 'description' variable
+    return;
+  }
 
-    if (event.target.classList.contains('deleteRemBtn')) {
-        const card = event.target.closest('.extraInfo');
-        const reminderId = card.dataset.reminderId;
-        deleteReminder(description, reminderId);
-        return;
+  // EDIT/SAVE BUTTON
+  if (event.target.classList.contains("modifyDescBtn")) {
+    const btn = event.target;
+    const card = btn.closest(".extraInfo");
+    const reminderId = card.dataset.reminderId;
+    console.log("REMINDER ID: ", reminderId)
+    const descElement = card.querySelector(".reminder-description");
+
+    if (btn.innerText === "Edit") {
+      // 1. Turn on editing mode
+      descElement.contentEditable = "true";
+      descElement.style.borderBottom = "2px solid #000"; // visual cue that it's editable
+      descElement.style.outline = "none";
+      descElement.focus();
+      btn.innerText = "Save"; // Change button text
+    } else {
+      // 2. Turn off editing mode and Save
+      descElement.contentEditable = "false";
+      descElement.style.borderBottom = "none";
+      btn.innerText = "Edit";
+
+      // 3. Grab the typed text and send it to your backend
+      const newDesc = descElement.innerText;
+      editReminderDescription(newDesc, reminderId);
     }
+    return;
+  }
 
-    if (event.target.classList.contains('modifyDescBtn')) {
-        const card = event.target.closest('.extraInfo');
-        const reminderId = card.dataset.reminderId;
-
-        const descElement = card.querySelector(".reminder-description");
-        const currentDesc = descElement.innerText;
-
-        const newDesc = prompt("Update description: ", currentDesc)
-
-        if(newDesc == null) return;
-        
-        editReminderDescription(reminderId);
-        return;
+  // EXPAND CARD
+  const clickedCard = event.target.closest(".reminder-cont");
+  if (clickedCard) {
+    const reminderId = clickedCard.dataset.reminderId;
+    const extraInfo = document.querySelector(
+      `.extraInfo[data-reminder-id="${reminderId}"]`,
+    );
+    if (extraInfo) {
+      extraInfo.classList.toggle("hidden");
     }
-    
-    const clickedCard = event.target.closest('.reminder-cont');
-    if (clickedCard) {
-        const reminderId = clickedCard.dataset.reminderId;
-        const extraInfo = document.querySelector(`.extraInfo[data-reminder-id="${reminderId}"]`);
-        if (extraInfo) {
-            extraInfo.classList.toggle('hidden');
-        }
-    }
+  }
 });
 
 async function deleteAllRemindersAndRefresh(){
@@ -89,8 +105,8 @@ async function render(){
                     <div class="extraInfo-inner">
                         <div class="reminder-description">${reminder.description === null ? "No description available" : reminder.description}</div>
                         <div id="editBtns">
-                            <button id="modifyDescBtn">Edit</button>
-                            <button id="deleteRemBtn">Delete Reminder</button>
+                            <button class="modifyDescBtn">Edit</button>
+                            <button class="deleteRemBtn">Delete Reminder</button>
                         </div>
                     </div>
                 </div>
