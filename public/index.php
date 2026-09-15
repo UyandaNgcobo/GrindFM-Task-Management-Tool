@@ -25,7 +25,7 @@
                         Tune in on the <span id="logo-fm">Grind Hour</span>, there’s no other time like it!
                     </div>
                     <div class="hero-h5">You spend too much of your time organizing <br> your life instead of living it, let Grind.FM handle <br> that for you!</div>
-                    <button>Start Planning</button>
+                    <a href="dashboard.php">Start Planning</a>
                 </div>
                 <div class="hero-img">
                     
