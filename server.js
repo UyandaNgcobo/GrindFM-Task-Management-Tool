@@ -452,7 +452,8 @@ app.delete("/api/tasks", async (req, res) => {
  *                 example: "I actually want to relax."
  *               trigger_at:
  *                 type: string
- *                 example: "2026-09-08 01:32:04"
+ *                 format: date-time
+ *                 example: "2026-09-15 10:10:10"
  *     responses:
  *       200:
  *         description: Reminder successfully updated
@@ -558,7 +559,7 @@ app.delete("/api/reminders", async (req, res) => {
  *         description: Reminder successfully deleted
  */
 app.delete("/api/reminders/:id", async (req, res) => {
-  // const id = body.params;
+  const taskId = req.params.id;
 
   const response = await fetch(
     `http://127.0.0.1:8000/Controllers/reminderController.php?taskId=${taskId}`,

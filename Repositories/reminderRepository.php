@@ -52,20 +52,29 @@ class reminderRepository{
         
     }
 
-    public function deleteReminder(int $userId, int $reminder_id){
+    public function deleteReminder(int $userId, int $reminder_id) : bool{
         $statement = $this->pdo->prepare(
             "DELETE FROM Reminders
             WHERE user_id = ?
             AND reminder_id = ?"
         );
 
-        $statement->execute([
+        try {
+            $statement->execute([
             $userId,
             $reminder_id
         ]);
+
+        return true;
+
+        } catch (PDOException $e) {
+            error_log("deleteReminder Exception", $e->getMessage());
+            return false;
+        }
+
     }
 
-    public function deleteAllReminder(int $userId) : void{
+    public function deleteAllReminders(int $userId) : bool{
         $statement = $this->pdo->prepare(
             "DELETE FROM Reminders
             WHERE user_id = ?"
@@ -76,13 +85,15 @@ class reminderRepository{
                 $userId
             ]);
 
+            return true;
         } catch (PDOException $e) {
             error_log("getAllReminders Error: " . $e->getMessage());
+            return false;
         }
         
     }
 
-    public function editReminderDescription(int $userId, int $reminder_id, string $description){
+    public function editReminderDescription(int $userId, int $reminder_id, string $description) : bool{
         $statement = $this->pdo->prepare(
             "UPDATE reminders 
             SET description = ?
@@ -95,10 +106,13 @@ class reminderRepository{
             $description,
             $userId,
             $reminder_id,
-   
         ]);
+
+        return true;
+
         } catch (PDOException $e) {
             error_log("getAllReminders Error: " . $e->getMessage());
+            return false;
         }
 
     }

@@ -37,8 +37,9 @@
         $title = $data['title'];
         $description = $data['description'];
         $trigger_at = $data['trigger_at'];
+        $mysqlFormattedTime = date('Y-m-d', strtotime($trigger_at));
 
-        $success = $repository->createReminder($userId, $title, $description, $trigger_at);
+        $success = $repository->createReminder($userId, $title, $description, $mysqlFormattedTime);
 
         if(!$success){
             echo json_encode([
@@ -56,12 +57,26 @@
 
     if($method == 'DELETE'){
 
-        $reminders = $repository->deleteAllReminder($userId);
+        $taskId = $_GET['taskId'] ?? null;
 
-        echo json_encode([
-            "status" => "success",
-            "message" => "All reminders successfully deleted!"
-        ]);
+        if($taskId == null){
+            $success = $repository->deleteAllReminders($userId);
+        }else{
+            $success = $repository->deleteReminder($userId, $taskId);
+        }
+        
+        if(!$success){
+            echo json_encode([
+                "status" => "failure",
+                "message" => "Failed to delete task!"
+            ]);
+        }else{
+            echo json_encode([
+                "status" => "success",
+                "message" => $taskId !== null ?  "Reminder successfully deleted!" : "All reminders successfully deleted!"
+            ]);
+        }
+
     }
 
     if($method == 'PATCH'){
@@ -79,6 +94,7 @@
 
         $success = $repository->editReminderDescription($userId, $reminderId, $updatedDescription);
 
+        // echo $success
         if(!$success){
             echo json_encode([
                 "status" => "failure",

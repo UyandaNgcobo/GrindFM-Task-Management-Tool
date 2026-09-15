@@ -25,7 +25,7 @@ rem_list.addEventListener("click", (event) => {
   if (event.target.classList.contains("deleteRemBtn")) {
     const card = event.target.closest(".extraInfo");
     const reminderId = card.dataset.reminderId;
-    deleteReminder(reminderId); // Fixed: removed undefined 'description' variable
+    deleteReminderAndRefresh(reminderId); // Fixed: removed undefined 'description' variable
     return;
   }
 
@@ -73,6 +73,10 @@ rem_list.addEventListener("click", (event) => {
 async function deleteAllRemindersAndRefresh(){
     await deleteAllReminders();
     await render();
+}
+async function deleteReminderAndRefresh(reminderId) {
+  await deleteReminder(reminderId);
+  await render();
 }
 
 async function render(){
