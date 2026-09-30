@@ -72,6 +72,7 @@ input::placeholder{
     margin-left: auto;
     background-color: rgba(149, 39, 167, 0.47);
     color: #fff;
+    cursor: pointer;
 }
 
 #doneBtn{
@@ -80,4 +81,5 @@ input::placeholder{
     background-color: #DBDBDB;
     border: none;
     border-radius: 0.5rem;
+    cursor: pointer;
 }

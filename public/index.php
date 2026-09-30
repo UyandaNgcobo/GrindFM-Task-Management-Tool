@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/landing-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,27 +16,80 @@
 </head>
 <body>
     <div class="container">
-        <?php include 'components/header.php'; ?>
         <main>
-           <div class="hero-section">
-                <div class="hero-text">
-                    <div class="hero-h3">
-                        Tune in on the <span id="logo-fm">Grind Hour</span>, there’s no other time like it!
+            <a id="logo" href="/">Grind.<span id="logo-fm">FM</span></a>
+
+            <div class="slogan-wrapper">
+                <div class="slogan-primary">Let’s spend less time <span class="slogan-emphasis">planning,</span><br>more time <span class="slogan-emphasis">doing</span></div>
+                <div class="slogan-secondary">Plan once. Grind forever.</div>
+            </div>
+           
+            <div class="features-wrapper">
+                <div class="features-wrapper-track">
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/spotify.svg" alt="">
+                        <div class="feature-name">Listen to Music</div>
                     </div>
-                    <div class="hero-h5">You spend too much of your time organizing <br> your life instead of living it, let Grind.FM handle <br> that for you!</div>
-                    <a href="dashboard.php">Start Planning</a>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/list-check-svgrepo-com.svg" alt="">
+                        <div class="feature-name">Create To-do lists</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/graph-svgrepo-com.svg" alt="">
+                        <div class="feature-name">See Insights on your Grind</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/spotify.svg" alt="">
+                        <div class="feature-name">Listen to Music</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/list-check-svgrepo-com.svg" alt="">
+                        <div class="feature-name">Create To-do lists</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/graph-svgrepo-com.svg" alt="">
+                        <div class="feature-name">See Insights on your Grind</div>
+                    </div>
                 </div>
-                <div class="hero-img">
-                    
+                
+            </div>
+            
+            <div class="features-wrapper">
+                <div class="features-wrapper-track">
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/bell-svgrepo-com-4.svg" alt="">
+                        <div class="feature-name">See Insights on your Grind</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/acrobat-logo.svg" alt="">
+                        <div class="feature-name">Export tasks to PDF</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <div class="feature-icon">i</div>
+                        <div class="feature-name">name</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/bell-svgrepo-com-4.svg" alt="">
+                        <div class="feature-name">Set Reminders</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <img class="feature-icon" src="Images/acrobat-logo.svg" alt="">
+                        <div class="feature-name">Export tasks to PDF</div>
+                    </div>
+                    <div class="feature-icon-desc-cont">
+                        <div class="feature-icon">i</div>
+                        <div class="feature-name">name</div>
+                    </div>
                 </div>
-           </div>
+                
+            </div>
+
+            <div class="access-actions">
+                <button>Get Started</button>
+                <a href="#">I already have an Account</a>
+            </div>
            
         </main>
-        <div class="sponsor-section">
-        </div>
-    <footer>
-
-    </footer>
     </div>
     <script src="js/auth-guard.js"></script>
     <script>
