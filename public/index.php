@@ -85,14 +85,19 @@
             </div>
 
             <div class="access-actions">
-                <button>Get Started</button>
-                <a href="#">I already have an Account</a>
+                <button id="getStartedBtn">Get Started</button>
+                <a href="login.php">I already have an Account</a>
             </div>
            
         </main>
     </div>
     <script src="js/auth-guard.js"></script>
     <script>
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        getStartedBtn.addEventListener('click', () => {
+            window.location.href = "signup.php";
+        });
+
     </script>
 </body>
 </html>

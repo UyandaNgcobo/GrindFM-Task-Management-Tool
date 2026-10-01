@@ -1,3 +1,5 @@
+var API_BASE_URL = `http://${window.location.hostname}:4000/api`;
+
 //Custom fetch including error handling
 //Returns response JSON or null on failure
 async function fetchAPI(url, options) {
@@ -21,18 +23,19 @@ async function fetchAPI(url, options) {
 
 //-----------------------TO DO TASKS-----------------------
 async function loadTasks() {
-  const response = await fetch("http://localhost:3000/api/tasks", {
+  const response = await fetch(`${API_BASE_URL}/tasks`, {
     method: "GET",
     credentials: "include",
   });
 
   const result = await response.json();
+  console.log(result)
   return result;
 }
 
 async function deleteAllTasks() {
-  console.log("API SAYS DELETE TRIGGERED!")
-  const response = await fetch("http://localhost:3000/api/tasks", {
+  console.log("API SAYS DELETE TRIGGERED!");
+  const response = await fetch(`${API_BASE_URL}/tasks`, {
     method: "DELETE",
     credentials: "include",
   });
@@ -42,7 +45,7 @@ async function deleteAllTasks() {
 }
 
 async function deleteTask(taskID) {
-  const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
+  const response = await fetch(`${API_BASE_URL}/tasks/${taskID}`, {
     method: "DELETE",
     credentials: "include",
   });
@@ -53,7 +56,7 @@ async function deleteTask(taskID) {
 async function markCompleted(taskID, statusId) {
   const payload = { statusId: statusId };
 
-  const response = await fetch(`http://localhost:3000/api/tasks/${taskID}`, {
+  const response = await fetch(`${API_BASE_URL}/tasks/${taskID}`, {
     method: "PATCH",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -63,14 +66,10 @@ async function markCompleted(taskID, statusId) {
   const result = await response.json();
 }
 
-
-
-
 // ----------------- REMINDERS ---------------------
 
-async function loadReminders(){
-
-  const response = await fetch(`http://localhost:3000/api/reminders`, {
+async function loadReminders() {
+  const response = await fetch(`${API_BASE_URL}/reminders`, {
     method: "GET",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -84,15 +83,12 @@ async function loadReminders(){
 async function deleteReminder(taskID) {
   const payload = {};
 
-  const response = await fetch(
-    `http://localhost:3000/api/reminders/${taskID}`,
-    {
-      method: "DELETE",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    },
-  );
+  const response = await fetch(`${API_BASE_URL}/reminders/${taskID}`, {
+    method: "DELETE",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 
   const result = await response.json();
 }
@@ -100,15 +96,12 @@ async function deleteReminder(taskID) {
 async function deleteAllReminders() {
   const payload = {};
 
-  const response = await fetch(
-    `http://localhost:3000/api/reminders`,
-    {
-      method: "DELETE",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    },
-  );
+  const response = await fetch(`${API_BASE_URL}/reminders`, {
+    method: "DELETE",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 
   const result = await response.json();
 }

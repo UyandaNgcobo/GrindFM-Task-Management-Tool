@@ -11,25 +11,64 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+a{
+    text-decoration: none;
 }
 
 body{
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     background-color: rgb(245, 245, 245);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+main{
+    height: 100%;
+    width: 100%;
+    background-color: #b868c5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.auth-subheading{
+    padding: 2rem;
+    font-size: 36px;
+    color: rgba(245, 245, 245, 0.9);
+    font-weight: bold;
+}
+
+.auth-switch a{
+    color: #b868c5;
+}
+
 #loginForm{
     background-color: #fff;
-    border-radius: 1rem;
+    border-radius: 2rem 2rem 0 0;
     display: flex;
     flex-direction: column;
     gap: 3em;
     padding: 2rem;
+    align-items: center;
+    height: 70%;
+    justify-content: space-between;
+}
 
+.login-auth-field-cont{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.log-up-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #logInBtn{
@@ -40,4 +79,50 @@ body{
     color: #fff;
     cursor: pointer;
     border-radius: 0.5rem;
+}
+
+.auth-field{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.auth-field-extra{
+    display: flex;
+    justify-content: space-between;
+}
+
+.auth-field-cont{
+    height: fit-content;
+    width: 100%;
+    /* outline: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+input{
+    padding: 1.5rem;
+    background-color: #F7F7F7;
+    border-radius: 3rem;
+    color: #B3B3B3;
+    font-size: 16px;
+    border: none;
+}
+
+#remember-me{
+    color: #B3B3B3;
+    font-size: 14px;
+}
+#forgot-password{
+    color: #b868c5;
+    font-size: 14px;
+}
+
+#submitBtn{
+    background-color: #b868c5;
+    width: 100%;
+    font-size: 16px;
+    padding: 1rem;
+    border-radius: 2rem;
 }

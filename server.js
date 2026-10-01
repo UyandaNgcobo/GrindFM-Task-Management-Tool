@@ -2,12 +2,24 @@ import express from "express";
 import cors from "cors";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import "dotenv/config";
 
 const app = express();
 
+const allowedOrigins = process.env.FRONTEND_CORS_URL.split(",").map((url) =>
+  url.trim(),
+);
+
 app.use(
   cors({
-    origin: "http://localhost:5500",
+    origin: function (origin, callback) {
+      // If the origin is in our list (or if there is no origin), allow it
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
@@ -99,7 +111,7 @@ app.post("/api/users", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   const frontendPayload = req.body;
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/LoginController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/LoginController.php`,
     {
       method: "POST",
       headers: {
@@ -111,6 +123,7 @@ app.post("/api/login", async (req, res) => {
   );
 
   const result = await response.json();
+  console.log("LOGIN ATTEMPT:", result)
 
   const sessionCookie = response.headers.get("set-cookie");
   if (sessionCookie) {
@@ -149,7 +162,7 @@ app.post("/api/login", async (req, res) => {
 app.post("/api/signup", async (req, res) => {
   const frontendPayload = req.body;
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/SignUpController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/SignUpController.php`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -174,7 +187,7 @@ app.post("/api/signup", async (req, res) => {
  */
 app.post("/api/logout", async (req, res) => {
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/LogoutController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/LogoutController.php`,
     {
       method: "POST",
       headers: {
@@ -207,7 +220,7 @@ app.post("/api/logout", async (req, res) => {
  */
 app.get("/api/users", async (req, res) => {
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/UserController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/UserController.php`,
     {
       method: "GET",
       headers: {
@@ -235,7 +248,7 @@ app.get("/api/users", async (req, res) => {
  */
 app.get("/api/me", async (req, res) => {
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/MeController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/MeController.php`,
     {
       method: "GET",
       headers: {
@@ -276,7 +289,7 @@ app.get("/api/me", async (req, res) => {
 app.post("/api/tasks", async (req, res) => {
   const payload = req.body;
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/toDoListController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/toDoListController.php`,
     {
       method: "POST",
       headers: {
@@ -324,7 +337,7 @@ app.patch("/api/tasks/:id", async (req, res) => {
   const payload = req.body;
 
   const response = await fetch(
-    `http://127.0.0.1:8000/Controllers/toDoListController.php?taskId=${taskId}`,
+    `${process.env.PHP_BACKEND_URL}/Controllers/toDoListController.php?taskId=${taskId}`,
     {
       method: "PATCH",
       headers: {
@@ -353,7 +366,7 @@ app.patch("/api/tasks/:id", async (req, res) => {
 
 app.get("/api/tasks", async (req, res) => {
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/toDoListController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/toDoListController.php`,
     {
       method: "GET",
       headers: {
@@ -389,7 +402,7 @@ app.get("/api/tasks", async (req, res) => {
 app.delete("/api/tasks/:id", async (req, res) => {
   const taskId = req.params.id;
   const response = await fetch(
-    `http://127.0.0.1:8000/Controllers/toDoListController.php?taskId=${taskId}`,
+    `${process.env.PHP_BACKEND_URL}/Controllers/toDoListController.php?taskId=${taskId}`,
     {
       method: "DELETE",
       headers: {
@@ -416,7 +429,7 @@ app.delete("/api/tasks/:id", async (req, res) => {
  */
 app.delete("/api/tasks", async (req, res) => {
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/toDoListController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/toDoListController.php`,
     {
       method: "DELETE",
       headers: {
@@ -464,7 +477,7 @@ app.post("/api/reminders", async (req, res) => {
   console.log(payload);
 
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/reminderController.php`,
     {
       method: "POST",
       headers: {
@@ -494,7 +507,7 @@ app.post("/api/reminders", async (req, res) => {
  */
 app.get("/api/reminders", async (req, res) => {
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/reminderController.php`,
     {
       method: "GET",
       headers: {
@@ -524,7 +537,7 @@ app.get("/api/reminders", async (req, res) => {
  */
 app.delete("/api/reminders", async (req, res) => {
   const response = await fetch(
-    "http://127.0.0.1:8000/Controllers/reminderController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/reminderController.php`,
     {
       method: "DELETE",
       headers: {
@@ -562,7 +575,7 @@ app.delete("/api/reminders/:id", async (req, res) => {
   const taskId = req.params.id;
 
   const response = await fetch(
-    `http://127.0.0.1:8000/Controllers/reminderController.php?taskId=${taskId}`,
+    `${process.env.PHP_BACKEND_URL}/Controllers/reminderController.php?taskId=${taskId}`,
     {
       method: "DELETE",
       headers: {
@@ -614,7 +627,7 @@ app.patch("/api/reminders/:id", async (req, res) => {
 
   // const payload = body.params;
   const response = await fetch(
-    `http://127.0.0.1:8000/Controllers/reminderController.php?reminderId=${reminderId}`,
+    `${process.env.PHP_BACKEND_URL}/Controllers/reminderController.php?reminderId=${reminderId}`,
     {
       method: "PATCH",
       headers: {
@@ -630,4 +643,7 @@ app.patch("/api/reminders/:id", async (req, res) => {
   res.send(result);
 });
 
-app.listen(3000, () => console.log("Node Gateway running on port 3000"));
+const PORT = process.env.NODE_PORT || 4000;
+app.listen(PORT, "0.0.0.0", () =>
+  console.log(`Node Gateway running on port ${PORT}`),
+);

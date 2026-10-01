@@ -26,8 +26,13 @@ nav ul li{ list-style: none; color: black; font-size: 1rem;}
     font-family: "Space Grotesk", sans-serif;
 }
 
+html, body{
+    overflow: hidden;
+    position: relative;
+}
+
 body{
-    height: 100vh;
+    height: 100dvh;
     width: 100%;
 }
 

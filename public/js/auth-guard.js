@@ -1,11 +1,16 @@
+// At the top of auth-guard.js
+var API_BASE_URL = `http://${window.location.hostname}:4000/api`;
+
 async function getCurrentUser() {
   try {
-    const res = await fetch("http://localhost:3000/api/me", {
+    const res = await fetch(`${API_BASE_URL}/me`, {
       credentials: "include",
     });
-
     return await res.json();
   } catch (error) {
+    // ADD THIS ALERT:
+    alert("Phone blocked it because: " + error.message);
+
     console.error("Failed to check auth status:", error);
     return { user_id: null };
   }
@@ -26,7 +31,7 @@ async function redirectIfLoggedIn() {
   const me = await getCurrentUser();
   if (me.user_id) {
     console.log("Already logged in!")
-    window.location.replace("index.php");
+    window.location.replace("dashboard.php");
   } else {
     console.log("Not logged in!");
     return me;

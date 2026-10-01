@@ -4,59 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/auth.css">
-<title>Sign up — Grind.FM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<title>Log in — Grind.FM</title>
+<style>
+    input{
+    padding: 1rem;
+    background-color: #F7F7F7;
+    border-radius: 3rem;
+    color: #B3B3B3;
+    font-size: 16px;
+    border: none;
+}
+</style>
 </head>
 <body>
 
-<div class="auth-shell">
-    <div class="auth-panel">
-        <a href="/" class="auth-logo">Grind.<span>FM</span></a>
+<main>
+    <p class="auth-subheading">Create an account <br> and start Grinding<br> Today.</p>
+    <!-- <a href="/" class="auth-logo">Grind.<span>FM</span></a> -->
 
-        <h1 class="auth-heading">Sign up</h1>
-        <p class="auth-subheading">Welcome to GrindFM - lets create an account.</p>
-
-        <div id="authError" class="auth-error"></div>
-
-        <form id="signupForm">
-            <div class="auth-field">
-                <label for="username">Username</label>
-                <input id="username" type="text" placeholder="Uyanda Ngcobo" required>
+    <form id="loginForm">
+        <div class="login-auth-field-cont">
+            <div class="log-up-cont">
+                <h1 class="auth-heading">Sign up</h1>
+                <p class="auth-switch">Already have an account? <a id="sign-up-link" href="login.php">Log in</a></p>
             </div>
-
-            <div class="auth-field">
-                <label for="email">Email</label>
-                <input id="email" type="email" placeholder="example@gmail.com" required>
+            <div class="auth-field-cont">
+                    <div class="auth-field">
+                        <input id="email" type="email" placeholder="example@gmail.com" required>
+                        <input id="username" type="text" placeholder="Jane Doe" required>
+                        <input id="password" type="password" placeholder="............" required>
+                    </div>
+                    <div class="auth-field-extra">
+                        <a href="#" id="remember-me">Remember Me</a>
+                        <a href="#" id="forgot-password">Forgot Password</a>
+                    </div>
             </div>
+        </div>
 
-            <div class="auth-field">
-                <label for="password">Password</label>
-                <input id="password" type="password" placeholder="............" required minlength="8">
-            </div>
-
-            <div class="auth-field">
-                <label for="confirmPassword">Confirm Password</label>
-                <input id="confirmPassword" type="password" placeholder="............" required minlength="8">
-            </div>
-
-            <button id="submitBtn" class="auth-submit" type="submit">Sign Up</button>
-        </form>
-
-        <p class="auth-switch">Already have an account? <a href="login.php">Log In</a></p>
-    </div>
-
-    <!-- <div class="auth-visual" aria-hidden="true">
-        <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
-            <polygon points="0,420 300,220 600,420 600,800 0,800" fill="#c3c6cd" />
-            <polygon points="0,420 300,220 300,800 0,800" fill="#b6b9c1" opacity="0.6" />
-            <polygon points="300,220 600,420 300,800" fill="#aeb1ba" opacity="0.5" />
-            <polygon points="0,0 600,0 600,300 300,120 0,260" fill="#eceef1" />
-        </svg>
-    </div> -->
-</div>
-
+        <button id="submitBtn" class="auth-submit" type="submit">Sign Up</button>
+    </form>
 <script src="js/auth-guard.js"></script>
 <script src="js/auth-helpers.js"></script>
 <script>
+    const inputs = document.querySelectorAll('input');
+
+inputs.forEach(input => {
+    input.addEventListener('blur', () => {
+        // Forces iOS to recalculate the page position
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+
     redirectIfLoggedIn();
 
     const form = document.getElementById('signupForm');
