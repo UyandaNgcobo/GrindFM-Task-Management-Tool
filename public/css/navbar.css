@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;  
+    color: #000;
+}
+
+.floating-nav{
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    width: 90%;
+    height: 60px;
+    border: #000 1px solid;
+    left: 50%;
+  transform: translateX(-50%);
+  border-radius: 3rem;
+}
+
+.floating-nav ul{
+    list-style: none;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 3rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.floating-nav a i{
+    font-size: 24px;
+}
+
+.floating-nav a i:nth-child(3){
+    font-size: 28px;
+}
+
+.floating-nav a i:hover{
+    color: rgba(149, 39, 167, 1);
+}

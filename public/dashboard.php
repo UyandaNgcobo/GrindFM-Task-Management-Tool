@@ -23,6 +23,7 @@
 </head>
 <body>
     <?php include 'components/header.php'; ?>
+    <?php include 'components/navbar.php'; ?>
     <main>
         <div class="dashboard-elements-container">
             <div class="completed-to-do-container">
