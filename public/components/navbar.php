@@ -2,8 +2,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/../css/navbar.css">
 </head>
-
-<header>
     <nav class="floating-nav">
         <!-- <a id="logo" href="/">Grind.<span id="logo-fm">FM</span></a> -->
 
@@ -55,4 +53,3 @@
         //     window.location.replace("login.php");
         // }
     </script>
-</header>

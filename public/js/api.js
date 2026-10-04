@@ -76,6 +76,7 @@ async function loadReminders() {
   });
 
   const result = await response.json();
+  console.log(result);
   return result;
   // console.log("FROM API: ", result)
 }
