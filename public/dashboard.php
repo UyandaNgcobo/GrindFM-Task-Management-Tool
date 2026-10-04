@@ -24,103 +24,26 @@
 <body>
     <?php include 'components/header.php'; ?>
     <main>
-        <h1>Overview</h1>
-       <div id="grid-container">
+        <div class="dashboard-elements-container">
+            <div class="completed-to-do-container">
+                <div class="dashboard-tile-container">
+                    <div class="dashboard-tile">
+                        <div class="dashboard-tile-title"></div>
+                        <div class="dashbaord-title-value" id="completed-tasks-value"></div>
+                    </div>
+                    <div class="dashboard-tile">
+                        <div class="dashboard-tile-title"></div>
+                        <div class="dashbaord-title-value" id="to-do-tasks-value"></div>
+                    </div>
+                </div>
+                <div class="dashboard-timeline-container"></div>
+                <div class="dashboard-summary-container">
+                    <div class="dashboard-graph"></div>
+                    <div class="dashboard-graph-description"></div>
+                </div>
 
-            <!-- Summary and Stats -->
-            <div id="stats-cont">
-                <div id="tasks-completed">
-                    <div id="tasks-completed-cont">
-                        <div id="task-completed-count">254</div>
-                        <div id="task-completed-label">Tasks Completed</div>
-                    </div>
-                    <div class="giant-check"><img src="/Images/check.svg" alt="" srcset=""></div>
-                </div>
-                <div id="tasks-to-do">
-                    <div id="tasks-to-do-count">65</div>
-                    <div id="tasks-to-do-label"><a href="to-do-list.php">Task To-Do</a></div>
-                </div>
-                <div id="tasks-all-tasks">
-                    <div id="tasks-all-tasks-count">319</div>
-                    <div id="tasks-all-tasks-label">All Tasks</div>
-                </div>
-                <div id="tasks-reminders">
-                    <div id="tasks-reminders-bell"><img src="/Images/bell.svg" alt=""></div>
-                    <div id="tasks-reminders-overview-cont">
-                    </div>
-                </div>
             </div>
-
-            <div id="time-cont-wrapper">
-                <div id="time-cont">
-                    <div id="clock">16:54</div>
-                    <div id="date-cont">
-                        <div id="date">21 Aug,</div>
-                        <div id="day">Thursday</div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="reminders-cont">
-                <div id="reminders-heading">
-                    Schedule
-                </div>
-                <div id="dates-row">
-                    <div class="date">
-                        <div class="date-num">19</div>
-                        <div class="rem-day">Wed</div>
-                    </div>
-                    <div class="date">
-                        <div class="date-num">19</div>
-                        <div class="rem-day">Wed</div>
-                    </div>
-                    <div class="date">
-                        <div class="date-num">19</div>
-                        <div class="rem-day">Wed</div>
-                    </div>
-                    <div class="date">
-                        <div class="date-num">19</div>
-                        <div class="rem-day">Wed</div>
-                    </div>
-                    <div class="date">
-                        <div class="date-num">19</div>
-                        <div class="rem-day">Wed</div>
-                    </div>
-                </div>
-                <div id="reminders-list-cont">
-                        <div class="reminder-task-cont">
-                            <div class="icon"><img src="/Images/Alert-circle.svg" alt=""></div>
-                            <div class="reminder-task-wrap">
-                                <div class="reminder-task">Cook for myself</div>
-                                <div class="reminder-time-set">17:00 - 18:00</div>
-                            </div>
-                        </div>
-                        <div class="reminder-task-cont">
-                            <div class="icon"><img src="/Images/Alert-circle.svg" alt=""></div>
-                            <div class="reminder-task-wrap">
-                                <div class="reminder-task">Cook for myself</div>
-                                <div class="reminder-time-set">17:00 - 18:00</div>
-                            </div>
-                        </div>
-                        <div class="reminder-task-cont">
-                            <div class="icon"><img src="/Images/Alert-circle.svg" alt=""></div>
-                            <div class="reminder-task-wrap">
-                                <div class="reminder-task">Cook for myself</div>
-                                <div class="reminder-time-set">17:00 - 18:00</div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div id="tasks-cont">
-                <div id="tasks-heading">
-                    To-Do List
-                </div>
-                <div id="tasks-list-cont">
-                    
-                </div>
-            </div>
-            
-       </div>
+        </div>
     </main>
 
     <script src="js/auth-guard.js"></script>

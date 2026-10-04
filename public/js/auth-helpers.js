@@ -7,7 +7,7 @@
  * @returns {Promise<object|null>} The JSON data, or null if it fails.
  */
 async function fetchAPI(url, options) {
-  alert("My phone is trying to reach: " + url);
+  // alert("My phone is trying to reach: " + url);
   try {
     const response = await fetch(url, options);
 
@@ -15,7 +15,7 @@ async function fetchAPI(url, options) {
       return await response.json().catch(() => null);
     }
 
-    return await response.text();
+    return await response.json();
   } catch (error) {
     console.error("Network error:", error);
     return null;

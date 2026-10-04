@@ -38,6 +38,9 @@
 <script src="js/auth-guard.js"></script>
 <script src="js/auth-helpers.js"></script>
 <script>
+
+    redirectIfLoggedIn();
+
     const inputs = document.querySelectorAll('input');
 
 inputs.forEach(input => {
@@ -46,7 +49,6 @@ inputs.forEach(input => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
-    redirectIfLoggedIn();
 
     const form = document.getElementById('loginForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -77,7 +79,10 @@ inputs.forEach(input => {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Log in';
 
+        console.log(data);
+
         if (data && (data.status === 'success' || data.status === 'already_logged_in')) {
+            console.log(data)
             window.location.replace('dashboard.php');
             return;
         }

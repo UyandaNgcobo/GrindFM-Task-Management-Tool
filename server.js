@@ -12,17 +12,11 @@ const allowedOrigins = process.env.FRONTEND_CORS_URL.split(",").map((url) =>
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // If the origin is in our list (or if there is no origin), allow it
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: true,
     credentials: true,
   }),
 );
+
 app.use(express.json());
 
 // --- SWAGGER SETUP START ---
