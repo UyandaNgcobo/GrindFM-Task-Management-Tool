@@ -25,12 +25,24 @@
         $tasks = $repository->getAllTasks($userId);
         $count = $repository->getPendingTaskCount($userId, 1);
         $completedCount = $repository->getCompletedTaskCount($userId, 2);
-
+            // 1. Fetch raw activity data
+        $rawActivity = $repository->getActivity($userId);
+        
+        // 2. Format it into a simple dictionary: {"2026-10-01": 5}
+        $formattedActivity = [];
+        if (is_array($rawActivity)) {
+            foreach ($rawActivity as $row) {
+                $date = $row['activity_date'];
+                $taskCount = (int)$row['daily_count'];
+                $formattedActivity[$date] = $taskCount;
+            }
+        }
         echo json_encode([
             "status" => "success",
             "tasks" => $tasks,
             "count" => $count,
-            "completedCount" => $completedCount
+            "completedCount" => $completedCount,
+            "activity" => $formattedActivity
         ]);
         //retrive user
     }

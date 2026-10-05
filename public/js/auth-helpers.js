@@ -10,7 +10,7 @@ async function fetchAPI(url, options) {
   // alert("My phone is trying to reach: " + url);
   try {
     const response = await fetch(url, options);
-
+    console.log(response)
     if (!response.ok) {
       return await response.json().catch(() => null);
     }

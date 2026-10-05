@@ -134,14 +134,38 @@ class toDoListRepository{
         );
 
        try {
-        $statement->execute([$statusId, $taskID, $userId]);
-        error_log("Rows affected: " . $statement->rowCount());
-        return true;
-    } catch (PDOException $e){
-        error_log($e->getMessage());
-        return false;
+            $statement->execute([$statusId, $taskID, $userId]);
+            error_log("Rows affected: " . $statement->rowCount());
+            return true;
+        } catch (PDOException $e){
+            error_log($e->getMessage());
+            return false;
+        }
+
     }
+
+    public function getActivity(int $userId){{
+        $statement = $this->pdo->prepare(
+        "SELECT 
+                DATE(created_at) as activity_date, 
+                COUNT(task_id) as daily_count 
+            FROM tasks 
+            WHERE user_id = ? 
+              AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+            GROUP BY DATE(created_at)
+            ORDER BY activity_date ASC
+        ");
+
+        try {
+            error_log("Rows affected: " . $statement->rowCount());
+            $statement->execute([$userId]);
+            $activities = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $activities;
+        } catch (PDOException $e){
+            error_log($e->getMessage());
+        }
        
+    }
 
     }
 }

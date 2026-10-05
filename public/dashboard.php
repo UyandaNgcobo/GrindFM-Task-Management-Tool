@@ -26,10 +26,10 @@
     <?php include 'components/navbar.php'; ?>
     <main>
         <div class="dashboard-elements-container">
-            <h1 id="dashboard-title">A quick overview <br>at your productivity</h1>
+            <h1 id="dashboard-title">A quick overview <br>at your <span>productivity</span></h1>
             <div class="dashboard-tile-container">
                 <div class="dashboard-tile">
-                    <div class="dashboard-tile-title">Completed</div>
+                    <div class="dashboard-tile-title"><i class="bi bi-check-circle-fill"></i>Completed</div>
                     <div class="dashbaord-title-value" id="completed-tasks-value">254</div>
                 </div>
                 <div class="dashboard-tile">
@@ -37,12 +37,19 @@
                     <div class="dashbaord-title-value" id="to-do-tasks-value">63</div>
                 </div>
             </div>
-            <div class="dashboard-heatmap-container" id="heatmap">
+            <div class="dashboard-heatmap-container" id="heatmap"></div>
 
-            </div>
             <div class="dashboard-summary-container">
-                <div class="dashboard-graph"></div>
-                <div class="dashboard-graph-description"></div>
+                <div class="circular-progress-container">
+                <!-- The viewBox keeps the internal math locked at 120x120 -->
+                <svg class="progress-ring" viewBox="0 0 120 120">
+                    <circle class="progress-track" stroke="#ebedf0" stroke-width="12" fill="transparent" r="50" cx="60" cy="60"/>
+                    <circle class="progress-fill" stroke="#a855f7" stroke-width="12" fill="transparent" r="50" cx="60" cy="60"/>
+                </svg>
+                
+                <div class="progress-text" id="progress-percent">0%</div>
+                </div>
+                <div class="dashboard-graph-description"><span>Good</span> completion rate,<br>keep it up</div>
             </div>
 
         </div>
@@ -54,118 +61,94 @@
         <script >
         requireLogin();
     </script>
+
     <script>
+        // Accept the activity dictionary as an argument
+        function renderHeatmap(activityData) {
+            const container = document.getElementById('heatmap');
+            container.innerHTML = ''; // Clear container to prevent duplicate renders
+            
+            function getLevel(count) {
+                if (count === 0) return 0;
+                if (count <= 2) return 1;
+                if (count <= 4) return 2;
+                if (count <= 6) return 3;
+                return 4;
+            }
 
-        // const taskToDoContainer = document.getElementById('tasks-to-do-count');
-        // const taskCompletedContainer = document.getElementById('task-completed-count');
-        // const allTasksContainer = document.getElementById('tasks-all-tasks-count');
-        // const list = document.getElementById('tasks-list-cont');
-        // const rem_list = document.getElementById('tasks-reminders-overview-cont');
-        // startClock();
+            // Generate 365 days, starting from exactly one year ago
+            const today = new Date();
+            const startDate = new Date();
+            startDate.setDate(today.getDate() - 364);
 
-        async function renderHeatmap() {
-    const container = document.getElementById('heatmap');
-    
-    // Fetch your grouped data from the API
-    // Assuming fetchAPI() returns the JSON dictionary mapped above
-    const activityData = await fetchAPI('http://localhost:4000/api/tasks/activity'); 
+            for (let i = 0; i <= 364; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                
+                const dateString = currentDate.toISOString().split('T')[0];
+                
+                // Grab the count safely from the passed-in dictionary
+                const taskCount = (activityData && activityData[dateString]) ? activityData[dateString] : 0;
+                const level = getLevel(taskCount);
 
-    // Determine color level based on task count
-    function getLevel(count) {
-        if (count === 0) return 0;
-        if (count <= 2) return 1;
-        if (count <= 4) return 2;
-        if (count <= 6) return 3;
-        return 4;
-    }
+                const block = document.createElement('div');
+                block.classList.add('day-block');
+                block.setAttribute('data-level', level);
+                block.title = `${taskCount} tasks on ${dateString}`;
 
-    // Generate 365 days, starting from exactly one year ago
-    const today = new Date();
-    const startDate = new Date();
-    startDate.setDate(today.getDate() - 364);
-
-    for (let i = 0; i <= 364; i++) {
-        // Create the current date in the loop
-        const currentDate = new Date(startDate);
-        currentDate.setDate(startDate.getDate() + i);
-        
-        // Format to YYYY-MM-DD to match the database output
-        const dateString = currentDate.toISOString().split('T')[0];
-        
-        // Check if this date exists in our backend data, default to 0
-        const taskCount = activityData[dateString] || 0;
-        const level = getLevel(taskCount);
-
-        // Create the HTML block
-        const block = document.createElement('div');
-        block.classList.add('day-block');
-        block.setAttribute('data-level', level);
-        
-        // Optional: Add a standard tooltip
-        block.title = `${taskCount} tasks on ${dateString}`;
-
-        container.appendChild(block);
-    }
-}
+                container.appendChild(block);
+            }
+        }
 
         async function render(){
-            const result = await loadTasks();
+            const result = await loadTasks(); // Assuming this hits /api/tasks via api.js
             const reminders = await loadReminders();
 
+            // 1. Render the Heatmap using the activity data from result
+            if (result && result.activity) {
+                renderHeatmap(result.activity);
+            }
+
+            // Uncomment these when you're ready!
             // taskToDoContainer.textContent = result.count;
             // taskCompletedContainer.textContent = result.completedCount;
             // allTasksContainer.textContent = result.count + result.completedCount;
 
             // let html = '';
-
-            // for (const task of result.tasks) {
-            //     const isChecked = task.status_id === 2 ? "checked" : "";
-            //     html += `
-            //             <div class="task" data-task-id="${task.task_id}">
-            //                 <div class="task-title">${task.title}</div>
-            //                 <input class="task-checkbox" type="checkbox" ${isChecked}></input>
-            //             </div>`;
-            // }
-
-            // if(html == ''){
-            //     list.innerHTML = "Nothing to report here...";
-            // }else{
-            //     list.innerHTML = html;
-            // }
-            
-
-            // let rem_html = ''
-
-            // for (let i = 0; i < reminders.reminders.length; i++) {
-            //     // console.log(reminders.reminders)
-
-            //     let d = new Date(reminders.reminders[i].trigger_at)
-            //     let hours = String(d.getHours()).padStart(2, "0");
-            //     let minutes = String(d.getMinutes()).padStart(2, "0");
-            //     let trigger_at = `${hours}:${minutes}`
-            //     rem_html += `
-            //         <div class="latest-task">${trigger_at} · ${reminders.reminders[i].title}</div>`;
-            // }
-
-            // rem_list.innerHTML = rem_html;
+            // ... rest of your task rendering logic ...
         }
 
-        // document.getElementById('tasks-list-cont').addEventListener('change', (e) => {
-        //     if (e.target.type === 'checkbox') {
-        //         const taskDiv = e.target.closest('.task');
-        //         const taskId = taskDiv.dataset.taskId;
-        //         const isChecked = e.target.checked;
-
-        //         const statusId = isChecked ? 2 : 1; // adjust to your actual "Completed"/"In Progress" status_id values
-        //         markCompleted(taskId, statusId);
-        //     }
-        // });
-
-        // updateTimeline();
-
-        renderHeatmap()
+        // Call ONLY render() - it handles everything!
         render();
-        
+
+        function updateCircularProgress(percent) {
+    const circle = document.querySelector('.progress-fill');
+    const text = document.getElementById('progress-percent');
+    
+    // 1. Get the radius from the HTML (50)
+    const radius = circle.r.baseVal.value;
+    
+    // 2. Calculate the exact circumference (2 * pi * r)
+    const circumference = radius * 2 * Math.PI;
+    
+    // 3. Set the dash length to the exact circumference
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    
+    // 4. Calculate how much of the line to hide based on the percentage
+    const offset = circumference - (percent / 100) * circumference;
+    
+    // 5. Apply the offset to trigger the CSS transition
+    circle.style.strokeDashoffset = offset;
+    
+    // 6. Update the text in the middle
+    text.textContent = `${Math.round(percent)}%`;
+}
+
+// Example usage: 
+// Let's say you have 254 completed out of 317 total tasks
+// updateCircularProgress((254 / 317) * 100);
+
+updateCircularProgress(75); // Will animate the circle to 75%
     </script>
 </body>
 </html>
