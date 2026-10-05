@@ -25,7 +25,7 @@
     <?php include 'components/header.php'; ?>
     <?php include 'components/navbar.php'; ?>
     <main>
-        <div class="dashboard-elements-container">
+        <div class="container">
             <h1 id="dashboard-title">A quick overview <br>at your <span>productivity</span></h1>
             <div class="dashboard-tile-container">
                 <div class="dashboard-tile">

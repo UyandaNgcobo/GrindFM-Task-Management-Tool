@@ -17,40 +17,39 @@
 <body>
     <?php include 'components/header.php'; ?>
     <main>
-        <div id="to-do-list-header">
-            To-Do List
-        </div>
-        <div id="create-new-task">
-            <div id="task-to-do-list-cont">
-                <div id="create-new-task-controls">
-                    <a id="addBtn" href="to-do-list-create-page.php">Add Task</a>
-                    <button id="clearBtn">Clear All</button>
-                </div>
-
-               
-                <div id="task-to-do-list">
-                </div>
+        <div class="container">
+                <div class="to-do-list-title">
+                To-Do-Tasks
             </div>
-            <div id="task-to-do-list-actions">
-                <div class="to-do-action">
-                    <div class="action-stat" id="todoCount">0</div>
-                    <div class="action-label">To-Do</div>
+            <div class="tasks-filter-tab">
+                <div class="to-do">To do</div>
+                <div class="completed">Completed</div>
+            </div>
+            <div id="tasks-container">
+                <div class="task-checkbox-container">
+                    <p id="task">Task</p>
+                    <input type="checkbox" name="" id="task-checkbox">
                 </div>
-                <div class="to-do-action">
-                    <div class="action-stat" id="completedCount">0</div>
-                    <div class="action-label">Completed</div>
+                <div class="task-checkbox-container">
+                    <p id="task">Task</p>
+                    <input type="checkbox" name="" id="task-checkbox">
                 </div>
-                <div class="to-do-action">
-                    <div class="action-icon"><img src="/Images/pdfIcon-word.svg" alt="" srcset=""></div>
-                    <div class="action-label">Export</div>
+                <div class="task-checkbox-container">
+                    <p id="task">Task</p>
+                    <input type="checkbox" name="" id="task-checkbox">
                 </div>
-                <div class="to-do-action">
-                    <div class="action-icon"><img src="/Images/doc.svg" alt="" srcset=""></div>
-                    <div class="action-label">History</div>
+                <div class="task-checkbox-container">
+                    <p id="task">Task</p>
+                    <input type="checkbox" name="" id="task-checkbox">
+                </div>
+                <div class="task-checkbox-container">
+                    <p id="task">Task</p>
+                    <input type="checkbox" name="" id="task-checkbox">
                 </div>
             </div>
         </div>
     </main>
+    <?php include 'components/navbar.php'; ?>
    
      <script src="js/auth-guard.js"></script>
      <script src="js/api.js"></script>
@@ -62,30 +61,23 @@
         async function render(){
             const result = await loadTasks();
 
-            const toDoCount = document.getElementById('todoCount');
-            const completedTotal = document.getElementById('completedCount');
-            const list = document.getElementById("task-to-do-list");
-
-            todoCount.textContent = result.count;
-            completedTotal.textContent = result.completedCount;
-
-            const count = result.count;
-            const completedCount = result.completedCount;
+            // const toDoCount = document.getElementById('todoCount');
+            // const completedTotal = document.getElementById('completedCount');
+            const container = document.getElementById("tasks-container");
 
             let html = "";
 
             for (const task of result.tasks) {
                 const isChecked = task.status_id === 2 ? "checked" : "";
                 html += `
-                                <div class="task-to-do-cont" data-task-id="${task.task_id}">
-                                    <div class="task">${task.title}</div>
-                                    <input type="checkbox" name="" ${isChecked}>
+                                <div class="task-checkbox-container" data-task-id="${task.task_id}>
+                                    <p id="task">${task.title}</p>
+                                    <input type="checkbox" name="" id="task-checkbox" ${isChecked}>
                                 </div>`;
             }
 
-            list.innerHTML = html;
+            container.innerHTML = html;
 
-            
         }
 
         async function init() {
@@ -93,32 +85,32 @@
             await render();
         }
 
-        async function deleteAndRefresh(taskID){
-            await deleteTask(taskID);
-            await render();
-        }
+        // async function deleteAndRefresh(taskID){
+        //     await deleteTask(taskID);
+        //     await render();
+        // }
 
-        async function deleteAllAndRefresh(){
-            await deleteAllTasks();
-            await render();
-        }
+        // async function deleteAllAndRefresh(){
+        //     await deleteAllTasks();
+        //     await render();
+        // }
 
-        document.getElementById('clearBtn').addEventListener('click', async () => {
-            console.log('DELETE PRESSED')
-            deleteAllAndRefresh();
-        })
+        // document.getElementById('clearBtn').addEventListener('click', async () => {
+        //     console.log('DELETE PRESSED')
+        //     deleteAllAndRefresh();
+        // })
 
-        document.getElementById('task-to-do-list').addEventListener('click', (e) => {
-            if (e.target.classList.contains('deleteBtn')) {
-                const taskDiv = e.target.closest('.task-to-do-cont');
-                const taskId = taskDiv.dataset.taskId;
-                deleteAndRefresh(taskId);
-            }
-        });
+        // document.getElementById('task-to-do-list').addEventListener('click', (e) => {
+        //     if (e.target.classList.contains('deleteBtn')) {
+        //         const taskDiv = e.target.closest('.task-to-do-cont');
+        //         const taskId = taskDiv.dataset.taskId;
+        //         deleteAndRefresh(taskId);
+        //     }
+        // });
 
-        document.getElementById('task-to-do-list').addEventListener('change', (e) => {
+        document.getElementById('tasks-container').addEventListener('change', (e) => {
             if (e.target.type === 'checkbox') {
-                const taskDiv = e.target.closest('.task-to-do-cont');
+                const taskDiv = e.target.closest('.task-checkbox-container');
                 const taskId = taskDiv.dataset.taskId;
                 const isChecked = e.target.checked;
 
@@ -128,6 +120,7 @@
         });
 
         init();
+        render();
    
     </script>
 </body>

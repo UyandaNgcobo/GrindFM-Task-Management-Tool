@@ -12,6 +12,7 @@ a{
 
 body{
     padding-top: 6rem;
+    background-color: #fff;
 }
 
 header{
@@ -30,7 +31,23 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: #fff;
     /* outline: 1px solid black; */
+}
+
+main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .profile-dropdown-container{
@@ -109,4 +126,8 @@ hr{
 
 #notifications{
     font-size: 24px;
+}
+
+.profile-dropdown-menu i{
+    margin-right: 0.8rem;
 }

@@ -29,9 +29,9 @@
                     </div>
                 </div>
                 <hr>
-                <a href="#">Profile</a>
-                <a href="#">Account Settings</a>
-                <a href="#" id="logout-btn">Log Out</a>
+                <a href="#"><i class="bi bi-person"></i>Profile</a>
+                <a href="#"><i class="bi bi-person-gear"></i>Account Settings</a>
+                <a href="#" id="logout-btn"><i class="bi bi-box-arrow-left"></i>Log Out</a>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-body{
+body {
     min-height: 100dvh;
     width: 100%;
     padding-bottom: 80px;
@@ -6,181 +6,24 @@ body{
     background-color: #f3f3f361;
 }
 
-main{
-    /* height: 100%; */
-    width: 100%;
-    /* outline: 1px solid black; */
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 2rem;
-}
-
-.dashboard-elements-container{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.dashboard-tile-container{
+.dashboard-tile-container {
     display: flex;
     gap: 1rem;
     width: 100%;
     /* outline: 1px solid black; */
 }
 
-#dashboard-title{
+#dashboard-title {
     /* display: flex; */
     flex-direction: column;
     font-size: 26px;
-
 }
 
-#dashboard-title span{
+#dashboard-title span {
     color: rgba(149, 39, 167, 1);
 }
 
-.dashboard-tile{
-    min-height: 8rem;
-    width: 100%;
-    /* max-width: 100px; */
-    font-size: 48px;
-    border-radius: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    background-color: #000;
-    color: #fff;
-}
-
-.dashboard-tile:nth-child(2){
-    background-color: rgba(215, 163, 241, 0.2);
-    color: rgba(149, 39, 167, 1);
-}
-
-.dashboard-tile-title{
-    font-size: 16px;
-}
-
-.dashboard-tile-title i{
-    margin-right: 0.5rem;
-}
-
-
-#completed-tasks-value, #to-do-tasks-value{
-    font-size: 48px;
-}
-
-.dashboard-heatmap-container {
-    display: grid;
-    grid-template-rows: repeat(7, 1fr); 
-    grid-auto-flow: column;             
-    gap: 4px;
-    width: 100%;
-    overflow-x: auto; /* Allows horizontal scrolling if it gets too wide on mobile */
-    padding-bottom: 10px;
-}
-
-.day-block {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-    background-color: #eeeeee; /* Default empty state */
-}
-
-/* Update these colors to fit your Grind.FM theme! */
-.day-block[data-level="1"] { background-color: #d8b4fe; } /* Light lilac */
-.day-block[data-level="2"] { background-color: #a855f7; } /* Medium purple */
-.day-block[data-level="3"] { background-color: #7e22ce; } /* Dark purple */
-.day-block[data-level="4"] { background-color: #4c1d95; } /* Deepest purple */
-
-.dashboard-graph-description{
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.dashboard-graph-description span{
-    color: rgba(206, 146, 216, 1);
-}
-
-.dashboard-summary-container{
-    display: flex;
-    gap: 1.5rem;
-}
-
-.circular-progress-container {
-    position: relative;
-    
-    /* Change these two values to whatever size you want! */
-    width: 70px; 
-    height: 70px;
-}
-
-.progress-ring {
-    /* The SVG will stretch or shrink to fit the container perfectly */
-    width: 100%;
-    height: 100%;
-}
-
-.progress-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* You may want to bump up the font size if you make the circle larger */
-    font-size: 13px; 
-    font-weight: bold;
-    color: #333;
-}
-
-body{
-    min-height: 100dvh;
-    width: 100%;
-    padding-bottom: 80px;
-    /* outline: 1px solid black; */
-    background-color: #f3f3f361;
-}
-
-main{
-    /* height: 100%; */
-    width: 100%;
-    /* outline: 1px solid black; */
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 2rem;
-}
-
-.dashboard-elements-container{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.dashboard-tile-container{
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    /* outline: 1px solid black; */
-}
-
-#dashboard-title{
-    /* display: flex; */
-    flex-direction: column;
-    font-size: 26px;
-
-}
-
-#dashboard-title span{
-    color: rgba(149, 39, 167, 1);
-}
-
-.dashboard-tile{
+.dashboard-tile {
     min-height: 8rem;
     width: 100%;
     /* max-width: 100px; */
@@ -196,22 +39,21 @@ main{
     /* box-shadow: 0 8px 14px rgba(0, 0, 0, 0.0.7); */
 }
 
-.dashboard-tile:nth-child(2){
+.dashboard-tile:nth-child(2) {
     background-color: rgba(215, 163, 241, 0.2);
     color: rgba(149, 39, 167, 1);
 }
 
-.dashboard-tile-title{
+.dashboard-tile-title {
     font-size: 16px;
 }
 
-.dashboard-tile-title i{
+.dashboard-tile-title i {
     margin-right: 0.5rem;
 }
 
-
-#completed-tasks-value, #to-do-tasks-value{
-    font-size: 48px;
+#completed-tasks-value, #to-do-tasks-value {
+        font-size: 48px;
 }
 
 .dashboard-heatmap-container {
@@ -237,16 +79,16 @@ main{
 .day-block[data-level="3"] { background-color: #7e22ce; } /* Dark purple */
 .day-block[data-level="4"] { background-color: #4c1d95; } /* Deepest purple */
 
-.dashboard-graph-description{
+.dashboard-graph-description {
     font-size: 20px;
     font-weight: 600;
 }
 
-.dashboard-graph-description span{
+.dashboard-graph-description span {
     color: rgba(206, 146, 216, 1);
 }
 
-.dashboard-summary-container{
+.dashboard-summary-container {
     display: flex;
     gap: 1.5rem;
 }
@@ -289,7 +131,7 @@ main{
     stroke-dasharray: 314;
     stroke-dashoffset: 314; /* Start hidden */
     
-    /* HERE IS THE DURATION: 0.8s */
+    /* HERE IS THE DURATION: 1.5s */
     transition: stroke-dashoffset 1.5s ease-in-out;
     
     /* Rotate -90deg so the fill starts at the 12 o'clock position */

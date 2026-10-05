@@ -1,122 +1,74 @@
-main{
-    background-color: #f3f3f361;
-    padding-bottom: 2rem;
-    /* outline: 1px solid black; */
+.to-do-list-title{
+    font-size: 36px;
+    font-weight: 500;
 }
 
-#to-do-list-header{
-    font-size: 2.1rem;
-    padding: 2rem 0;
-}
-#create-new-task{
-    display: flex;
-    gap: 2rem;
-    flex: 1;
-}
-
-#task-to-do-list-cont{
+/* main{
+    outline: 1px solid black;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    width: 70%;
-    height: 100%;
-}
-#create-new-task-controls{
-    display: flex;
-    justify-content: space-between;
-}
-
-#clearBtn{
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    background-color: white;
-    border: none;
-    color: #8A8A8A;
-    border-radius: 0.3rem;
-}
-#addBtn{
-    text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    background-color: #CD9AD6;
-    color: white;
-    border-radius: 0.3rem;
-}
-
-
-#task-to-do-list{
-    display: flex;
     gap: 1rem;
-    flex: 1;
-    flex-direction: column;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-    max-height: 70vh;
-}
+} */
 
-#task-to-do-list-actions{
-    /* padding-top: 2rem; */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    width: 30%;
-    height: 50%;
-    gap: 1rem;
-}
-
-.to-do-action{
+.tasks-filter-tab{
+    background-color: rgba(245, 246, 247, 1);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
     width: 100%;
-    gap: 1rem;
-    border-radius: 1rem;
-    background-color: #fff;
+    max-width: 800px;
+    border-radius: 2rem;
+    align-self: center;
 }
 
-.task-to-do-cont{
+.to-do, .completed{
+    padding: 0.5rem;
+    border-radius: 2rem;
+}
+.to-do{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: #fff;
+}
+.to-do.active{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+
+}
+
+.completed{
+    text-align: center;
+    width: 100%;
+    height: 100%
+}
+.completed.active{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+#tasks-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.task-checkbox-container{
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 0.5rem;
-    padding: 1rem 4rem;
-    flex: 0 0 calc(100% / 10);
-    scroll-snap-align: start;
+    outline: 1px solid #eeee;
+    padding: 1rem;
+    border-radius: 0.8rem;
 }
 
-input[type="checkbox"]{
-    width: 1rem;
-    height: 1rem;
-    accent-color: #aa41bb;
-}
 input[type="checkbox"]:checked{
-    background-color: #fff;
+    accent-color: purple;
 }
-
-.task{
-    display: flex;
-    font-size: 1.3rem;
-    width: 100%;
-    color: #2e2e2e;
-}
-
-.action-stat{
-    font-size: 2.2rem;
-}
-.action-label{
-    color: #8A8A8A;
-    font-size: 1.1rem;
-}
-
-#clearBtn{
-    cursor: pointer;
-}
-
-.task-to-do-cont:has(input[type="checkbox"]:checked) .task {
-    text-decoration: line-through;
-    opacity: 0.5; /* Optional: Makes the completed task look faded out */
+.task-checkbox-container:has(input[type="checkbox"]:checked){
+    opacity: 0.2;
 }
