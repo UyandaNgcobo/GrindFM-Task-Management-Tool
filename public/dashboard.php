@@ -49,7 +49,7 @@
                 
                 <div class="progress-text" id="progress-percent">0%</div>
                 </div>
-                <div class="dashboard-graph-description"><span>Good</span> completion rate,<br>keep it up</div>
+                <div class="dashboard-graph-description"><span id="message">Good</span> completion rate,<br>keep it up</div>
             </div>
 
         </div>
@@ -101,54 +101,64 @@
         }
 
         async function render(){
+            const completedCount = document.getElementById('completed-tasks-value');
+            const toDoCount = document.getElementById('to-do-tasks-value');
+            const message = document.getElementById('message');
             const result = await loadTasks(); // Assuming this hits /api/tasks via api.js
             const reminders = await loadReminders();
 
             // 1. Render the Heatmap using the activity data from result
             if (result && result.activity) {
+                completedCount.textContent = result.completedCount;
+                toDoCount.textContent = result.count;
+                let target = result.completedCount / (result.completedCount + result.count) * 100
+
+                if(target <= 20){
+                    message.textContent = 'Decent'
+                }
+                else if(target <= 40){
+                    message.textContent = 'Good'
+                }       
+                else if(target <= 60){
+                    message.textContent = 'Great'
+                }
+                else if(target <= 80){
+                    message.textContent = 'Excellent'
+                }
+                else{
+                    message.textContent = 'Outstanding'
+                }
                 renderHeatmap(result.activity);
+
+                updateCircularProgress(target);
             }
 
-            // Uncomment these when you're ready!
-            // taskToDoContainer.textContent = result.count;
-            // taskCompletedContainer.textContent = result.completedCount;
-            // allTasksContainer.textContent = result.count + result.completedCount;
-
-            // let html = '';
-            // ... rest of your task rendering logic ...
         }
 
-        // Call ONLY render() - it handles everything!
         render();
 
         function updateCircularProgress(percent) {
-    const circle = document.querySelector('.progress-fill');
-    const text = document.getElementById('progress-percent');
-    
-    // 1. Get the radius from the HTML (50)
-    const radius = circle.r.baseVal.value;
-    
-    // 2. Calculate the exact circumference (2 * pi * r)
-    const circumference = radius * 2 * Math.PI;
-    
-    // 3. Set the dash length to the exact circumference
-    circle.style.strokeDasharray = `${circumference} ${circumference}`;
-    
-    // 4. Calculate how much of the line to hide based on the percentage
-    const offset = circumference - (percent / 100) * circumference;
-    
-    // 5. Apply the offset to trigger the CSS transition
-    circle.style.strokeDashoffset = offset;
-    
-    // 6. Update the text in the middle
-    text.textContent = `${Math.round(percent)}%`;
-}
-
-// Example usage: 
-// Let's say you have 254 completed out of 317 total tasks
-// updateCircularProgress((254 / 317) * 100);
-
-updateCircularProgress(75); // Will animate the circle to 75%
+            const circle = document.querySelector('.progress-fill');
+            const text = document.getElementById('progress-percent');
+            
+            // 1. Get the radius from the HTML (50)
+            const radius = circle.r.baseVal.value;
+            
+            // 2. Calculate the exact circumference (2 * pi * r)
+            const circumference = radius * 2 * Math.PI;
+            
+            // 3. Set the dash length to the exact circumference
+            circle.style.strokeDasharray = `${circumference} ${circumference}`;
+            
+            // 4. Calculate how much of the line to hide based on the percentage
+            const offset = circumference - (percent / 100) * circumference;
+            
+            // 5. Apply the offset to trigger the CSS transition
+            circle.style.strokeDashoffset = offset;
+            
+            // 6. Update the text in the middle
+            text.textContent = `${Math.round(percent)}%`;
+        }
     </script>
 </body>
 </html>

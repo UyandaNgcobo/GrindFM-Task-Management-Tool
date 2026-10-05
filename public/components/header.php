@@ -9,28 +9,56 @@
 <header>
     <!-- <div id="notificationContainer"></div> -->
     <div class="header-nav-container">
-        <a href="#" id="profile-img-name">
+        <!-- <div class="profile-dropdown-container"> -->
+            <!-- <a href="#" id="profile-img-name"> -->
+                <!-- <img id="profile-pic" src="/Images/RandomSir.jpeg" alt=""> -->
+        <div id="profile-username">Hi, Uyanda Ngcobo</div>
+            <!-- </a> -->
+        <!-- </div> -->
+
+        <div class="profile-dropdown-container">
             <img id="profile-pic" src="/Images/RandomSir.jpeg" alt="">
-            <div id="profile-username">Hi, Uyanda Ngcobo</div>
-        </a>
-        <a href="#" id="notifications"><i class="bi bi-app-indicator"></i></a>
+            <i id="caret" class="bi bi-caret-down"></i>
+
+            <div class="profile-dropdown-menu">
+                <div id="profile-img-name">
+                    <img id="profile-pic" src="/Images/RandomSir.jpeg" alt="">
+                    <div id="profile-name-email">
+                        <p id="username">Uyanda Ngcobo</p>
+                        <p id="email">example@gmail.com</p>
+                    </div>
+                </div>
+                <hr>
+                <a href="#">Profile</a>
+                <a href="#">Account Settings</a>
+                <a href="#" id="logout-btn">Log Out</a>
+            </div>
+        </div>
+
+        <!-- <a href="#" id="notifications"><i class="bi bi-app-indicator"></i></a> -->
+
     </div>
 </header>
 
 <script src="/public/js/auth-guard.js"></script>
 <script>
-    // async function logout() {
-    //     try {
-    //         const response = await fetch(`http://${window.location.hostname}:4000/api/logout`, {
-    //             method: "POST",
-    //             credentials: "include"
-    //         });
-    //             const result = await response.json();
-    //             console.log("Logout response:", result);
-    //     } catch (err) {
-    //         console.error("Logout request failed:", err);
-    //     }
-        
-    //     window.location.replace("login.php");
-    // }
+
+    document.addEventListener('click', (e) => {
+        const dropdownContainer = document.querySelector('.profile-dropdown-container');
+
+        const clickedProfilePic = e.target.closest('#profile-pic');
+        const clickedLogOutBtn = e.target.closest('#logout-btn');
+
+        if(clickedProfilePic){
+            dropdownContainer.classList.toggle('active');
+        } else if (!e.target.closest('.profile-dropdown-menu')) {
+            dropdownContainer.classList.remove('active');
+        }
+
+        if(clickedLogOutBtn){
+            logout();
+        }
+    });
+
+    logout()
 </script>

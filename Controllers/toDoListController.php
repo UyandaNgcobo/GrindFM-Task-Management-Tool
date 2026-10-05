@@ -25,7 +25,6 @@
         $tasks = $repository->getAllTasks($userId);
         $count = $repository->getPendingTaskCount($userId, 1);
         $completedCount = $repository->getCompletedTaskCount($userId, 2);
-            // 1. Fetch raw activity data
         $rawActivity = $repository->getActivity($userId);
         
         // 2. Format it into a simple dictionary: {"2026-10-01": 5}

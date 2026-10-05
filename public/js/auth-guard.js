@@ -30,10 +30,28 @@ async function requireLogin() {
 async function redirectIfLoggedIn() {
   const me = await getCurrentUser();
   if (me.user_id) {
-    console.log("Already logged in!")
+    console.log("Already logged in!");
     window.location.replace("dashboard.php");
   } else {
     console.log("Not logged in!");
     return me;
   }
+}
+
+async function logout() {
+  try {
+    const response = await fetch(
+      `http://${window.location.hostname}:4000/api/logout`,
+      {
+        method: "POST",
+        credentials: "include",
+      },
+    );
+    const result = await response.json();
+    console.log("Logout response:", result);
+  } catch (err) {
+    console.error("Logout request failed:", err);
+  }
+
+  window.location.replace("login.php");
 }
