@@ -16,13 +16,14 @@
             <!-- </a> -->
         <!-- </div> -->
 
+        
         <div class="profile-dropdown-container">
-            <img id="profile-pic" src="/Images/RandomSir.jpeg" alt="">
+            <img id="profile-pic" src="/Images/default-user2.jpeg" alt="">
             <i id="caret" class="bi bi-caret-down"></i>
 
             <div class="profile-dropdown-menu">
                 <div id="profile-img-name">
-                    <img id="profile-pic" src="/Images/RandomSir.jpeg" alt="">
+                    <img id="profile-pic" src="/Images/default-user2.jpeg" alt="">
                     <div id="profile-name-email">
                         <p id="username">Uyanda Ngcobo</p>
                         <p id="email">example@gmail.com</p>
@@ -40,8 +41,22 @@
     </div>
 </header>
 
-<script src="/public/js/auth-guard.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/auth-helpers.js"></script>
+<script src="js/api.js"></script>
 <script>
+
+    async function render(){
+        const result = await getUser(44);
+        const user = result.user;
+
+        document.getElementById('profile-username').textContent = `Hi, ${user.username}`;
+        document.getElementById('username').textContent = user.username;
+        document.getElementById('email').textContent = user.email;
+    }
+
+    render();
+    
 
     document.addEventListener('click', (e) => {
         const dropdownContainer = document.querySelector('.profile-dropdown-container');
@@ -59,6 +74,4 @@
             logout();
         }
     });
-
-    logout()
 </script>

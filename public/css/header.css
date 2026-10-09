@@ -12,6 +12,7 @@ a{
 
 body{
     padding-top: 6rem;
+    padding-bottom: 6rem;
     background-color: #fff;
 }
 
@@ -118,6 +119,7 @@ hr{
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    /* border: 1px solid black; */
 }
 
 .profile-username{

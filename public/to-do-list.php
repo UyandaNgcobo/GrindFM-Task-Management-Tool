@@ -22,7 +22,7 @@
                 To-Do-Tasks
             </div>
             <div class="tasks-filter-tab">
-                <div class="to-do">To do</div>
+                <div class="to-do active">To do</div>
                 <div class="completed">Completed</div>
             </div>
             <div id="tasks-container">
@@ -52,37 +52,82 @@
     <?php include 'components/navbar.php'; ?>
    
      <script src="js/auth-guard.js"></script>
+     <script src="js/auth-helpers.js"></script>
      <script src="js/api.js"></script>
       <script >
         requireLogin();
     </script>
     <script>
 
+        let currentTab = 'todo';
         async function render(){
             const result = await loadTasks();
-
-            // const toDoCount = document.getElementById('todoCount');
-            // const completedTotal = document.getElementById('completedCount');
             const container = document.getElementById("tasks-container");
-
             let html = "";
 
-            for (const task of result.tasks) {
+            const filteredTasks = result.tasks.filter(task => {
+                if(currentTab == 'todo'){
+                    return task.status_id == 1;
+                }else{
+                    return task.status_id === 2;
+                }
+            });
+
+            for (const task of filteredTasks) {
                 const isChecked = task.status_id === 2 ? "checked" : "";
                 html += `
-                                <div class="task-checkbox-container" data-task-id="${task.task_id}>
-                                    <p id="task">${task.title}</p>
-                                    <input type="checkbox" name="" id="task-checkbox" ${isChecked}>
-                                </div>`;
+                        <!-- FIX 1: Added the missing closing quote after task_id -->
+                        <div class="task-checkbox-container" data-task-id="${task.task_id}">
+                            <p class="task-title">${task.title}</p>
+                            
+                            <!-- FIX 2: Changed id="task-checkbox" to class="task-checkbox" -->
+                            <input type="checkbox" class="task-checkbox" ${isChecked}>
+                        </div>`;
             }
 
             container.innerHTML = html;
 
-        }
+            const todoTab = document.querySelector('.to-do');
+            const completedTab = document.querySelector('.completed');
 
-        async function init() {
-            await requireLogin();
-            await render();
+            todoTab.addEventListener('click', () => {
+                currentTab = 'todo';
+                
+                // Move the active class visually
+                todoTab.classList.add('active');
+                completedTab.classList.remove('active');
+                
+                // Instantly wipe and redraw the screen with the new filter
+                render();
+            });
+
+            completedTab.addEventListener('click', () => {
+                currentTab = 'completed';
+                
+                // Move the active class visually
+                completedTab.classList.add('active');
+                todoTab.classList.remove('active');
+                
+                // Instantly wipe and redraw the screen with the new filter
+                render();
+            });
+
+
+            //--------------- NEED TO UNDERSTAND -----------------
+
+            // 5. Handle checkbox clicks (Moved classes instead of IDs to prevent duplicates)
+            document.getElementById('tasks-container').addEventListener('change', async (e) => {
+                if (e.target.classList.contains('task-checkbox')) {
+                    const taskDiv = e.target.closest('.task-checkbox-container');
+                    const taskId = taskDiv.dataset.taskId;
+                    const isChecked = e.target.checked;
+
+                    const statusId = isChecked ? 2 : 1; 
+                    await markCompleted(taskId, statusId);
+                    render(); 
+                }
+            });
+
         }
 
         // async function deleteAndRefresh(taskID){
@@ -108,19 +153,12 @@
         //     }
         // });
 
-        document.getElementById('tasks-container').addEventListener('change', (e) => {
-            if (e.target.type === 'checkbox') {
-                const taskDiv = e.target.closest('.task-checkbox-container');
-                const taskId = taskDiv.dataset.taskId;
-                const isChecked = e.target.checked;
-
-                const statusId = isChecked ? 2 : 1; // adjust to your actual "Completed"/"In Progress" status_id values
-                markCompleted(taskId, statusId);
-            }
-        });
+         async function init() {
+            await requireLogin();
+            await render();
+        }
 
         init();
-        render();
    
     </script>
 </body>

@@ -64,6 +64,7 @@ async function markCompleted(taskID, statusId) {
   });
 
   const result = await response.json();
+  return result;
 }
 
 // ----------------- REMINDERS ---------------------

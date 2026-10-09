@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+    
     $method = $_SERVER['REQUEST_METHOD'];
 
     require_once __DIR__ . '/../config.php';
@@ -12,15 +14,27 @@
     //inject connection object
     $repository = new UserRepository($pdo);
 
-
     if($method == 'GET'){
 
-        $users = $repository->getAllUsers();
+        $user_id = $_SESSION['user_id'];
+        
+        if(!$user_id){
+            $users = $repository->getAllUsers();
 
+            echo json_encode([
+                "status" => "success",
+                "users" => $users
+            ]);
+            exit;
+        }
+
+        $user = $repository->getUser($user_id);
         echo json_encode([
             "status" => "success",
-            "users" => $users
+            "user" => $user
         ]);
+        exit;
+
         //retrive user
     }
 

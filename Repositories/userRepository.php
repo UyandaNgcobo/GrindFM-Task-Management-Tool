@@ -35,6 +35,21 @@ class UserRepository{
         ]);
     }
 
+
+    public function getUser(int $user_id) {
+        $statement = $this->pdo->prepare(
+            "SELECT user_id, username, email
+            FROM users
+            WHERE user_id = ?"
+        );
+
+        $statement->execute([
+            $user_id
+        ]);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getAllUsers() : array{
         $statement = $this->pdo->prepare(
             "SELECT user_id, username, email
