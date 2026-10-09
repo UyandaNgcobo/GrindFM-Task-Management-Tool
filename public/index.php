@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Grind.FM</title>
     <link rel="stylesheet" href="css/landing-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,72 +23,53 @@
                 <div class="slogan-primary">Let’s spend less time <span class="slogan-emphasis">planning,</span><br>more time <span class="slogan-emphasis">doing</span></div>
                 <div class="slogan-secondary">Plan once. Grind forever.</div>
             </div>
-           
+
+            <!-- Row 1: list each pill ONCE. The script repeats and duplicates them. -->
             <div class="features-wrapper">
                 <div class="features-wrapper-track">
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/spotify.svg" alt="">
-                        <div class="feature-name">Listen to Music</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/list-check-svgrepo-com.svg" alt="">
-                        <div class="feature-name">Create To-do lists</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/graph-svgrepo-com.svg" alt="">
-                        <div class="feature-name">See Insights on your Grind</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/spotify.svg" alt="">
-                        <div class="feature-name">Listen to Music</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/list-check-svgrepo-com.svg" alt="">
-                        <div class="feature-name">Create To-do lists</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/graph-svgrepo-com.svg" alt="">
-                        <div class="feature-name">See Insights on your Grind</div>
+                    <div class="marquee-group">
+                        <div class="feature-icon-desc-cont">
+                            <img class="feature-icon" src="Images/spotify.svg" alt="">
+                            <div class="feature-name">Listen to Music</div>
+                        </div>
+                        <div class="feature-icon-desc-cont">
+                            <img class="feature-icon" src="Images/list-check-svgrepo-com.svg" alt="">
+                            <div class="feature-name">Create To-do lists</div>
+                        </div>
+                        <div class="feature-icon-desc-cont">
+                            <img class="feature-icon" src="Images/graph-svgrepo-com.svg" alt="">
+                            <div class="feature-name">See Insights on your Grind</div>
+                        </div>
                     </div>
                 </div>
-                
             </div>
-            
+
+            <!-- Row 2 -->
             <div class="features-wrapper">
                 <div class="features-wrapper-track">
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/bell-svgrepo-com-4.svg" alt="">
-                        <div class="feature-name">See Insights on your Grind</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/acrobat-logo.svg" alt="">
-                        <div class="feature-name">Export tasks to PDF</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <div class="feature-icon">i</div>
-                        <div class="feature-name">name</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/bell-svgrepo-com-4.svg" alt="">
-                        <div class="feature-name">Set Reminders</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <img class="feature-icon" src="Images/acrobat-logo.svg" alt="">
-                        <div class="feature-name">Export tasks to PDF</div>
-                    </div>
-                    <div class="feature-icon-desc-cont">
-                        <div class="feature-icon">i</div>
-                        <div class="feature-name">name</div>
+                    <div class="marquee-group">
+                        <div class="feature-icon-desc-cont">
+                            <img class="feature-icon" src="Images/bell-svgrepo-com-4.svg" alt="">
+                            <div class="feature-name">Set Reminders</div>
+                        </div>
+                        <div class="feature-icon-desc-cont">
+                            <img class="feature-icon" src="Images/acrobat-logo.svg" alt="">
+                            <div class="feature-name">Export tasks to PDF</div>
+                        </div>
+                        <!-- placeholder: replace with a real feature or delete -->
+                        <div class="feature-icon-desc-cont">
+                            <div class="feature-icon">i</div>
+                            <div class="feature-name">name</div>
+                        </div>
                     </div>
                 </div>
-                
             </div>
 
             <div class="access-actions">
                 <button id="getStartedBtn">Get Started</button>
                 <a href="login.php">I already have an Account</a>
             </div>
-           
+
         </main>
     </div>
     <script src="js/auth-guard.js"></script>
@@ -98,6 +79,42 @@
             window.location.href = "signup.php";
         });
 
+        const SPEED = 60; // pixels per second, change to taste
+
+function buildMarquees() {
+    document.querySelectorAll('.features-wrapper').forEach(wrapper => {
+        const track = wrapper.querySelector('.features-wrapper-track');
+        const group = track.querySelector('.marquee-group');
+
+        // reset to a single group with the original pills (makes this safe to re-run)
+        track.querySelectorAll('.marquee-group:not(:first-child)').forEach(g => g.remove());
+        if (!group.dataset.original) group.dataset.original = group.innerHTML;
+        group.innerHTML = group.dataset.original;
+
+        // repeat pills until one group is at least as wide as the visible container
+        const originals = [...group.children];
+        let safety = 0;
+        while (group.scrollWidth < wrapper.clientWidth && safety++ < 20) {
+            originals.forEach(el => group.appendChild(el.cloneNode(true)));
+        }
+
+        // exact duplicate half for the seamless loop
+        const copy = group.cloneNode(true);
+        copy.setAttribute('aria-hidden', 'true');
+        track.appendChild(copy);
+
+        // constant speed: time = distance / speed
+        track.style.setProperty('--duration', (group.scrollWidth / SPEED) + 's');
+    });
+}
+
+window.addEventListener('load', buildMarquees);
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildMarquees, 200);
+});
     </script>
 </body>
 </html>

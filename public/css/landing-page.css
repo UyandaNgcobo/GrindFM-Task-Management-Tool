@@ -1,4 +1,3 @@
- @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 :root {
   --primary-color: #b868c5;
   --secondary-color: #DBDBDB;
@@ -6,18 +5,6 @@
   --text-light: #ffffff;
   --text-grey: #5E5E5E;
 }
-.space-grotesk-font {
-    font-family: "Space Grotesk", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
-    font-style: normal;
-}
-
-#logo{ font-weight: 600; text-decoration: none; color: var(--bg-dark); font-size: 2rem;}
-#logo-fm{ color: var(--primary-color); }
-nav{ display: flex; justify-content: space-between; padding: 0 1rem; align-items: center;}
-nav > ul{ display: flex; gap: 1rem; justify-content: center; align-items: center;}
-nav ul li{ list-style: none; color: black; font-size: 1rem;}
 
 * {
     margin: 0;
@@ -26,25 +13,36 @@ nav ul li{ list-style: none; color: black; font-size: 1rem;}
     font-family: "Space Grotesk", sans-serif;
 }
 
-html, body{
+.space-grotesk-font {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+html, body {
     overflow: hidden;
     position: relative;
 }
 
-body{
+body {
     height: 100vh;
     width: 100%;
-    /* padding-bottom: 70px; */
 }
 
-.container{
+.container {
     height: 100%;
     width: 100%;
     padding: 2rem;
 }
-/* ----- HERO ----- */
 
-main{
+/* ----- NAV (unused on this page, kept from before) ----- */
+nav { display: flex; justify-content: space-between; padding: 0 1rem; align-items: center; }
+nav > ul { display: flex; gap: 1rem; justify-content: center; align-items: center; }
+nav ul li { list-style: none; color: black; font-size: 1rem; }
+
+/* ----- HERO ----- */
+main {
     height: 100%;
     width: 100%;
     display: flex;
@@ -52,51 +50,51 @@ main{
     gap: 2rem;
 }
 
-#logo{
+#logo {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--bg-dark);
     font-size: 36px;
 }
-.slogan-wrapper{
+#logo-fm { color: var(--primary-color); }
+
+.slogan-wrapper {
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.slogan-primary{
+.slogan-primary {
     font-size: 36px;
     font-weight: bold;
 }
 
-.slogan-secondary{
+.slogan-secondary {
     font-size: 20px;
     margin-bottom: 0.5rem;
 }
 
-.slogan-emphasis{
+.slogan-emphasis {
     font-weight: normal;
     font-style: italic;
     font-family: 'Times New Roman', Times, serif;
 }
 
-
-.features-wrapper{
+/* ----- MARQUEE ----- */
+.features-wrapper {
     width: 100%;
-    display: flex;
-    gap: 1rem;
     overflow: hidden;
     white-space: nowrap;
 
-    /* 1. Standard syntax for modern browsers */
-    mask-image: linear-gradient(
+    -webkit-mask-image: linear-gradient(
         to right,
         transparent,
-        black 15%, /* Reaches full visibility 15% from the left edge */
-        black 85%, /* Stays fully visible until 85% across */
-        transparent /* Fades to invisible at the right edge */
+        black 15%,
+        black 85%,
+        transparent
     );
-    
-    /* 2. WebKit prefix (Required for Safari and iOS devices) */
-    -webkit-mask-image: linear-gradient(
+    mask-image: linear-gradient(
         to right,
         transparent,
         black 15%,
@@ -105,73 +103,81 @@ main{
     );
 }
 
-.features-wrapper-track{
-    display: inline-flex;
-    width: max-content;
-
-    --item-count: 6;
-    gap: 1rem;
-    /* 10s duration, linear speed (no easing in/out), loop forever */
-    animation: scrollLeft calc(var(--item-count) * 6s) linear infinite;
+.features-wrapper-track {
+    display: flex;
+    width: max-content;          /* no gap here: spacing lives on the pills */
+    --duration: 40s;             /* change speed in one place */
+    animation: scrollLeft var(--duration) linear infinite;
+    will-change: transform;
 }
 
-.features-wrapper + .features-wrapper .features-wrapper-track{
-    animation-delay: -6;
+/* second row scrolls the opposite way */
+.features-wrapper + .features-wrapper .features-wrapper-track {
+    animation-direction: reverse;
 }
 
-.feature-icon-desc-cont{
+.features-wrapper:hover .features-wrapper-track {
+    animation-play-state: paused;
+}
+
+.marquee-group {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.feature-icon-desc-cont {
+    flex-shrink: 0;              /* pills never compress */
+    margin-right: 1rem;          /* replaces gap so both halves are identical */
     border: 1px solid purple;
     padding: 1rem;
-    width: fit-content;
     border-radius: 2rem;
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.feature-icon{
+.feature-icon {
     border: 1px solid black;
     border-radius: 50%;
-    height: 100%;
-    aspect-ratio: 1;
-    padding: 1rem;
+    height: 3rem;
+    width: 3rem;
+    padding: 0.5rem;
+    object-fit: contain;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.access-actions{
+@keyframes scrollLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .features-wrapper-track { animation: none; }
+}
+
+/* ----- ACTIONS ----- */
+.access-actions {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-
 }
 
-.access-actions button{
+.access-actions button {
     background-color: #000000;
     color: #fff;
     border-radius: 2rem;
     width: 70%;
+    max-width: 500px;
     padding: 1rem 0;
     font-weight: bold;
     font-size: 16px;
 }
 
-.access-actions a{
+.access-actions a {
     text-decoration: none;
     color: #000000;
-}
-
-.feature-icon{
-    height: 3rem;
-    width: 3rem;
-    padding: 0.5rem;
-    object-fit: contain;
-    border-radius: 50%;
-}
-@keyframes scrollLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } 
 }
