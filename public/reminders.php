@@ -1,48 +1,56 @@
-<?php
-    session_start();
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="css/header.css">
+    <meta name="description" content="Review and manage your reminders.">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/reminders.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>Reminders</title>
+    <title>Reminders | GrindFM</title>
 </head>
 <body>
     <?php include 'components/header.php'; ?>
-        <main>
-            <div id="reminders-header">
-            Reminders
-        </div>
-        <div id="create-new-reminder">
-            <div id="reminder-list-cont">
-                <div id="create-new-reminder-controls">
-                    <a id="addBtn" href="reminders-create-page.php">Add Reminder</a>
-                    <button id="clearBtn">Clear All</button>
-                </div>
-
-                <div id="reminders-list">
-                    <div class="reminder-cont">
-                        
-                    </div>
-                </div>
+    <main class="reminders-main">
+        <section class="reminders-heading" aria-labelledby="reminders-title">
+            <div>
+                <p class="reminders-eyebrow">AT THE RIGHT MOMENT</p>
+                <h1 id="reminders-title">Your reminders</h1>
+                <p class="reminders-intro">A little nudge for the things you don't want to forget.</p>
             </div>
-        </div>
-        <div id="notificationContainer"></div>
-        </main>
+            <a class="reminder-add-button" href="create-page.php">
+                <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                Create something
+            </a>
+        </section>
 
-        <script src="js/api.js"></script>
-        <script src="js/ui.js"></script>
-        <script src="js/auth-guard.js"></script>
-        <script src="js/auth-helpers.js"></script>
-        <script src="js/reminders.js"></script>
+        <section class="reminders-panel" aria-label="Reminder list">
+            <div class="reminders-toolbar">
+                <div class="reminder-filters" role="group" aria-label="Filter reminders">
+                    <button class="reminder-filter is-active" type="button" data-filter="all" aria-pressed="true">
+                        All <span class="filter-count" data-count="all">0</span>
+                    </button>
+                    <button class="reminder-filter" type="button" data-filter="upcoming" aria-pressed="false">
+                        Upcoming <span class="filter-count" data-count="upcoming">0</span>
+                    </button>
+                    <button class="reminder-filter" type="button" data-filter="past" aria-pressed="false">
+                        Past <span class="filter-count" data-count="past">0</span>
+                    </button>
+                </div>
+                <button id="clearBtn" class="clear-reminders-button" type="button" disabled>
+                    Clear all
+                </button>
+            </div>
+            <p id="reminders-status" class="reminders-status" role="status" aria-live="polite"></p>
+            <div id="reminders-list" class="reminders-list" aria-live="polite">
+                <p class="reminders-state">Loading reminders…</p>
+            </div>
+        </section>
+    </main>
+    <?php include 'components/navbar.php'; ?>
 
+    <script src="js/auth-guard.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/reminders.js"></script>
 </body>
 </html>

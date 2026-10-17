@@ -26,7 +26,6 @@ class toDoListRepository{
 
         } catch (PDOException $e) {
            error_log($e->getMessage());
-           echo "DEBUG: " . $e->getMessage();
            return false;
         }
         
@@ -42,8 +41,8 @@ class toDoListRepository{
 
         try {
             $statement->execute([
-                $userId,
-                $taskID
+                $taskID,
+                $userId
         ]);
 
         return true;
@@ -94,7 +93,7 @@ class toDoListRepository{
     public function getPendingTaskCount(int $userId, int $statusId) : int{
         $statement = $this->pdo->prepare(
             "SELECT COUNT(*) AS total 
-            FROM tasks 
+            FROM Tasks
             WHERE user_id = ?
             AND status_id = ?"
         );
@@ -112,7 +111,7 @@ class toDoListRepository{
 
         $statement = $this->pdo->prepare(
             "SELECT COUNT(*) AS total 
-            FROM tasks 
+            FROM Tasks
             WHERE user_id = ?
             AND status_id = ?"
         );
@@ -149,7 +148,7 @@ class toDoListRepository{
         "SELECT 
                 DATE(created_at) as activity_date, 
                 COUNT(task_id) as daily_count 
-            FROM tasks 
+            FROM Tasks
             WHERE user_id = ? 
               AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
             GROUP BY DATE(created_at)

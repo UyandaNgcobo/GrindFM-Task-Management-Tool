@@ -1,96 +1,93 @@
-<?php
-    session_start();
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/reminders-create.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/create-form.css">
+    <title>New reminder | GrindFM</title>
 </head>
 <body>
     <?php include 'components/header.php'; ?>
-    <main>
-        <div id="reminders-create-page-header">
-            Reminders
-        </div>
-        <div id="container">
-            <form id="createReminderForm" method="post">
-                <div id="name-input-cont">
-                    <label for="nameInput">Task Name</label>
-                    <input id="nameInput" type="text" placeholder="Enter reminder" required>
-                </div>
-                <div id="desc-input-cont">
-                    <label for="descInput">Description</label>
-                    <input id="descInput" type="text" placeholder="Enter Description">
-                </div>
-                <input type="text" id="reminderDate" placeholder="Pick a date..." required>
-                <div id="formBtnCont">
-                    <input type="submit" id="submitBtn" value="Create Reminder">
-                    <button id="doneBtn">Done</button>
-                </div>
-            </form>
-            
-        </div>
-           
-    </main>
-    
+    <main class="create-form-main">
+        <a class="back-to-types" href="create-page.php"><i class="bi bi-arrow-left" aria-hidden="true"></i> All creation types</a>
+        <section class="create-form-heading">
+            <span class="form-type-icon"><i class="bi bi-bell" aria-hidden="true"></i></span>
+            <div>
+                <p class="form-eyebrow">REMINDER</p>
+                <h1>Set a reminder</h1>
+                <p class="form-intro">Add as many reminders as you need. Choose Done when you're finished.</p>
+            </div>
+        </section>
 
+        <form id="createReminderForm" class="creation-form">
+            <div class="form-field">
+                <label for="nameInput">Reminder name <span class="required-marker" aria-hidden="true">*</span></label>
+                <input id="nameInput" name="title" type="text" maxlength="255" placeholder="What should you remember?" required>
+            </div>
+            <div class="form-field">
+                <label for="descInput">Description <span class="optional-label">Optional</span></label>
+                <textarea id="descInput" name="description" rows="3" placeholder="Add a few details"></textarea>
+            </div>
+            <div class="form-field">
+                <label for="reminderDate">Date and time <span class="required-marker" aria-hidden="true">*</span></label>
+                <input id="reminderDate" name="trigger_at" type="datetime-local" step="60" required>
+            </div>
+            <div class="form-actions">
+                <button class="button button-secondary" id="doneBtn" type="button">Done</button>
+                <button class="button button-primary" type="submit">Add reminder <i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+            </div>
+            <p id="creation-status" class="creation-status" role="status" aria-live="polite"></p>
+        </form>
+    </main>
+    <?php include 'components/navbar.php'; ?>
     <script src="js/auth-guard.js"></script>
-    <script src="js/ui.js"></script>
     <script>
         requireLogin();
-        flatpickr("#reminderDate", {
-            enableTime: true,
-            enableSeconds: true,
-            dateFormat: "Y-m-d H:i:S",
-            minDate: "today",
-            inline: true,
+
+        const reminderForm = document.getElementById("createReminderForm");
+        const reminderDate = document.getElementById("reminderDate");
+        const reminderStatus = document.getElementById("creation-status");
+
+        function toLocalDateTimeValue(date) {
+            const offset = date.getTimezoneOffset() * 60000;
+            return new Date(date.getTime() - offset).toISOString().slice(0, 16);
+        }
+
+        reminderDate.min = toLocalDateTimeValue(new Date());
+
+        document.getElementById("doneBtn").addEventListener("click", () => {
+            window.location.assign("reminders.php");
         });
 
-        const form = document.getElementById('createReminderForm');
-        const doneBtn = document.getElementById('doneBtn');
+        reminderForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            reminderStatus.textContent = "";
 
-        doneBtn.addEventListener('click', () => {
-            window.location.replace("reminders.php");
-        });
+            try {
+                const response = await fetch(`${API_BASE_URL}/reminders`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        title: document.getElementById("nameInput").value.trim(),
+                        description: document.getElementById("descInput").value.trim(),
+                        trigger_at: reminderDate.value
+                    })
+                });
+                const result = await response.json();
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+                if (!response.ok || result.status !== "success") {
+                    throw new Error(result.message || "The reminder could not be created. Please try again.");
+                }
 
-            const trigger_at = document.getElementById('reminderDate').value;
-
-            const payload = {
-                title: document.getElementById("nameInput").value,
-                description: document.getElementById("descInput").value,
-                trigger_at: trigger_at
-            };
-
-            const response = await fetch("http://localhost:3000/api/reminders", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                displayInternalNotification(data);
-                setTimeout(() => {
-                    form.reset();
-                }, 1500); // give the toast a moment to actually be seen before navigating away
-                return;
+                reminderForm.reset();
+                reminderDate.min = toLocalDateTimeValue(new Date());
+                reminderStatus.textContent = "Reminder added. Add another or choose Done to view your reminders.";
+            } catch (error) {
+                reminderStatus.textContent = error.message || "The server could not be reached. Please try again.";
             }
-
-
         });
     </script>
 </body>

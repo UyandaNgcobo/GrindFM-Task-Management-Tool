@@ -6,18 +6,27 @@ import "dotenv/config";
 
 const app = express();
 
-const allowedOrigins = process.env.FRONTEND_CORS_URL.split(",").map((url) =>
-  url.trim(),
-);
+const allowedOrigins = (
+  process.env.FRONTEND_CORS_URL ??
+  "http://localhost:3000,http://127.0.0.1:3000"
+)
+  .split(",")
+  .map((url) => url.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin: true,
+    origin(origin, callback) {
+      callback(null, !origin || allowedOrigins.includes(origin));
+    },
     credentials: true,
   }),
 );
 
 app.use(express.json());
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
 // --- SWAGGER SETUP START ---
 const swaggerOptions = {
@@ -44,6 +53,10 @@ const swaggerOptions = {
         name: "Reminders",
         description: "Create and manage user reminders",
       },
+      {
+        name: "Schedule",
+        description: "Create and manage scheduled events",
+      },
     ],
     // --------------------------------
     servers: [
@@ -66,7 +79,7 @@ app.use(
 app.post("/api/users", async (req, res) => {
   const frontendPayload = req.body;
   const phpResponse = await fetch(
-    "http://127.0.0.1:8000/Controllers/UserController.php",
+    `${process.env.PHP_BACKEND_URL}/Controllers/UserController.php`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -635,6 +648,57 @@ app.patch("/api/reminders/:id", async (req, res) => {
   const result = await response.text();
   console.log("PHP RESPONSE", result);
   res.send(result);
+});
+
+/**
+ * @swagger
+ * /api/schedules:
+ *   get:
+ *     tags: [Schedule]
+ *     summary: Get the current user's scheduled events
+ *   post:
+ *     tags: [Schedule]
+ *     summary: Create a scheduled event
+ */
+app.get("/api/schedules", async (req, res) => {
+  const response = await fetch(
+    `${process.env.PHP_BACKEND_URL}/Controllers/scheduleController.php`,
+    {
+      method: "GET",
+      headers: { Cookie: req.headers.cookie },
+    },
+  );
+  const result = await response.json();
+  res.status(response.status).json(result);
+});
+
+app.post("/api/schedules", async (req, res) => {
+  const response = await fetch(
+    `${process.env.PHP_BACKEND_URL}/Controllers/scheduleController.php`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.cookie,
+      },
+      body: JSON.stringify(req.body),
+    },
+  );
+  const result = await response.json();
+  res.status(response.status).json(result);
+});
+
+app.delete("/api/schedules/:id", async (req, res) => {
+  const scheduleId = encodeURIComponent(req.params.id);
+  const response = await fetch(
+    `${process.env.PHP_BACKEND_URL}/Controllers/scheduleController.php?scheduleId=${scheduleId}`,
+    {
+      method: "DELETE",
+      headers: { Cookie: req.headers.cookie },
+    },
+  );
+  const result = await response.json();
+  res.status(response.status).json(result);
 });
 
 const PORT = process.env.NODE_PORT || 4000;

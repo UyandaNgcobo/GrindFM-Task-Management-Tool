@@ -9,7 +9,11 @@
 
     header('Content-Type:application/json');
 
- 
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(["status" => "error", "message" => "Not logged in."]);
+        exit;
+    }
 
     //inject connection object
     $repository = new UserRepository($pdo);
@@ -44,7 +48,9 @@
         $data = json_decode($rawJson, true);
 
         $username = $data['username'];
-        $email = $data['email'];
+        $raw_email = $data['email'];
+        $clean_email = filter_var($raw_email, FILTER_SANITIZE_EMAIL);
+
         $password = $data['password'];
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -52,7 +58,7 @@
         //create user
         $repository->createUser(
             $username,
-            $email,
+            $clean_email,
             $hash
         );
 

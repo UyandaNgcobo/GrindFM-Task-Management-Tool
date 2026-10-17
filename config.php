@@ -1,24 +1,37 @@
 <?php
-    $env = parse_ini_file(__DIR__ . '/.env');
+$envFile = __DIR__ . '/.env';
+$fileEnv = is_file($envFile) ? parse_ini_file($envFile, false, INI_SCANNER_RAW) : [];
 
-    $host = $env['DB_HOST'];
-    $dbname = $env['DB_NAME'];
-    $username = $env['DB_USER'];
-    $password = $env['DB_PASS'];
+if ($fileEnv === false) {
+    throw new RuntimeException('Database environment file could not be parsed.');
+}
 
-    try {
-
-        //setup DB
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-
-        //start connection with credentials
-        $pdo = new PDO($dsn, $username, $password);
-
-        //config connection
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    }catch (PDOException $e){
-        
-    exit();
+$getSetting = static function (string $name) use ($fileEnv): string {
+    $value = getenv($name);
+    if ($value === false || $value === '') {
+        $value = $fileEnv[$name] ?? null;
     }
-?>
+
+    if (!is_string($value) || $value === '') {
+        throw new RuntimeException("Missing required database setting: {$name}");
+    }
+
+    return $value;
+};
+
+$host = $getSetting('DB_HOST');
+$dbname = $getSetting('DB_NAME');
+$username = $getSetting('DB_USER');
+$password = $getSetting('DB_PASS');
+$dsn = "mysql:host={$host};dbname={$dbname};charset=utf8mb4";
+
+try {
+    $pdo = new PDO($dsn, $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+} catch (PDOException $error) {
+    error_log('Database connection failed: ' . $error->getMessage());
+    http_response_code(503);
+    exit(1);
+}

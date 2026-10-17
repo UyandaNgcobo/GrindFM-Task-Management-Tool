@@ -7,7 +7,7 @@ class reminderRepository{
         $this->pdo = $pdo;
     }
 
-    public function getAllReminders(int $userId) {
+    public function getAllReminders(int $userId): array {
         $statement = $this->pdo->prepare(
             "SELECT * FROM Reminders
             WHERE user_id = ?
@@ -23,7 +23,8 @@ class reminderRepository{
             return $statement->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (PDOException $e) {
-            $e->getMessage();
+            error_log($e->getMessage());
+            throw $e;
         }
         
     }
@@ -68,7 +69,7 @@ class reminderRepository{
         return true;
 
         } catch (PDOException $e) {
-            error_log("deleteReminder Exception", $e->getMessage());
+            error_log("deleteReminder Exception: " . $e->getMessage());
             return false;
         }
 
@@ -87,7 +88,7 @@ class reminderRepository{
 
             return true;
         } catch (PDOException $e) {
-            error_log("getAllReminders Error: " . $e->getMessage());
+            error_log("deleteAllReminders Error: " . $e->getMessage());
             return false;
         }
         
@@ -95,7 +96,7 @@ class reminderRepository{
 
     public function editReminderDescription(int $userId, int $reminder_id, string $description) : bool{
         $statement = $this->pdo->prepare(
-            "UPDATE reminders 
+            "UPDATE Reminders
             SET description = ?
             WHERE user_id = ?
             AND reminder_id = ?"
@@ -111,7 +112,7 @@ class reminderRepository{
         return true;
 
         } catch (PDOException $e) {
-            error_log("getAllReminders Error: " . $e->getMessage());
+            error_log("editReminderDescription Error: " . $e->getMessage());
             return false;
         }
 

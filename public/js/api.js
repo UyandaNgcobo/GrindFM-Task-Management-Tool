@@ -13,7 +13,7 @@ async function fetchAPI(url, options) {
 
     return await response.json();
   } catch (error) {
-    console.error("Network error:", err);
+    console.error("Network error:", error);
     showError(
       "Can't reach the server. Please check your connection and try again.",
     );

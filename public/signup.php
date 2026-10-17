@@ -90,7 +90,7 @@ inputs.forEach(input => {
             password: password
         };
 
-        const data = await fetchAPI('http://localhost:3000/api/signup', {
+        const data = await fetchAPI(`${API_BASE_URL}/signup`, {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

@@ -1,0 +1,150 @@
+body {
+    min-height: 100dvh;
+    background-color: #f3f3f361;
+}
+
+.schedule-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+
+.schedule-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.schedule-eyebrow {
+    margin-bottom: 0.4rem;
+    color: rgba(149, 39, 167, 1);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.schedule-heading h1 {
+    font-size: clamp(2rem, 5vw, 2.6rem);
+    font-weight: 500;
+}
+
+.schedule-intro {
+    margin-top: 0.4rem;
+    color: #707070;
+}
+
+.schedule-add-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border-radius: 0.65rem;
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.schedule-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #ededed;
+    border-radius: 0.9rem;
+    background: #fff;
+}
+
+.schedule-date {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    background: rgba(215, 163, 241, 0.2);
+    color: rgba(116, 28, 132, 1);
+}
+
+.schedule-date-day {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.schedule-date-month {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.schedule-details {
+    min-width: 0;
+    flex: 1;
+}
+
+.schedule-details h2 {
+    overflow-wrap: anywhere;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.schedule-time,
+.schedule-description {
+    margin-top: 0.25rem;
+    color: #737373;
+    line-height: 1.5;
+}
+
+.schedule-delete {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #777;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.schedule-delete:hover {
+    background: #f8e9e9;
+    color: #a52020;
+}
+
+.schedule-empty {
+    padding: 1.5rem;
+    border-radius: 0.9rem;
+    background: #fff;
+    color: #707070;
+    text-align: center;
+}
+
+.schedule-status {
+    color: #a52020;
+}
+
+@media (max-width: 520px) {
+    .schedule-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .schedule-add-button {
+        width: 100%;
+        justify-content: center;
+    }
+}

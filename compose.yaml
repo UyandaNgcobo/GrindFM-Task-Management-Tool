@@ -1,0 +1,94 @@
+services:
+  database:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS:?Set DB_PASS in .env}
+      MYSQL_DATABASE: ${DB_NAME:?Set DB_NAME in .env}
+      MYSQL_USER: ${COMPOSE_DB_USER:-grindfm_app}
+      MYSQL_PASSWORD: ${COMPOSE_DB_PASSWORD:-${DB_PASS:?Set DB_PASS in .env}}
+    volumes:
+      - grindfm_database:/var/lib/mysql
+      - ./database/docker/001_core_schema.sql:/docker-entrypoint-initdb.d/001_core_schema.sql:ro
+      - ./database/migrations/001_create_schedules.sql:/docker-entrypoint-initdb.d/002_create_schedules.sql:ro
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping --host=127.0.0.1 --user=root --password=\"$$MYSQL_ROOT_PASSWORD\" --silent",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    restart: unless-stopped
+
+  php-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    command: ["php", "-S", "0.0.0.0:8000", "-t", "/app"]
+    environment:
+      DB_HOST: database
+      DB_NAME: ${DB_NAME:?Set DB_NAME in .env}
+      DB_USER: ${COMPOSE_DB_USER:-grindfm_app}
+      DB_PASS: ${COMPOSE_DB_PASSWORD:-${DB_PASS:?Set DB_PASS in .env}}
+    expose:
+      - "8000"
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "php",
+          "-r",
+          "require '/app/config.php';",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    environment:
+      NODE_PORT: 4000
+      PHP_BACKEND_URL: http://php-api:8000
+      FRONTEND_CORS_URL: http://localhost:3000,http://127.0.0.1:3000
+    ports:
+      - "4000:4000"
+    depends_on:
+      php-api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4000/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    command: ["php", "-S", "0.0.0.0:3000", "-t", "/app/public"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  grindfm_database:

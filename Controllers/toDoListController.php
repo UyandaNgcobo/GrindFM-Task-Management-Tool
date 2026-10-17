@@ -50,9 +50,18 @@
 
         $rawJson = file_get_contents('php://input');
         $data = json_decode($rawJson, true);
+        $title = is_array($data) && is_string($data['title'] ?? null)
+            ? trim($data['title'])
+            : '';
+        $description = is_array($data) && is_string($data['description'] ?? null)
+            ? trim($data['description'])
+            : '';
 
-        $title = $data['title'];
-        $description = $data['description'];
+        if ($title === '') {
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "A task name is required."]);
+            exit;
+        }
 
         $success = $repository->createTask($userId, $title, $description);
 
@@ -116,8 +125,9 @@
                 "message" => "Status updated!"
             ]);
         }else{
+            http_response_code(500);
             echo json_encode([
-                "status" => "success",
+                "status" => "error",
                 "message" => "Failed to update status!"
             ]);
         }

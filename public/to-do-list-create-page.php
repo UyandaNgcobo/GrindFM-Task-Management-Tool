@@ -1,84 +1,81 @@
-<?php
-    session_start();
-?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/to-do-list-create.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/create-form.css">
+    <title>New to-do task | GrindFM</title>
 </head>
 <body>
     <?php include 'components/header.php'; ?>
-    <main>
-        <div id="header-and-doneBtn">
-            <div id="to-do-list-create-page-header">To-Do List</div>
-            <Button id="cancelBtn">Cancel</Button>
-        </div>
-        <form id="createTaskForm" method="post">
-            <div id="name-input-cont">
-                <label for="nameInput">Task Name</label>
-                <input id="nameInput" type="text" placeholder="Enter Task name" required>
+    <main class="create-form-main">
+        <a class="back-to-types" href="create-page.php"><i class="bi bi-arrow-left" aria-hidden="true"></i> All creation types</a>
+        <section class="create-form-heading">
+            <span class="form-type-icon"><i class="bi bi-check2-square" aria-hidden="true"></i></span>
+            <div>
+                <p class="form-eyebrow">TO-DO TASK</p>
+                <h1>Add to your list</h1>
+                <p class="form-intro">Add as many tasks as you need. When you're finished, choose Done.</p>
             </div>
-            <div id="desc-input-cont">
-                <label for="descInput">Description</label>
-                <input id="descInput" type="text" placeholder="Enter Description">
+        </section>
+
+        <form id="createTaskForm" class="creation-form">
+            <div class="form-field">
+                <label for="nameInput">Task name <span class="required-marker" aria-hidden="true">*</span></label>
+                <input id="nameInput" name="title" type="text" maxlength="255" placeholder="What needs to get done?" required>
             </div>
-            <div id="formBtn">
-                <input type="submit" id="submitBtn" value="Create Task">
-                <button id="doneBtn">Done</button>
+            <div class="form-field">
+                <label for="descInput">Description <span class="optional-label">Optional</span></label>
+                <textarea id="descInput" name="description" rows="4" placeholder="Add a few details"></textarea>
             </div>
+            <div class="form-actions">
+                <button class="button button-secondary" id="doneBtn" type="button">Done</button>
+                <button class="button button-primary" type="submit">Add task <i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+            </div>
+            <p id="creation-status" class="creation-status" role="status" aria-live="polite"></p>
         </form>
-
-        <div id="results"></div>
     </main>
-     <script src="js/auth-guard.js"></script>
-     <script src="js/api.js"></script>
-     <script src="js/ui.js"></script>
+    <?php include 'components/navbar.php'; ?>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/api.js"></script>
     <script>
-       requireLogin();
+        requireLogin();
 
-const form = document.getElementById("createTaskForm");
-const result = document.getElementById("results");
-const doneBtn = document.getElementById("doneBtn");
+        const taskForm = document.getElementById("createTaskForm");
+        const taskStatus = document.getElementById("creation-status");
 
-doneBtn.addEventListener('click', () => {
-    window.location.replace("to-do-list.php");
-})
+        document.getElementById("doneBtn").addEventListener("click", () => {
+            window.location.assign("to-do-list.php");
+        });
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+        taskForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            taskStatus.textContent = "";
 
-    const payload = {
-        title: document.getElementById("nameInput").value,
-        description: document.getElementById("descInput").value
-    };
+            try {
+                const response = await fetch(`${API_BASE_URL}/tasks`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        title: document.getElementById("nameInput").value.trim(),
+                        description: document.getElementById("descInput").value.trim()
+                    })
+                });
+                const result = await response.json();
 
-    const response = await fetch("http://localhost:3000/api/tasks", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    });
+                if (!response.ok || result.status !== "success") {
+                    throw new Error(result.message || "The task could not be created. Please try again.");
+                }
 
-    const data = await response.json();
-
-    if (response.ok) {
-        displayInternalNotification(data);
-        setTimeout(() => {
-            form.reset();
-        }, 1500); // give the toast a moment to actually be seen before navigating away
-        return;
-    }
-});
-    </script>
-
+                taskForm.reset();
+                taskStatus.textContent = "Task added. Add another or choose Done to view your list.";
+            } catch (error) {
+                taskStatus.textContent = error.message || "The server could not be reached. Please try again.";
+            }
+        });
     </script>
 </body>
 </html>

@@ -63,29 +63,35 @@
         async function render(){
             const result = await loadTasks();
             const container = document.getElementById("tasks-container");
-            let html = "";
 
             const filteredTasks = result.tasks.filter(task => {
-                if(currentTab == 'todo'){
-                    return task.status_id == 1;
+                if(currentTab === 'todo'){
+                    return Number(task.status_id) === 1;
                 }else{
-                    return task.status_id === 2;
+                    return Number(task.status_id) === 2;
                 }
             });
 
+            const taskElements = document.createDocumentFragment();
             for (const task of filteredTasks) {
-                const isChecked = task.status_id === 2 ? "checked" : "";
-                html += `
-                        <!-- FIX 1: Added the missing closing quote after task_id -->
-                        <div class="task-checkbox-container" data-task-id="${task.task_id}">
-                            <p class="task-title">${task.title}</p>
-                            
-                            <!-- FIX 2: Changed id="task-checkbox" to class="task-checkbox" -->
-                            <input type="checkbox" class="task-checkbox" ${isChecked}>
-                        </div>`;
+                const taskElement = document.createElement("div");
+                taskElement.className = "task-checkbox-container";
+                taskElement.dataset.taskId = task.task_id;
+
+                const title = document.createElement("p");
+                title.className = "task-title";
+                title.textContent = task.title;
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.className = "task-checkbox";
+                checkbox.checked = Number(task.status_id) === 2;
+
+                taskElement.append(title, checkbox);
+                taskElements.append(taskElement);
             }
 
-            container.innerHTML = html;
+            container.replaceChildren(taskElements);
 
             const todoTab = document.querySelector('.to-do');
             const completedTab = document.querySelector('.completed');
